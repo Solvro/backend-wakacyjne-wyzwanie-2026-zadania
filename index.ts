@@ -1,4 +1,4 @@
-import * as fs from "node:fs";
+import fs from "node:fs";
 
 function eloZelo(n: number): void {
   let content = "";
@@ -6,9 +6,11 @@ function eloZelo(n: number): void {
     content += "Elo żelo\n";
   }
 
-  fs.writeFile("elo-żelo.txt", content, (err: any) => {
-    err && console.error(err);
-  });
+  try {
+    fs.writeFileSync("elo-żelo.txt", content);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 const currentMinutes = new Date().getMinutes();
