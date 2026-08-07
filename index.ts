@@ -1,10 +1,11 @@
 import * as fs from 'node:fs';
 
 const minutes = new Date().getMinutes();
-const content = 'Elo żelo\n';
-const filename = './elo-zelo.txt';
+
 
 function eloZelo(n: number): void {
+  const content = 'Elo żelo\n';
+  const filename = './elo-zelo.txt';
   try {
     fs.writeFileSync(filename, content.repeat(n));
   } catch (err) {
