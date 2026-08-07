@@ -1,0 +1,25 @@
+{
+  "name": "backend-wakacyjne-wyzwanie-2026-zadania",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <img src=\"https://github.com/user-attachments/assets/7c32ec09-c2ac-4961-82e6-a98f04220510\"/>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Solvro/backend-wakacyjne-wyzwanie-2026-zadania.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Solvro/backend-wakacyjne-wyzwanie-2026-zadania/issues"
+  },
+  "homepage": "https://github.com/Solvro/backend-wakacyjne-wyzwanie-2026-zadania#readme",
+  "devDependencies": {
+    "tsx": "^4.23.11",
+    "typescript": "^7.0.2"
+  }
+}
