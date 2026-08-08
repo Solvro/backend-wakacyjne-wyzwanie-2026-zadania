@@ -1,5 +1,4 @@
 const fs = require('node:fs');
-
 let text = "";
 
 function eloZelo(n: number): void{
