@@ -1,21 +1,18 @@
 import fs from 'node:fs';
 
 function eloZelo(count: number){
-    let text: string = "";
+    let text = "";
+    let subtext = "Elo żelo\n";
 
-    for(let i: number = 0; i<count; i++){
-        text += "Elo żelo\n"
-    }
+    text = subtext.repeat(count);
     
-    fs.writeFile('./elo-żelo.txt', text, err => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            console.log("Success");
-        }
-    });
+    try{
+        fs.writeFileSync('./elo-żelo.txt', text);
+    }
+    catch (err){
+        console.log(err);
+    }
 };
 
-let minutes: number = (new Date).getMinutes();
+const minutes = (new Date).getMinutes();
 eloZelo(minutes);
