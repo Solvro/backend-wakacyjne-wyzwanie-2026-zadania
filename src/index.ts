@@ -3,9 +3,9 @@ import fs from "node:fs";
 function assertType<T>(val: unknown): asserts val is T {}
 
 function eloZelo(repeatCount: number): void {
-    const fileName: string = "elo-zelo.txt";
-    const message: string = "Elo żelo\n";
-    const data: string = message.repeat(repeatCount);
+    const fileName = "elo-zelo.txt";
+    const message = "Elo żelo\n";
+    const data = message.repeat(repeatCount);
 
     try{
         fs.writeFileSync(fileName, data);
