@@ -1,19 +1,15 @@
 import * as fs from 'node:fs';
-
-const input : Date = new Date();
-const minuty : number = input.getMinutes() 
-
-const EloZelo: string = "Elo żelo"
-
-function eloZelo (indeks: number): void
+ 
+function eloZelo (): void
 {
-    for (let i=0; i < indeks; i++)
-        {
-            //console.log("Elo żelo"); 
-            fs.appendFileSync('elo-żelo.txt', EloZelo + '\n');          
-        }
+    const input = new Date();
+    const minuty = input.getMinutes();
+    const EloZelo = "Elo żelo\n";
+    
+    try
+    {fs.writeFileSync('elo-żelo.txt', EloZelo.repeat(minuty));}
+    catch (err)
+    {console.error(err);}
 }
 
-//console.log(result[1]);
-//console.log(minuty);
-eloZelo(minuty);
+eloZelo();
