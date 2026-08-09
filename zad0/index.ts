@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import process = require('process');
+
 
 function eloZelo(elozelo_count : number): void {
     const file_path = './elo-żelo.txt';
@@ -15,7 +15,7 @@ function main(): void{
     const minutes = date.getMinutes();
     eloZelo(minutes);
 }
-if (require.main == module){
-    main();
-}
+
+main();
+
 
