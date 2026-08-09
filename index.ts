@@ -1,12 +1,16 @@
-const fs = require('node:fs');
-let text = "";
+import fs from 'node:fs';
 
 function eloZelo(n: number): void{
-  for(let i=0; i<n; i++){
-    text += "Elo żelo\n"
-  }
 
-  fs.writeFileSync('elo-żelo.txt',text)
+  const text = "Elo żelo\n".repeat(n);
+
+  try{
+
+     fs.writeFileSync('elo-żelo.txt',text);
+
+  }catch( error: any){
+     console.error("Błąd: ", error.message);
+  }
 }
 
 eloZelo(new Date().getMinutes());
