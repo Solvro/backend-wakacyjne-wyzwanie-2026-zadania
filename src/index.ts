@@ -1,6 +1,6 @@
 import fs from "node:fs";
 
-function assertType<T>(val: unknown): asserts val is T {}
+function overrideType<T>(val: unknown): asserts val is T {}
 
 function eloZelo(repeatCount: number): void {
     const fileName = "elo-zelo.txt";
@@ -10,7 +10,7 @@ function eloZelo(repeatCount: number): void {
     try{
         fs.writeFileSync(fileName, data);
     } catch (err) {
-        assertType<Error | AggregateError>(err);  // https://nodejs.org/api/fs.html#fswritefilefile-data-options-callback
+        overrideType<Error | AggregateError>(err);  // https://nodejs.org/api/fs.html#fswritefilefile-data-options-callback
         console.error(`Failed to write to file. ${err.name}: ${err.message}`);
     }
 }
