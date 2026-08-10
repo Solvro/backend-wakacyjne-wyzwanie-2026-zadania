@@ -1,10 +1,9 @@
 import fs from 'node:fs';
 
 function eloZelo(count: number){
-    let text = "";
-    let subtext = "Elo żelo\n";
 
-    text = subtext.repeat(count);
+    const subtext = "Elo żelo\n";
+    const text = subtext.repeat(count);
     
     try{
         fs.writeFileSync('./elo-żelo.txt', text);
