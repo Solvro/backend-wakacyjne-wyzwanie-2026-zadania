@@ -8,8 +8,12 @@ function eloZelo(n: number): void{
 
      fs.writeFileSync('elo-żelo.txt',text);
 
-  }catch( error: any){
-     console.error("Błąd: ", error.message);
+  }catch(error){
+
+     if(error instanceof Error){
+
+        console.error("Błąd: ", error.message);
+     }
   }
 }
 
