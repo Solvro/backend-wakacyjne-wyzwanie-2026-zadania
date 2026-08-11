@@ -5,7 +5,12 @@ const currMinutes = new Date().getMinutes();
 
 function eloZelo(count: number, fileName: string) {
   const message = "Elo żelo\n".repeat(count);
-  fs.writeFileSync(fileName, message);
+
+  try {
+    fs.writeFileSync(fileName, message);
+  } catch (err) {
+    console.error("Błąd podczas zapisu do pliku elo-zelo:", err);
+  }
 }
 
 eloZelo(currMinutes, fileName);
