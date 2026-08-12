@@ -1,0 +1,8 @@
+
+# @no-redirect
+GET http://localhost:3000/solvro
+Accept: application/json
+
+###
+GET http://localhost:3000/solvro/brewCoffee
+Accept: application/json
