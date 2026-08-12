@@ -1,9 +1,15 @@
 import fs from "node:fs";
 
-const content = "Elo żelo\n";
 function eloZelo(eloZeloNumer: number) {
+
+  
+  if(fs.existsSync("elo-żelo.txt")) {
+    fs.unlinkSync("elo-żelo.txt");
+  }
+  
+  const content = "Elo żelo\n";
   for (let i = 0; i < eloZeloNumer; i++) {
-      fs.appendFile("elo-żelo.txt", content, (err: any) => {
+      fs.appendFileSync("elo-żelo.txt", content, (err: any) => {
         if (err) console.error(err);
       });
   }
