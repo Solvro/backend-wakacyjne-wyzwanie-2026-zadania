@@ -21,6 +21,5 @@ export class AppController {
   @Get()
   @Redirect('https://solvro.pwr.edu.pl', 307)
   getSolvro(){
-
   }
 }
