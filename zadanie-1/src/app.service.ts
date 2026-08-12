@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { TeapotDto } from './teapot.dto';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  brewCoffee(): TeapotDto {
+    return {
+      message: "I'm a teapot",
+      funnyPictureURL: 'https://http.cat/images/418.jpg',
+    };
   }
 }
