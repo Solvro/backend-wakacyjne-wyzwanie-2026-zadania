@@ -20,9 +20,6 @@ export class AppController {
   @HttpCode(HttpStatus.I_AM_A_TEAPOT)
   @Header("Content-Type", "application/json")
   getCoffee() {
-    return {
-      message: "I'm a teapot",
-      funnyPictureURL: "https://http.cat/images/418.jpg",
-    };
+    return this.appService.getCoffee();
   }
 }
