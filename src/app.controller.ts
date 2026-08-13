@@ -1,4 +1,4 @@
-import { Controller, Get, Redirect } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('solvro')
@@ -7,8 +7,14 @@ export class AppController {
 
   @Get()
   @Redirect('https://solvro.pwr.edu.pl', 307)
-  @Get('solvro/brewCoffee')
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('brewCoffee')
+  @HttpCode(418)
+  @Header('Content-Type', 'application/json')
+  brewCoffee(): object {
+    return this.appService.getTeapot();
   }
 }
