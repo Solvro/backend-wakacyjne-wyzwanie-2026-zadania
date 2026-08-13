@@ -11,6 +11,7 @@ export class AppController {
 
   @Get('brewCoffee')
   @HttpCode(418)
+  @Header('Content-Type', 'application/json')
   brewCoffee() {
     return this.appService.getTeapot();
   }
