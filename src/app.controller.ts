@@ -12,7 +12,7 @@ export class AppController {
 
   @Get('brewCoffee')
   @HttpCode(418)
-  @Header('Content-Type', 'json')
+  @Header('Content-Type', 'application/json')
   brewCoffee(): string {
     return JSON.stringify(this.appService.brewCoffee());
   }
