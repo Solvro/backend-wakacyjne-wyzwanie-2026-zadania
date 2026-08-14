@@ -1,16 +1,19 @@
-import { writeFileSync } from 'fs';
+import { writeFileSync } from 'node:fs';
 
 
-function eloZelo(parameter : number) {
-    const path : string = './eloZelo.txt';
-    const content : string = 'eloZelo\n'.repeat(parameter);
+function eloZelo(minutes : number) {
+    const path = './eloZelo.txt';
+    const content = 'eloZelo\n'.repeat(minutes);
     try {
         writeFileSync(path, content);
         console.log(`Sukces! Plik zapisany pomyślnie.`);
-    } catch (error : any) {
-        console.error(`Błąd podczas zapisywania pliku:`, error.message);
+    } 
+    catch (error) {
+        if (error instanceof Error) {
+            console.error(`Błąd podczas zapisywania pliku: ${error.message}`);
+        }
     }
-}
+}   
 
-const parameter: number = new Date().getMinutes()
-eloZelo(parameter);
+const minutes = new Date().getMinutes();
+eloZelo(minutes);
