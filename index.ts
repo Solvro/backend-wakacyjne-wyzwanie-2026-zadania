@@ -1,15 +1,14 @@
 import * as fs from 'fs';
 function eloZelo(minutes: number){
 
-    let text: string = 'Elo żelo';
-    function repeatEloZelo(text: string){ 
+    let text: string = 'Elo zelo\n';
+
         let result: string = '';
         for (let i = 0; i < minutes; i++) {
-        result += text + '\n';
+        result += text;
         }
-        return result;
-    }
-    fs.writeFile('elo-żelo.txt',repeatEloZelo(text), (err: any) => {
+
+    fs.writeFile('elo-zelo.txt',result, (err: any) => {
         if (err) {
             console.error(err);
             console.log('Nie udało się zapisać pliku.');
@@ -18,7 +17,9 @@ function eloZelo(minutes: number){
             console.log('Plik został pomyślnie zapisany.');
         }
     });
-    console.log('Zapisano plik elo-żelo.txt z powtarzającym się tekstem ' + minutes + ' razy.');
+    console.log('Zapisano plik elo-zelo.txt z powtarzającym się tekstem ' + minutes + ' razy.');
 }
 
-eloZelo(new Date().getMinutes());
+const minuty: number = new Date().getMinutes();
+
+eloZelo(minuty);
