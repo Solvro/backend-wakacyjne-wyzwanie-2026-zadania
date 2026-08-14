@@ -5,15 +5,13 @@ function eloZelo(n: number){
         return
     }
 
-    // czyszczenie
-    fs.writeFileSync('elo-żelo.txt', '');
+    try {
+    const elo = 'Elo żelo\n'.repeat(n);
 
-    for(let i = 0; i < n; i++){
-        fs.appendFileSync('elo-żelo.txt', 'Elo żelo\n', err => {
-            if (err) {
-                console.error(err);
-            }
-        });
+    fs.writeFileSync('elo-żelo.txt', elo);
+    }
+    catch (error) {
+        console.error('Wystąpił błąd:', error);
     }
 }
 
