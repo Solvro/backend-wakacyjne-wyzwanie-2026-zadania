@@ -6,7 +6,11 @@ function eloZelo(count: number): void {
   for (let i = 0; i < count; i++) {
     content += "Elo żelo\n";
   }
-  fs.writeFileSync("elo-żelo.txt", content);
+  try {
+    fs.writeFileSync("elo-żelo.txt", content);
+  } catch (error) {
+    console.error("Nie udało się zapisać pliku elo-żelo.txt:", error);
+  }
 }
 
 // ex.2
