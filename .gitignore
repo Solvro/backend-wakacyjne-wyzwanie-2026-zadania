@@ -1,0 +1,29 @@
+# Compiled output
+/dist
+/node_modules
+
+# OS
+.DS_Store
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# IDE
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Testing
+/coverage
+
+# Misc
+.agents
+.claude
