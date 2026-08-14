@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-function eloZelo(minutes: number){
+function eloZelo(minutes: number): void{
 
     let text: string = 'Elo zelo\n';
 
