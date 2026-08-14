@@ -1,0 +1,6 @@
+### przekierowanie
+# @no-redirect
+GET http://127.0.0.1:3000/solvro
+
+### brewcoffee
+GET http://127.0.0.1:3000/solvro/brewCoffee
