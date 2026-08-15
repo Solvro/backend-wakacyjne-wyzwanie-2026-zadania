@@ -1,8 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
+interface TeapotMessage {
+    message: string;
+    funnyPictureURL: string;
+}
+
 @Injectable()
 export class AppService {
-    getHello(): string {
-        return 'Hello World!';
+    getTeapotMessage(): TeapotMessage {
+        return {
+            message: "I'm a teapot",
+            funnyPictureURL: 'https://http.cat/images/418.jpg',
+        };
     }
 }
