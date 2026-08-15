@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-export class RedirectToSolvroResponse {
-  url!: string;
+export interface RedirectToSolvroResponse {
+  url: string;
 }
 
-export class BrewCoffeeResponse {
-  message!: string;
-  funnyPictureURL!: string;
+export interface BrewCoffeeResponse {
+  message: string;
+  funnyPictureURL: string;
 }
 
 @Injectable()

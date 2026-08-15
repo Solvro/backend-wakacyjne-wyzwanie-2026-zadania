@@ -1,7 +1,8 @@
 import { Controller, Get, Header, HttpCode, Redirect } from '@nestjs/common';
-import { AppService, BrewCoffeeResponse, RedirectToSolvroResponse } from './app.service';
+import { AppService } from './app.service';
+import type { BrewCoffeeResponse, RedirectToSolvroResponse } from './app.service';
 
-@Controller('/solvro')
+@Controller('solvro')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
