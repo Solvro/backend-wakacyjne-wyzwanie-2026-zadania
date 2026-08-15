@@ -1,6 +1,7 @@
 
 import { Controller, Get, Redirect, HttpCode, Header } from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService} from './app.service';
+import type { TeapotResponse } from './app.service';
 @Controller('solvro') // ustawiamy endpoint dla wszystkich jako /solvro
 
 
@@ -12,7 +13,7 @@ export class AppController {
   // I endpoint: http://127.0.0.1:3000/solvro
   @Get() 
   @Redirect('https://solvro.pwr.edu.pl', 307) // przekierowanie
-  getSolvroWebsite() {
+  getSolvroWebsite(): void {  // kontroler nie zwraca nic, bo przekierowuje
   }
 
 
@@ -20,7 +21,7 @@ export class AppController {
   @Get('brewCoffee') 
   @HttpCode(418) 
   @Header('Content-Type', 'application/json') // naglowek
-  brewCoffee() {
-    return this.appService.getTeapotData();     // funkcja z app.service.ts
+  brewCoffee(): TeapotResponse {
+    return this.appService.getTeapotData();     // funkcja z app.service.ts uzywajaca interfejsu TeapotResponse
   }
 }
