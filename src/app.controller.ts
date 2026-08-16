@@ -1,5 +1,6 @@
 import { Controller, Get, Header, HttpCode, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
+import type { IBrewCoffee } from './types';
 
 @Controller('solvro')
 export class AppController {
@@ -12,7 +13,7 @@ export class AppController {
   @Get('brewCoffee')
   @HttpCode(418)
   @Header('Content-Type', 'application/json')
-  brewCoffee(): Object {
+  brewCoffee(): IBrewCoffee {
     return this.appService.brewCoffee();
   }
 }
