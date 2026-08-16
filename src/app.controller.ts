@@ -7,9 +7,7 @@ export class AppController {
 
   @Get()
   @Redirect('https://solvro.pwr.edu.pl', 307)
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  getHello(): void {}
 
   @Get('brewCoffee')
   @HttpCode(418)
