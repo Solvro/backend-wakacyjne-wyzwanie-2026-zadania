@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-interface TeapotMessage {
+export interface TeapotMessage {
     message: string;
     funnyPictureURL: string;
 }
