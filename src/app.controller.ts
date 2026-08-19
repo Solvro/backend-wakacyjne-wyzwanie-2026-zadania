@@ -13,9 +13,6 @@ export class AppController {
   @HttpCode(418)
   @Header('Content-Type', 'application/json')
   brewCoffee() {
-    return {
-      message: "I'm a teapot",
-      funnyPictureURL: 'https://http.cat/images/418.jpg',
-    };
+    return this.appService.brewCoffee();
   }
 }
