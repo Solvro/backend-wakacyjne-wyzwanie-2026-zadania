@@ -5,11 +5,54 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  PLANNING
+  COMPLETED
+}
+
+
+model Trip {
+	IdT          Int                  @id @default(autoincrement())
+  	Name         String               @db.VarChar(100)
+  	StartDate    DateTime             @db.Date
+  	EndDate      DateTime?            @db.Date
+  	Status       Status               @default(PLANNING)
+  	Participants TripParticipant[]
+}
+
+
+model TripParticipant {
+  	IdTP          Int		      @id @default(autoincrement())
+  	TripId        Int
+  	Trip          Trip		      @relation(fields: [TripId], references: [IdT])
+  	ParticipantId Int
+ 	  Participant   Participant	  @relation(fields: [ParticipantId], references: [Id])
+  	Expenses      Expense[]
+}
+
+
+model Expense {
+  	Id                Int			      @id @default(autoincrement())
+  	Title             String		      @db.VarChar(100)
+  	Amount            Float
+  	DepositDate       DateTime		      @default(now())
+  	TripParticipantId Int
+  	TripParticipant   TripParticipant	  @relation(fields: [TripParticipantId], references: [IdTP])
+}
+
+
+model Participant {
+  	Id       Int               	@id @default(autoincrement())
+ 	NameP    String           	@db.VarChar(100)
+  	SurnameP String            	@db.VarChar(100)
+  	Phone    String           	@db.VarChar(20)
+  	Email    String?           	@db.VarChar(100)
+  	Trips    TripParticipant[]
 }
