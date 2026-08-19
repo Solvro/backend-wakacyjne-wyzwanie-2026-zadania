@@ -1,0 +1,21 @@
+import { Controller, Get, Header, HttpCode, Redirect } from '@nestjs/common';
+import { AppService } from './app.service';
+
+@Controller('solvro')
+export class AppController {
+  constructor(private readonly appService: AppService) {}
+
+  @Get()
+  @Redirect('https://solvro.pwr.edu.pl/en/', 307)
+  redirectToSolvro() {}
+
+  @Get('brewCoffee')
+  @HttpCode(418)
+  @Header('Content-Type', 'application/json')
+  brewCoffee() {
+    return {
+      message: "I'm a teapot",
+      funnyPictureURL: 'https://http.cat/images/418.jpg',
+    };
+  }
+}
