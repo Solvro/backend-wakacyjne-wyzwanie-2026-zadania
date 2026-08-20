@@ -1,0 +1,9 @@
+Opis relacji ERD (Zadanie P1):
+
+Trip - Expense (1:N): Jeden wyjazd może posiadać wiele przypisanych do niego wydatków, 
+ale dany wydatek należy do dokładnie jednego wyjazdu. 
+Łącznikiem jest klucz obcy tripId.
+
+Trip - Participant (1:N): W jednym wyjeździe może brać udział wielu uczestników, 
+ale dany rekord uczestnika przypisany jest do jednego, konkretnego wyjazdu. 
+Łącznikiem jest klucz obcy tripId.
