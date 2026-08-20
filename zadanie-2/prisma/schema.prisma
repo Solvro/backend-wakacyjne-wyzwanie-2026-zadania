@@ -6,3 +6,67 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  uuid      String    @id @default(uuid()) @db.Uuid
+  email     String    @unique
+  name      String
+  surname   String
+  phone     String?
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  isActive  Boolean   @default(true)
+  deletedAt DateTime?
+
+  participants Participant[]
+  trips        Trip[]
+}
+
+model Trip {
+  uuid        String    @id @default(uuid()) @db.Uuid
+  title       String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime  @default(now())
+
+  participants Participant[]
+  expenses     Expense[]
+
+  createdByUuid String @db.Uuid
+  createdByUser User   @relation(fields: [createdByUuid], references: [uuid])
+}
+
+model Expense {
+  uuid     String        @id @default(uuid()) @db.Uuid
+  title    String
+  amount   Decimal       @db.Decimal(10, 2)
+  currency String        @default("PLN") @db.VarChar(3)
+  status   ExpenseStatus @default(PAID)
+
+  payerUuid String      @db.Uuid
+  tripUuid  String      @db.Uuid
+  payer     Participant @relation(fields: [payerUuid], references: [uuid])
+  trip      Trip        @relation(fields: [tripUuid], references: [uuid], onDelete: Cascade)
+}
+
+model Participant {
+  uuid     String @id @default(uuid()) @db.Uuid
+  tripUuid String @db.Uuid
+  userUuid String @db.Uuid
+
+  nicknameInTrip String?
+  expenses       Expense[]
+  user           User      @relation(fields: [userUuid], references: [uuid])
+  trip           Trip      @relation(fields: [tripUuid], references: [uuid], onDelete: Cascade)
+
+  @@unique([tripUuid, userUuid])
+}
+
+enum ExpenseStatus {
+  PENDING
+  PAID
+  CANCELLED
+  SETTLED
+}
