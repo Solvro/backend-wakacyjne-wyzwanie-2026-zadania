@@ -1,14 +1,14 @@
-import { PrismaClient } from '@prisma/client';
+import { DatabaseService } from '../src/database/database.service';
 
-const prisma = new PrismaClient();
+const db = new DatabaseService();
 
 async function main() {
-  await prisma.expense.deleteMany();
-  await prisma.participantsTrips.deleteMany();
-  await prisma.participant.deleteMany();
-  await prisma.trip.deleteMany();
+  await db.expense.deleteMany();
+  await db.participantsTrips.deleteMany();
+  await db.participant.deleteMany();
+  await db.trip.deleteMany();
 
-  const trip = await prisma.trip.create({
+  const trip = await db.trip.create({
     data: {
       name: 'Wyjazd do Grecji',
       startDate: new Date('2026-08-27'),
@@ -17,7 +17,7 @@ async function main() {
     },
   });
 
-  const participant = await prisma.participant.create({
+  const participant = await db.participant.create({
     data: {
       name: 'Jakub',
       surname: 'Luzak',
@@ -27,14 +27,14 @@ async function main() {
     },
   });
 
-  const participantTrip = await prisma.participantsTrips.create({
+  const participantTrip = await db.participantsTrips.create({
     data: {
       id_trip: trip.id,
       id_participant: participant.id,
     },
   });
 
-  const expense = await prisma.expense.create({
+  const expense = await db.expense.create({
     data: {
       id_participant: participant.id,
       id_trip: trip.id,
@@ -54,5 +54,5 @@ main()
     process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect();
+    await db.$disconnect();
   });

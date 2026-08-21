@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { DatabaseService } from './database/database.service';
 
 @Controller("api/trips")
 export class AppController {
-  private readonly db = new PrismaClient();
+  constructor(private readonly db: DatabaseService) {}
 
   @Get()
   async getAllTrips() {
