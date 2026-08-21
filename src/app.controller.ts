@@ -1,18 +1,26 @@
-import { Controller, Get, Header, Redirect, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Header} from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller('solvro')
+@Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  @Redirect('https://solvro.pwr.edu.pl', 307)
-  redirectToSolvro(): void {}
 
-  @Get('brewCoffee')
+  @Get('trips')
+  getAllTrips(){
+    return this.appService.getAllTrips();
+  }
+
   @Header('Content-Type', 'application/json')
-  @HttpCode(418)
-  teapotCat(): { message: string; funnyPictureURL: string } {
-    return this.appService.teapotCatService();
+  @Post('trips')
+  addTrip(@Body() body: any){
+    return this.appService.addTrip(
+      body.destination,
+      new Date(body.startDate),
+      new Date(body.endDate),
+      body.budget,
+      body.description
+    )
   }
 }
+
