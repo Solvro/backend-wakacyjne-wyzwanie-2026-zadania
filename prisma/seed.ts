@@ -1,9 +1,8 @@
-import 'dotenv/config';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, Role, Category } from '@prisma/client';
 
-// Konfiguracja adaptera dla Prisma
+// Konfiguracja adaptera dla Prisma 7
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
@@ -17,7 +16,7 @@ async function main() {
   const trip = await prisma.trip.create({
     data: {
       Title: 'Wyjazd do Karpacza',
-      Description: 'Wyprawa autostopem do Karpacza aby zdobyć Śnieżke.',
+      Description: 'Wyprawa autostopem do Karpacza w celu zdobycia Śnieżki.',
       Cost_pln: 500,
     },
   });
@@ -60,6 +59,8 @@ async function main() {
       },
     ],
   });
+
+  console.log('Seeding finished!');
 }
 
 main()
