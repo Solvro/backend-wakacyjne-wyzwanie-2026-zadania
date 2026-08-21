@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Trip {
+  id          Int       @id @default(autoincrement())
+  title       String
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime? @map("end_date")
+  status      Status
+  expenses    Expense[]
+
+  @@map("trip")
+}
+
+model Participant {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String?
+  expenses  Expense[]
+
+  @@map("participant")
+}
+
+model Expense {
+  id          Int         @id @default(autoincrement())
+  tripId      Int         @map("trip_id")
+  payerId     Int         @map("payer_id")
+  amount      Float
+  description String?
+  expenseDate DateTime    @map("expense_date")
+  trip        Trip        @relation(fields: [tripId], references: [id])
+  participant Participant @relation(fields: [payerId], references: [id])
+
+  @@map("expense")
+}
+
+enum Status {
+  PLANNED
+  ONGOING
+  COMPLETED
+}
