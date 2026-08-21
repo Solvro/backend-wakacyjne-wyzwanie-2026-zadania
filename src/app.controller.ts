@@ -1,20 +1,38 @@
-import { Controller, Get, Header, HttpCode, Redirect } from '@nestjs/common';
-import { AppService, BrewCoffeeType } from './app.service';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
-@Controller("solvro")
+@Controller("api/trips")
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  private readonly db = new PrismaClient();
 
   @Get()
-  @Redirect('https://www.solvro.pwr.edu.pl/', 307)
-  goToWebsite() : string {
-    return "Redirecting to Solvro website...";
+  async getAllTrips() {
+    return this.db.trip.findMany({
+      include: {
+        participants: true,
+        expenses: true,
+      },
+    });
   }
 
-  @Get("brewCoffee")
-  @HttpCode(418)
-  @Header("Content-Type", "application/json")
-  brewCoffee() : BrewCoffeeType {
-    return this.appService.getBrewCoffee();
-  }
+  @Patch(':id')
+  async updateTrip(
+    @Param('id', ParseIntPipe) id: number,
+    @Body()
+    data: {
+      name?: string;
+      start_date?: string;
+      end_date?: string;
+      description?: string;
+    },
+  ) {
+    return this.db.trip.update({
+      where: { id },
+      data: {
+        ...data,
+        ...(data.start_date && { start_date: new Date(data.start_date) }),
+        ...(data.end_date && { end_date: new Date(data.end_date) }),
+      },
+    });
+  }  
 }

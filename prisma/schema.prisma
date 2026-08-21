@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Currency {
+  PLN
+  EUR
+  USD
+  GBP
+}
+
+enum Nationality {
+  POLISH
+  GERMAN
+  SPANISH
+  FRENCH
+}
+
+model Participant {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  surname     String
+  birthDate   DateTime
+  nationality Nationality
+  email       String              @unique
+
+  expenses    Expense[]
+  trips       ParticipantsTrips[]
+}
+
+model Trip {
+  id          Int                 @id @default(autoincrement())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  description String?
+
+  expenses    Expense[]
+  participants ParticipantsTrips[]
+}
+
+model Expense {
+  id             Int         @id @default(autoincrement())
+  id_participant Int
+  id_trip        Int
+  amount         Float
+  currency       Currency
+  date           DateTime
+
+  participant    Participant @relation(fields: [id_participant], references: [id])
+  trip           Trip        @relation(fields: [id_trip], references: [id])
+}
+
+model ParticipantsTrips {
+  id             Int         @id @default(autoincrement())
+  id_trip        Int
+  id_participant Int
+
+  trip          Trip        @relation(fields: [id_trip], references: [id])
+  participant   Participant @relation(fields: [id_participant], references: [id])
+}
