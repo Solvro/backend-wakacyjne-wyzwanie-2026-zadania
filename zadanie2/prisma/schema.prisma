@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  Owner
+  Member
+  Other
+}
+
+enum Category {
+  Food
+  Transport
+  Accomodation
+  Other
+}
+
+model Participant {
+  Participant_id  Int      @id @default(autoincrement()) @map("Participant_id")
+  Name            String   @map("Name")
+  Age             Int      @map("Age")
+  Email           String   @map("Email")
+  Role            Role     @default(Member) @map("Role")
+  Trip_id         Int      @map("Trip_id")
+  Trips           Trip     @relation(fields: [Trip_id], references: [Trip_id], onDelete: Cascade)
+  Expenses        Expense[]
+
+  @@map("Participants")
+}
+
+model Expense {
+  Expense_id       Int              @id @default(autoincrement()) @map("expense_id")
+  Product_name     String           @map("Product_name")
+  Amount_pln       Float            @map("Amount_pln")
+  Category         Category         @map("Category")
+  Transaction_date Date             @default(now()) @map("Transaction_date")
+  Paid_by_id       Int              @map("Paid_by_id")
+  Paid_by          Participant      @relation(fields: [Paid_by_id], references: [Participant_id], onDelete: Cascade)
+  Trip_id          Int              @map("Trip_id")
+  Trip             Trip             @relation(fields: [Trip_id], references: [Trip_id], onDelete: Cascade)
+  
+  @@map("Expenses")
+}
+
+model Trip {
+  Trip_id       Int      @id @default(autoincrement()) @map("Trip_id")
+  Title         String   @map("Title")
+  Description   String?  @map("Description")
+  Cost_pln      Float    @map("Cost_pln")
+  Date          DateTime @default(now()) @map("Date")
+  Participants  Participant[]
+  Expenses      Expense[]
+
+  @@map("Trips")
+}
