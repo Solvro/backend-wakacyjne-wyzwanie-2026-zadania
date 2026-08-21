@@ -11,3 +11,35 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model Trip {
+  id          Int       @id @default(autoincrement())
+  destination String    @db.VarChar(30)
+  date        DateTime  @db.Date()
+  payments    Expense[]
+}
+
+model Participant {
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(30)
+  age      Int       @db.SmallInt
+  gender   Gender?
+  payments Expense[]
+}
+
+model Expense {
+  id                Int         @id @default(autoincrement())
+  trip              Trip        @relation(fields: [tripId], references: [id])
+  tripId            Int
+  participant       Participant @relation(fields: [participantId], references: [id])
+  participantId     Int
+  value             Float       @db.Real
+  includesTransport Boolean
+  timestamp         DateTime
+}
