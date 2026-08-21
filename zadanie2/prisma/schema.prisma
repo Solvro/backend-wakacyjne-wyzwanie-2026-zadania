@@ -1,0 +1,64 @@
+generator client {
+  provider     = "prisma-client-js"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgres"
+}
+
+model Expense {
+  id     Int    @id @default(autoincrement())
+  rodzaj Rodzaj @default(ZAKWATEROWANIE)
+  kwota  Float
+  tripId Int
+  trip   Trip   @relation(fields: [tripId], references: [id])
+}
+
+model Participant {
+  id             Int      @id @default(autoincrement())
+  imie           String
+  nazwisko       String
+  dieta          Dieta?
+  data_urodzenia DateTime
+  trips          Trip[]   @relation("ParticipantToTrip")
+}
+
+model Trip {
+  id           Int           @id @default(autoincrement())
+  miasto       Miasto        @default(WARSZAWA)
+  wyzywienie   Wyzywienie    @default(SNIADANIA)
+  expenses     Expense[]
+  participants Participant[] @relation("ParticipantToTrip")
+}
+
+enum Rodzaj {
+  ZAKWATEROWANIE
+  TRANSPORT
+  WYZYWIENIE
+}
+
+enum Dieta {
+  WEGETARIANSKA
+  WEGANSKA
+  BEZGLUTENOWA
+  BEZLAKTOZOWA
+}
+
+enum Miasto {
+  WARSZAWA
+  SEOUL
+  PARYZ
+  TOKIO
+  SZANGHAJ
+  SINGAPUR
+}
+
+enum Wyzywienie {
+  ALL_INCLUSIVE
+  POSILKI_3
+  POSILKI_2
+  SNIADANIA
+  BEZ_WYZYWIENIA
+}
