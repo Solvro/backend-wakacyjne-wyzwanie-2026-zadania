@@ -17,7 +17,7 @@ async function main() {
   const trip = await prisma.trip.create({
     data: {
       Title: 'Wyjazd do Karpacza',
-      Description: 'Wyprawa autostopem do Karpacza w celu zdobycia Śnieżki.',
+      Description: 'Wyprawa autostopem do Karpacza aby zdobyć Śnieżke.',
       Cost_pln: 500,
     },
   });
@@ -60,8 +60,6 @@ async function main() {
       },
     ],
   });
-
-  console.log('Seeding finished!');
 }
 
 main()
