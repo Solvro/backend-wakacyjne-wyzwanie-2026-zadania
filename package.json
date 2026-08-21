@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "@types/pg": "^8.23.1",
+    "prisma": "^5.22.0"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^17.4.2",
+    "pg": "^8.23.0"
+  }
+}
