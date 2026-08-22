@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Trip {
+  id BigInt @id @default(autoincrement())
+  name String
+  description String?
+  start_time DateTime
+  end_time DateTime
+  expenses Expense[]
+  participants TripParticipant[]
+}
+
+model Person {
+  id BigInt @id @default(autoincrement())
+  first_name String
+  last_name String
+  dob DateTime
+  gender Gender
+  trips TripParticipant[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model Expense {
+  id BigInt @id @default(autoincrement())
+  trip Trip @relation(fields: [tripId], references: [id])
+  tripId BigInt
+  name String
+  value Decimal
+}
+
+model TripParticipant {
+  trip Trip @relation(fields: [tripId], references: [id])
+  tripId BigInt
+  person Person @relation(fields: [personId], references: [id])
+  personId BigInt
+  @@id([tripId, personId])
+}
