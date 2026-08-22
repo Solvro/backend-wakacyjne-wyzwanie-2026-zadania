@@ -16,8 +16,14 @@ POSTGRES_PASSWORD="mypassword"
 POSTGRES_DB="nestjs_db"
 ```
 
-3. Wake docker up
+1. Wake docker up
 
 ```bash
 sudo docker-compose up -d
+```
+
+## Seeding the database
+
+```bash
+pnpm dlx prisma db seed
 ```
