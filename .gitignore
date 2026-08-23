@@ -24,6 +24,25 @@ npm-debug.log*
 # Testing
 /coverage
 
-# Misc
+# AI & Assistants
 .agents
 .claude
+.windsurf
+.cursor
+.cursorrules
+.gemini
+.copilot
+skills-lock.json
+*.agent
+*.skill
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+
+# Backups & temp
+*.bak
+*.tmp
+/generated
+
+# Misc
+
