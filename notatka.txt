@@ -1,0 +1,14 @@
+Dodałem diagram ERD projektu budżetownika.
+
+Diagram zawiera trzy tabele:
+- Participant,
+- Trip,
+- Expense.
+
+Relacje:
+- Participant może posiadać wiele Trip,
+- Trip może zawierać wiele Expense,
+- Participant może utworzyć wiele Expense.
+
+Dodałem również typy int, string, float, enum, pola opcjonalne
+oraz datetime.
