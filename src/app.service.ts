@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from './database/database.service';
 
 @Injectable()
-export class AppService {
-  teapotCatService(): { message: string; funnyPictureURL: string } {
-    return {
-      message: "I'm a teapot",
-      funnyPictureURL: 'https://http.cat/images/418.jpg',
-    };
+export class AppService{
+  constructor(private prisma: PrismaService){}
+
+  getAllTrips(){
+    return this.prisma.trip.findMany();
   }
+
+  addTrip(destination:string, startDate: Date, endDate: Date, budget: number,description?:string){
+    return this.prisma.trip.create({
+      data:{
+        destination: destination,
+        description: description,
+        startDate: startDate,
+        endDate: endDate,
+        budget: budget
+
+      }
+    })
+  }
+
 }
