@@ -39,6 +39,7 @@ model Trip {
   destination String
   created_at DateTime
   participants ParticipantTrip[]
+  expenses Expense[]
 }
 
 model ParticipantTrip {
