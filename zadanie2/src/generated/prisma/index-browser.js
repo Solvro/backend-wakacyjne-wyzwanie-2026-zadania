@@ -122,23 +122,23 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.ExpenseScalarFieldEnum = {
   id: 'id',
-  rodzaj: 'rodzaj',
-  kwota: 'kwota',
+  type: 'type',
+  amount: 'amount',
   tripId: 'tripId'
 };
 
 exports.Prisma.ParticipantScalarFieldEnum = {
   id: 'id',
-  imie: 'imie',
-  nazwisko: 'nazwisko',
-  dieta: 'dieta',
-  data_urodzenia: 'data_urodzenia'
+  name: 'name',
+  surname: 'surname',
+  diet: 'diet',
+  date_of_birth: 'date_of_birth'
 };
 
 exports.Prisma.TripScalarFieldEnum = {
   id: 'id',
-  miasto: 'miasto',
-  wyzywienie: 'wyzywienie'
+  city: 'city',
+  food: 'food'
 };
 
 exports.Prisma.SortOrder = {
@@ -155,34 +155,34 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Rodzaj = exports.$Enums.Rodzaj = {
-  ZAKWATEROWANIE: 'ZAKWATEROWANIE',
-  TRANSPORT: 'TRANSPORT',
-  WYZYWIENIE: 'WYZYWIENIE'
+exports.Type = exports.$Enums.Type = {
+  ACCOMMODATION: 'ACCOMMODATION',
+  TRANSPORTATION: 'TRANSPORTATION',
+  FOOD: 'FOOD'
 };
 
-exports.Dieta = exports.$Enums.Dieta = {
-  WEGETARIANSKA: 'WEGETARIANSKA',
-  WEGANSKA: 'WEGANSKA',
-  BEZGLUTENOWA: 'BEZGLUTENOWA',
-  BEZLAKTOZOWA: 'BEZLAKTOZOWA'
+exports.Diet = exports.$Enums.Diet = {
+  VEGETARIAN: 'VEGETARIAN',
+  VEGAN: 'VEGAN',
+  GLUTEN_FREE: 'GLUTEN_FREE',
+  LACTOSE_FREE: 'LACTOSE_FREE'
 };
 
-exports.Miasto = exports.$Enums.Miasto = {
-  WARSZAWA: 'WARSZAWA',
+exports.City = exports.$Enums.City = {
+  WARSAW: 'WARSAW',
   SEOUL: 'SEOUL',
-  PARYZ: 'PARYZ',
-  TOKIO: 'TOKIO',
-  SZANGHAJ: 'SZANGHAJ',
-  SINGAPUR: 'SINGAPUR'
+  PARIS: 'PARIS',
+  TOKYO: 'TOKYO',
+  SZANGHAI: 'SZANGHAI',
+  SINGAPORE: 'SINGAPORE'
 };
 
-exports.Wyzywienie = exports.$Enums.Wyzywienie = {
+exports.Food = exports.$Enums.Food = {
   ALL_INCLUSIVE: 'ALL_INCLUSIVE',
-  POSILKI_3: 'POSILKI_3',
-  POSILKI_2: 'POSILKI_2',
-  SNIADANIA: 'SNIADANIA',
-  BEZ_WYZYWIENIA: 'BEZ_WYZYWIENIA'
+  MEALS_3: 'MEALS_3',
+  MEALS_2: 'MEALS_2',
+  BREAKFAST: 'BREAKFAST',
+  WITHOUT: 'WITHOUT'
 };
 
 exports.Prisma.ModelName = {

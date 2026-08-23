@@ -1,4 +1,4 @@
-import { PrismaClient, Miasto, Wyzywienie, Dieta, Rodzaj} from '../src/generated/prisma';
+import { PrismaClient, City, Food, Diet, Type} from '../src/generated/prisma';
 import { PrismaPg } from '@prisma/adapter-pg';
 import "dotenv/config";
 
@@ -8,49 +8,49 @@ const prisma = new PrismaClient({
 
 async function main(){
 
-    const singapur = await prisma.trip.create({
+    const singapure = await prisma.trip.create({
         data:{
-            miasto: Miasto.SINGAPUR,
-            wyzywienie: Wyzywienie.ALL_INCLUSIVE,
+            city: City.SINGAPORE,
+            food: Food.ALL_INCLUSIVE,
             participants: {
                 create: {
-                    imie: "Leo",
-                    nazwisko: "Choi",
-                    data_urodzenia: new Date("2002-01-12"),
-                    dieta: Dieta.WEGETARIANSKA,
+                    name: "Leo",
+                    surname: "Choi",
+                    date_of_birth: new Date("2002-01-12"),
+                    diet: Diet.VEGETARIAN,
                 }
             },
             expenses:{
                 create: {
-                    kwota: 8000,
-                    rodzaj: Rodzaj.ZAKWATEROWANIE,
+                    amount: 8000,
+                    type: Type.ACCOMMODATION,
                 }
             }
         }
     })
 
-    const tokio = await prisma.trip.create({
+    const tokyo = await prisma.trip.create({
         data:{
-            miasto: Miasto.TOKIO,
-            wyzywienie: Wyzywienie.SNIADANIA,
+            city: City.TOKYO,
+            food: Food.BREAKFAST,
             participants: {
                 create: {
-                    imie: "Angelina",
-                    nazwisko: "Kim",
-                    data_urodzenia: new Date("2006-12-18"),
-                    dieta: Dieta.BEZGLUTENOWA,
+                    name: "Angelina",
+                    surname: "Kim",
+                    date_of_birth: new Date("2006-12-18"),
+                    diet: Diet.GLUTEN_FREE,
                 },
             },
             expenses:{
                 createMany: {
                     data:[
                         {
-                            kwota: 3000,
-                            rodzaj: Rodzaj.TRANSPORT,
+                            amount: 3000,
+                            type: Type.TRANSPORTATION,
                         },
                         {
-                            kwota: 1000,
-                            rodzaj: Rodzaj.WYZYWIENIE,
+                            amount: 1000,
+                            type: Type.FOOD,
                         }
                     ]
                 
@@ -59,27 +59,27 @@ async function main(){
         }
     })
 
-    const szanghaj = await prisma.trip.create({
+    const szanghai = await prisma.trip.create({
         data:{
-            miasto: Miasto.SZANGHAJ,
-            wyzywienie: Wyzywienie.BEZ_WYZYWIENIA,
+            city: City.SZANGHAI,
+            food: Food.WITHOUT,
             participants: {
                 create: {
-                    imie: "Luis",
-                    nazwisko: "Lim",
-                    data_urodzenia: new Date("2009-02-14"),  
+                    name: "Luis",
+                    surname: "Lim",
+                    date_of_birth: new Date("2009-02-14"),  
                 }
             },
             expenses:{
                 create: {
-                    kwota: 13000,
-                    rodzaj: Rodzaj.ZAKWATEROWANIE,
+                    amount: 13000,
+                    type: Type.ACCOMMODATION,
                 }
             }
         }
     })
 
-    console.log({singapur,tokio,szanghaj})
+    console.log({singapure,tokyo,szanghai})
 }
 
 main()

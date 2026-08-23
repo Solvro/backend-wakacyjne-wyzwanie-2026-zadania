@@ -94,23 +94,23 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.ExpenseScalarFieldEnum = {
   id: 'id',
-  rodzaj: 'rodzaj',
-  kwota: 'kwota',
+  type: 'type',
+  amount: 'amount',
   tripId: 'tripId'
 };
 
 exports.Prisma.ParticipantScalarFieldEnum = {
   id: 'id',
-  imie: 'imie',
-  nazwisko: 'nazwisko',
-  dieta: 'dieta',
-  data_urodzenia: 'data_urodzenia'
+  name: 'name',
+  surname: 'surname',
+  diet: 'diet',
+  date_of_birth: 'date_of_birth'
 };
 
 exports.Prisma.TripScalarFieldEnum = {
   id: 'id',
-  miasto: 'miasto',
-  wyzywienie: 'wyzywienie'
+  city: 'city',
+  food: 'food'
 };
 
 exports.Prisma.SortOrder = {
@@ -127,34 +127,34 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Rodzaj = exports.$Enums.Rodzaj = {
-  ZAKWATEROWANIE: 'ZAKWATEROWANIE',
-  TRANSPORT: 'TRANSPORT',
-  WYZYWIENIE: 'WYZYWIENIE'
+exports.Type = exports.$Enums.Type = {
+  ACCOMMODATION: 'ACCOMMODATION',
+  TRANSPORTATION: 'TRANSPORTATION',
+  FOOD: 'FOOD'
 };
 
-exports.Dieta = exports.$Enums.Dieta = {
-  WEGETARIANSKA: 'WEGETARIANSKA',
-  WEGANSKA: 'WEGANSKA',
-  BEZGLUTENOWA: 'BEZGLUTENOWA',
-  BEZLAKTOZOWA: 'BEZLAKTOZOWA'
+exports.Diet = exports.$Enums.Diet = {
+  VEGETARIAN: 'VEGETARIAN',
+  VEGAN: 'VEGAN',
+  GLUTEN_FREE: 'GLUTEN_FREE',
+  LACTOSE_FREE: 'LACTOSE_FREE'
 };
 
-exports.Miasto = exports.$Enums.Miasto = {
-  WARSZAWA: 'WARSZAWA',
+exports.City = exports.$Enums.City = {
+  WARSAW: 'WARSAW',
   SEOUL: 'SEOUL',
-  PARYZ: 'PARYZ',
-  TOKIO: 'TOKIO',
-  SZANGHAJ: 'SZANGHAJ',
-  SINGAPUR: 'SINGAPUR'
+  PARIS: 'PARIS',
+  TOKYO: 'TOKYO',
+  SZANGHAI: 'SZANGHAI',
+  SINGAPORE: 'SINGAPORE'
 };
 
-exports.Wyzywienie = exports.$Enums.Wyzywienie = {
+exports.Food = exports.$Enums.Food = {
   ALL_INCLUSIVE: 'ALL_INCLUSIVE',
-  POSILKI_3: 'POSILKI_3',
-  POSILKI_2: 'POSILKI_2',
-  SNIADANIA: 'SNIADANIA',
-  BEZ_WYZYWIENIA: 'BEZ_WYZYWIENIA'
+  MEALS_3: 'MEALS_3',
+  MEALS_2: 'MEALS_2',
+  BREAKFAST: 'BREAKFAST',
+  WITHOUT: 'WITHOUT'
 };
 
 exports.Prisma.ModelName = {
@@ -170,13 +170,13 @@ const config = {
   "clientVersion": "7.9.1",
   "engineVersion": "e922089b7d7502aff4249d5da3420f6fa55fc6ad",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider     = \"prisma-client-js\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"postgres\"\n}\n\nmodel Expense {\n  id     Int    @id @default(autoincrement())\n  rodzaj Rodzaj @default(ZAKWATEROWANIE)\n  kwota  Float\n  tripId Int\n  trip   Trip   @relation(fields: [tripId], references: [id])\n}\n\nmodel Participant {\n  id             Int      @id @default(autoincrement())\n  imie           String\n  nazwisko       String\n  dieta          Dieta?\n  data_urodzenia DateTime\n  trips          Trip[]   @relation(\"ParticipantToTrip\")\n}\n\nmodel Trip {\n  id           Int           @id @default(autoincrement())\n  miasto       Miasto        @default(WARSZAWA)\n  wyzywienie   Wyzywienie    @default(SNIADANIA)\n  expenses     Expense[]\n  participants Participant[] @relation(\"ParticipantToTrip\")\n}\n\nenum Rodzaj {\n  ZAKWATEROWANIE\n  TRANSPORT\n  WYZYWIENIE\n}\n\nenum Dieta {\n  WEGETARIANSKA\n  WEGANSKA\n  BEZGLUTENOWA\n  BEZLAKTOZOWA\n}\n\nenum Miasto {\n  WARSZAWA\n  SEOUL\n  PARYZ\n  TOKIO\n  SZANGHAJ\n  SINGAPUR\n}\n\nenum Wyzywienie {\n  ALL_INCLUSIVE\n  POSILKI_3\n  POSILKI_2\n  SNIADANIA\n  BEZ_WYZYWIENIA\n}\n"
+  "inlineSchema": "generator client {\n  provider     = \"prisma-client-js\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"postgres\"\n}\n\nmodel Expense {\n  id     Int   @id @default(autoincrement())\n  type   Type  @default(ACCOMMODATION)\n  amount Float\n  tripId Int\n  trip   Trip  @relation(fields: [tripId], references: [id])\n}\n\nmodel Participant {\n  id            Int      @id @default(autoincrement())\n  name          String\n  surname       String\n  diet          Diet?\n  date_of_birth DateTime\n  trips         Trip[]   @relation(\"ParticipantToTrip\")\n}\n\nmodel Trip {\n  id           Int           @id @default(autoincrement())\n  city         City          @default(WARSAW)\n  food         Food          @default(BREAKFAST)\n  expenses     Expense[]\n  participants Participant[] @relation(\"ParticipantToTrip\")\n}\n\nenum Type {\n  ACCOMMODATION\n  TRANSPORTATION\n  FOOD\n}\n\nenum Diet {\n  VEGETARIAN\n  VEGAN\n  GLUTEN_FREE\n  LACTOSE_FREE\n}\n\nenum City {\n  WARSAW\n  SEOUL\n  PARIS\n  TOKYO\n  SZANGHAI\n  SINGAPORE\n}\n\nenum Food {\n  ALL_INCLUSIVE\n  MEALS_3\n  MEALS_2\n  BREAKFAST\n  WITHOUT\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Expense\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"rodzaj\",\"kind\":\"enum\",\"type\":\"Rodzaj\"},{\"name\":\"kwota\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"tripId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"trip\",\"kind\":\"object\",\"type\":\"Trip\",\"relationName\":\"ExpenseToTrip\"}],\"dbName\":null},\"Participant\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"imie\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nazwisko\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dieta\",\"kind\":\"enum\",\"type\":\"Dieta\"},{\"name\":\"data_urodzenia\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"trips\",\"kind\":\"object\",\"type\":\"Trip\",\"relationName\":\"ParticipantToTrip\"}],\"dbName\":null},\"Trip\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"miasto\",\"kind\":\"enum\",\"type\":\"Miasto\"},{\"name\":\"wyzywienie\",\"kind\":\"enum\",\"type\":\"Wyzywienie\"},{\"name\":\"expenses\",\"kind\":\"object\",\"type\":\"Expense\",\"relationName\":\"ExpenseToTrip\"},{\"name\":\"participants\",\"kind\":\"object\",\"type\":\"Participant\",\"relationName\":\"ParticipantToTrip\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Expense\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"Type\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Float\"},{\"name\":\"tripId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"trip\",\"kind\":\"object\",\"type\":\"Trip\",\"relationName\":\"ExpenseToTrip\"}],\"dbName\":null},\"Participant\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"surname\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"diet\",\"kind\":\"enum\",\"type\":\"Diet\"},{\"name\":\"date_of_birth\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"trips\",\"kind\":\"object\",\"type\":\"Trip\",\"relationName\":\"ParticipantToTrip\"}],\"dbName\":null},\"Trip\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"city\",\"kind\":\"enum\",\"type\":\"City\"},{\"name\":\"food\",\"kind\":\"enum\",\"type\":\"Food\"},{\"name\":\"expenses\",\"kind\":\"object\",\"type\":\"Expense\",\"relationName\":\"ExpenseToTrip\"},{\"name\":\"participants\",\"kind\":\"object\",\"type\":\"Participant\",\"relationName\":\"ParticipantToTrip\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.parameterizationSchema = {
-  strings: JSON.parse("[\"where\",\"orderBy\",\"cursor\",\"expenses\",\"trips\",\"_count\",\"participants\",\"trip\",\"Expense.findUnique\",\"Expense.findUniqueOrThrow\",\"Expense.findFirst\",\"Expense.findFirstOrThrow\",\"Expense.findMany\",\"data\",\"Expense.createOne\",\"Expense.createMany\",\"Expense.createManyAndReturn\",\"Expense.updateOne\",\"Expense.updateMany\",\"Expense.updateManyAndReturn\",\"create\",\"update\",\"Expense.upsertOne\",\"Expense.deleteOne\",\"Expense.deleteMany\",\"having\",\"_avg\",\"_sum\",\"_min\",\"_max\",\"Expense.groupBy\",\"Expense.aggregate\",\"Participant.findUnique\",\"Participant.findUniqueOrThrow\",\"Participant.findFirst\",\"Participant.findFirstOrThrow\",\"Participant.findMany\",\"Participant.createOne\",\"Participant.createMany\",\"Participant.createManyAndReturn\",\"Participant.updateOne\",\"Participant.updateMany\",\"Participant.updateManyAndReturn\",\"Participant.upsertOne\",\"Participant.deleteOne\",\"Participant.deleteMany\",\"Participant.groupBy\",\"Participant.aggregate\",\"Trip.findUnique\",\"Trip.findUniqueOrThrow\",\"Trip.findFirst\",\"Trip.findFirstOrThrow\",\"Trip.findMany\",\"Trip.createOne\",\"Trip.createMany\",\"Trip.createManyAndReturn\",\"Trip.updateOne\",\"Trip.updateMany\",\"Trip.updateManyAndReturn\",\"Trip.upsertOne\",\"Trip.deleteOne\",\"Trip.deleteMany\",\"Trip.groupBy\",\"Trip.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"Miasto\",\"miasto\",\"Wyzywienie\",\"wyzywienie\",\"equals\",\"in\",\"notIn\",\"not\",\"lt\",\"lte\",\"gt\",\"gte\",\"imie\",\"nazwisko\",\"Dieta\",\"dieta\",\"data_urodzenia\",\"contains\",\"startsWith\",\"endsWith\",\"Rodzaj\",\"rodzaj\",\"kwota\",\"tripId\",\"every\",\"some\",\"none\",\"is\",\"isNot\",\"connectOrCreate\",\"upsert\",\"set\",\"disconnect\",\"delete\",\"connect\",\"updateMany\",\"deleteMany\",\"createMany\",\"increment\",\"decrement\",\"multiply\",\"divide\"]"),
+  strings: JSON.parse("[\"where\",\"orderBy\",\"cursor\",\"expenses\",\"trips\",\"_count\",\"participants\",\"trip\",\"Expense.findUnique\",\"Expense.findUniqueOrThrow\",\"Expense.findFirst\",\"Expense.findFirstOrThrow\",\"Expense.findMany\",\"data\",\"Expense.createOne\",\"Expense.createMany\",\"Expense.createManyAndReturn\",\"Expense.updateOne\",\"Expense.updateMany\",\"Expense.updateManyAndReturn\",\"create\",\"update\",\"Expense.upsertOne\",\"Expense.deleteOne\",\"Expense.deleteMany\",\"having\",\"_avg\",\"_sum\",\"_min\",\"_max\",\"Expense.groupBy\",\"Expense.aggregate\",\"Participant.findUnique\",\"Participant.findUniqueOrThrow\",\"Participant.findFirst\",\"Participant.findFirstOrThrow\",\"Participant.findMany\",\"Participant.createOne\",\"Participant.createMany\",\"Participant.createManyAndReturn\",\"Participant.updateOne\",\"Participant.updateMany\",\"Participant.updateManyAndReturn\",\"Participant.upsertOne\",\"Participant.deleteOne\",\"Participant.deleteMany\",\"Participant.groupBy\",\"Participant.aggregate\",\"Trip.findUnique\",\"Trip.findUniqueOrThrow\",\"Trip.findFirst\",\"Trip.findFirstOrThrow\",\"Trip.findMany\",\"Trip.createOne\",\"Trip.createMany\",\"Trip.createManyAndReturn\",\"Trip.updateOne\",\"Trip.updateMany\",\"Trip.updateManyAndReturn\",\"Trip.upsertOne\",\"Trip.deleteOne\",\"Trip.deleteMany\",\"Trip.groupBy\",\"Trip.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"City\",\"city\",\"Food\",\"food\",\"equals\",\"in\",\"notIn\",\"not\",\"lt\",\"lte\",\"gt\",\"gte\",\"name\",\"surname\",\"Diet\",\"diet\",\"date_of_birth\",\"contains\",\"startsWith\",\"endsWith\",\"Type\",\"type\",\"amount\",\"tripId\",\"every\",\"some\",\"none\",\"is\",\"isNot\",\"connectOrCreate\",\"upsert\",\"set\",\"disconnect\",\"delete\",\"connect\",\"updateMany\",\"deleteMany\",\"createMany\",\"increment\",\"decrement\",\"multiply\",\"divide\"]"),
   graph: "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"
 }
 config.compilerWasm = {

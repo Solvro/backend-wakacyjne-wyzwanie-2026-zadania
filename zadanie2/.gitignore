@@ -3,6 +3,16 @@
 /node_modules
 /build
 
+#added by me
+/.nest
+zadanie2.agents
+zadanie2.claude
+zadanie2.windsurf
+.codeium
+.copilot
+.history
+zadanie2/src/generated/
+
 # Logs
 logs
 *.log

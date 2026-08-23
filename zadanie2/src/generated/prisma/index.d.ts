@@ -33,64 +33,64 @@ export type Trip = $Result.DefaultSelection<Prisma.$TripPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Rodzaj: {
-  ZAKWATEROWANIE: 'ZAKWATEROWANIE',
-  TRANSPORT: 'TRANSPORT',
-  WYZYWIENIE: 'WYZYWIENIE'
+  export const Type: {
+  ACCOMMODATION: 'ACCOMMODATION',
+  TRANSPORTATION: 'TRANSPORTATION',
+  FOOD: 'FOOD'
 };
 
-export type Rodzaj = (typeof Rodzaj)[keyof typeof Rodzaj]
+export type Type = (typeof Type)[keyof typeof Type]
 
 
-export const Dieta: {
-  WEGETARIANSKA: 'WEGETARIANSKA',
-  WEGANSKA: 'WEGANSKA',
-  BEZGLUTENOWA: 'BEZGLUTENOWA',
-  BEZLAKTOZOWA: 'BEZLAKTOZOWA'
+export const Diet: {
+  VEGETARIAN: 'VEGETARIAN',
+  VEGAN: 'VEGAN',
+  GLUTEN_FREE: 'GLUTEN_FREE',
+  LACTOSE_FREE: 'LACTOSE_FREE'
 };
 
-export type Dieta = (typeof Dieta)[keyof typeof Dieta]
+export type Diet = (typeof Diet)[keyof typeof Diet]
 
 
-export const Miasto: {
-  WARSZAWA: 'WARSZAWA',
+export const City: {
+  WARSAW: 'WARSAW',
   SEOUL: 'SEOUL',
-  PARYZ: 'PARYZ',
-  TOKIO: 'TOKIO',
-  SZANGHAJ: 'SZANGHAJ',
-  SINGAPUR: 'SINGAPUR'
+  PARIS: 'PARIS',
+  TOKYO: 'TOKYO',
+  SZANGHAI: 'SZANGHAI',
+  SINGAPORE: 'SINGAPORE'
 };
 
-export type Miasto = (typeof Miasto)[keyof typeof Miasto]
+export type City = (typeof City)[keyof typeof City]
 
 
-export const Wyzywienie: {
+export const Food: {
   ALL_INCLUSIVE: 'ALL_INCLUSIVE',
-  POSILKI_3: 'POSILKI_3',
-  POSILKI_2: 'POSILKI_2',
-  SNIADANIA: 'SNIADANIA',
-  BEZ_WYZYWIENIA: 'BEZ_WYZYWIENIA'
+  MEALS_3: 'MEALS_3',
+  MEALS_2: 'MEALS_2',
+  BREAKFAST: 'BREAKFAST',
+  WITHOUT: 'WITHOUT'
 };
 
-export type Wyzywienie = (typeof Wyzywienie)[keyof typeof Wyzywienie]
+export type Food = (typeof Food)[keyof typeof Food]
 
 }
 
-export type Rodzaj = $Enums.Rodzaj
+export type Type = $Enums.Type
 
-export const Rodzaj: typeof $Enums.Rodzaj
+export const Type: typeof $Enums.Type
 
-export type Dieta = $Enums.Dieta
+export type Diet = $Enums.Diet
 
-export const Dieta: typeof $Enums.Dieta
+export const Diet: typeof $Enums.Diet
 
-export type Miasto = $Enums.Miasto
+export type City = $Enums.City
 
-export const Miasto: typeof $Enums.Miasto
+export const City: typeof $Enums.City
 
-export type Wyzywienie = $Enums.Wyzywienie
+export type Food = $Enums.Food
 
-export const Wyzywienie: typeof $Enums.Wyzywienie
+export const Food: typeof $Enums.Food
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1223,34 +1223,34 @@ export namespace Prisma {
 
   export type ExpenseAvgAggregateOutputType = {
     id: number | null
-    kwota: number | null
+    amount: number | null
     tripId: number | null
   }
 
   export type ExpenseSumAggregateOutputType = {
     id: number | null
-    kwota: number | null
+    amount: number | null
     tripId: number | null
   }
 
   export type ExpenseMinAggregateOutputType = {
     id: number | null
-    rodzaj: $Enums.Rodzaj | null
-    kwota: number | null
+    type: $Enums.Type | null
+    amount: number | null
     tripId: number | null
   }
 
   export type ExpenseMaxAggregateOutputType = {
     id: number | null
-    rodzaj: $Enums.Rodzaj | null
-    kwota: number | null
+    type: $Enums.Type | null
+    amount: number | null
     tripId: number | null
   }
 
   export type ExpenseCountAggregateOutputType = {
     id: number
-    rodzaj: number
-    kwota: number
+    type: number
+    amount: number
     tripId: number
     _all: number
   }
@@ -1258,34 +1258,34 @@ export namespace Prisma {
 
   export type ExpenseAvgAggregateInputType = {
     id?: true
-    kwota?: true
+    amount?: true
     tripId?: true
   }
 
   export type ExpenseSumAggregateInputType = {
     id?: true
-    kwota?: true
+    amount?: true
     tripId?: true
   }
 
   export type ExpenseMinAggregateInputType = {
     id?: true
-    rodzaj?: true
-    kwota?: true
+    type?: true
+    amount?: true
     tripId?: true
   }
 
   export type ExpenseMaxAggregateInputType = {
     id?: true
-    rodzaj?: true
-    kwota?: true
+    type?: true
+    amount?: true
     tripId?: true
   }
 
   export type ExpenseCountAggregateInputType = {
     id?: true
-    rodzaj?: true
-    kwota?: true
+    type?: true
+    amount?: true
     tripId?: true
     _all?: true
   }
@@ -1378,8 +1378,8 @@ export namespace Prisma {
 
   export type ExpenseGroupByOutputType = {
     id: number
-    rodzaj: $Enums.Rodzaj
-    kwota: number
+    type: $Enums.Type
+    amount: number
     tripId: number
     _count: ExpenseCountAggregateOutputType | null
     _avg: ExpenseAvgAggregateOutputType | null
@@ -1404,36 +1404,36 @@ export namespace Prisma {
 
   export type ExpenseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    rodzaj?: boolean
-    kwota?: boolean
+    type?: boolean
+    amount?: boolean
     tripId?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["expense"]>
 
   export type ExpenseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    rodzaj?: boolean
-    kwota?: boolean
+    type?: boolean
+    amount?: boolean
     tripId?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["expense"]>
 
   export type ExpenseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    rodzaj?: boolean
-    kwota?: boolean
+    type?: boolean
+    amount?: boolean
     tripId?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["expense"]>
 
   export type ExpenseSelectScalar = {
     id?: boolean
-    rodzaj?: boolean
-    kwota?: boolean
+    type?: boolean
+    amount?: boolean
     tripId?: boolean
   }
 
-  export type ExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "rodzaj" | "kwota" | "tripId", ExtArgs["result"]["expense"]>
+  export type ExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "amount" | "tripId", ExtArgs["result"]["expense"]>
   export type ExpenseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }
@@ -1451,8 +1451,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      rodzaj: $Enums.Rodzaj
-      kwota: number
+      type: $Enums.Type
+      amount: number
       tripId: number
     }, ExtArgs["result"]["expense"]>
     composites: {}
@@ -1879,8 +1879,8 @@ export namespace Prisma {
    */
   interface ExpenseFieldRefs {
     readonly id: FieldRef<"Expense", 'Int'>
-    readonly rodzaj: FieldRef<"Expense", 'Rodzaj'>
-    readonly kwota: FieldRef<"Expense", 'Float'>
+    readonly type: FieldRef<"Expense", 'Type'>
+    readonly amount: FieldRef<"Expense", 'Float'>
     readonly tripId: FieldRef<"Expense", 'Int'>
   }
     
@@ -2323,26 +2323,26 @@ export namespace Prisma {
 
   export type ParticipantMinAggregateOutputType = {
     id: number | null
-    imie: string | null
-    nazwisko: string | null
-    dieta: $Enums.Dieta | null
-    data_urodzenia: Date | null
+    name: string | null
+    surname: string | null
+    diet: $Enums.Diet | null
+    date_of_birth: Date | null
   }
 
   export type ParticipantMaxAggregateOutputType = {
     id: number | null
-    imie: string | null
-    nazwisko: string | null
-    dieta: $Enums.Dieta | null
-    data_urodzenia: Date | null
+    name: string | null
+    surname: string | null
+    diet: $Enums.Diet | null
+    date_of_birth: Date | null
   }
 
   export type ParticipantCountAggregateOutputType = {
     id: number
-    imie: number
-    nazwisko: number
-    dieta: number
-    data_urodzenia: number
+    name: number
+    surname: number
+    diet: number
+    date_of_birth: number
     _all: number
   }
 
@@ -2357,26 +2357,26 @@ export namespace Prisma {
 
   export type ParticipantMinAggregateInputType = {
     id?: true
-    imie?: true
-    nazwisko?: true
-    dieta?: true
-    data_urodzenia?: true
+    name?: true
+    surname?: true
+    diet?: true
+    date_of_birth?: true
   }
 
   export type ParticipantMaxAggregateInputType = {
     id?: true
-    imie?: true
-    nazwisko?: true
-    dieta?: true
-    data_urodzenia?: true
+    name?: true
+    surname?: true
+    diet?: true
+    date_of_birth?: true
   }
 
   export type ParticipantCountAggregateInputType = {
     id?: true
-    imie?: true
-    nazwisko?: true
-    dieta?: true
-    data_urodzenia?: true
+    name?: true
+    surname?: true
+    diet?: true
+    date_of_birth?: true
     _all?: true
   }
 
@@ -2468,10 +2468,10 @@ export namespace Prisma {
 
   export type ParticipantGroupByOutputType = {
     id: number
-    imie: string
-    nazwisko: string
-    dieta: $Enums.Dieta | null
-    data_urodzenia: Date
+    name: string
+    surname: string
+    diet: $Enums.Diet | null
+    date_of_birth: Date
     _count: ParticipantCountAggregateOutputType | null
     _avg: ParticipantAvgAggregateOutputType | null
     _sum: ParticipantSumAggregateOutputType | null
@@ -2495,39 +2495,39 @@ export namespace Prisma {
 
   export type ParticipantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    imie?: boolean
-    nazwisko?: boolean
-    dieta?: boolean
-    data_urodzenia?: boolean
+    name?: boolean
+    surname?: boolean
+    diet?: boolean
+    date_of_birth?: boolean
     trips?: boolean | Participant$tripsArgs<ExtArgs>
     _count?: boolean | ParticipantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["participant"]>
 
   export type ParticipantSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    imie?: boolean
-    nazwisko?: boolean
-    dieta?: boolean
-    data_urodzenia?: boolean
+    name?: boolean
+    surname?: boolean
+    diet?: boolean
+    date_of_birth?: boolean
   }, ExtArgs["result"]["participant"]>
 
   export type ParticipantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    imie?: boolean
-    nazwisko?: boolean
-    dieta?: boolean
-    data_urodzenia?: boolean
+    name?: boolean
+    surname?: boolean
+    diet?: boolean
+    date_of_birth?: boolean
   }, ExtArgs["result"]["participant"]>
 
   export type ParticipantSelectScalar = {
     id?: boolean
-    imie?: boolean
-    nazwisko?: boolean
-    dieta?: boolean
-    data_urodzenia?: boolean
+    name?: boolean
+    surname?: boolean
+    diet?: boolean
+    date_of_birth?: boolean
   }
 
-  export type ParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "imie" | "nazwisko" | "dieta" | "data_urodzenia", ExtArgs["result"]["participant"]>
+  export type ParticipantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "surname" | "diet" | "date_of_birth", ExtArgs["result"]["participant"]>
   export type ParticipantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trips?: boolean | Participant$tripsArgs<ExtArgs>
     _count?: boolean | ParticipantCountOutputTypeDefaultArgs<ExtArgs>
@@ -2542,10 +2542,10 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      imie: string
-      nazwisko: string
-      dieta: $Enums.Dieta | null
-      data_urodzenia: Date
+      name: string
+      surname: string
+      diet: $Enums.Diet | null
+      date_of_birth: Date
     }, ExtArgs["result"]["participant"]>
     composites: {}
   }
@@ -2971,10 +2971,10 @@ export namespace Prisma {
    */
   interface ParticipantFieldRefs {
     readonly id: FieldRef<"Participant", 'Int'>
-    readonly imie: FieldRef<"Participant", 'String'>
-    readonly nazwisko: FieldRef<"Participant", 'String'>
-    readonly dieta: FieldRef<"Participant", 'Dieta'>
-    readonly data_urodzenia: FieldRef<"Participant", 'DateTime'>
+    readonly name: FieldRef<"Participant", 'String'>
+    readonly surname: FieldRef<"Participant", 'String'>
+    readonly diet: FieldRef<"Participant", 'Diet'>
+    readonly date_of_birth: FieldRef<"Participant", 'DateTime'>
   }
     
 
@@ -3432,20 +3432,20 @@ export namespace Prisma {
 
   export type TripMinAggregateOutputType = {
     id: number | null
-    miasto: $Enums.Miasto | null
-    wyzywienie: $Enums.Wyzywienie | null
+    city: $Enums.City | null
+    food: $Enums.Food | null
   }
 
   export type TripMaxAggregateOutputType = {
     id: number | null
-    miasto: $Enums.Miasto | null
-    wyzywienie: $Enums.Wyzywienie | null
+    city: $Enums.City | null
+    food: $Enums.Food | null
   }
 
   export type TripCountAggregateOutputType = {
     id: number
-    miasto: number
-    wyzywienie: number
+    city: number
+    food: number
     _all: number
   }
 
@@ -3460,20 +3460,20 @@ export namespace Prisma {
 
   export type TripMinAggregateInputType = {
     id?: true
-    miasto?: true
-    wyzywienie?: true
+    city?: true
+    food?: true
   }
 
   export type TripMaxAggregateInputType = {
     id?: true
-    miasto?: true
-    wyzywienie?: true
+    city?: true
+    food?: true
   }
 
   export type TripCountAggregateInputType = {
     id?: true
-    miasto?: true
-    wyzywienie?: true
+    city?: true
+    food?: true
     _all?: true
   }
 
@@ -3565,8 +3565,8 @@ export namespace Prisma {
 
   export type TripGroupByOutputType = {
     id: number
-    miasto: $Enums.Miasto
-    wyzywienie: $Enums.Wyzywienie
+    city: $Enums.City
+    food: $Enums.Food
     _count: TripCountAggregateOutputType | null
     _avg: TripAvgAggregateOutputType | null
     _sum: TripSumAggregateOutputType | null
@@ -3590,8 +3590,8 @@ export namespace Prisma {
 
   export type TripSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    miasto?: boolean
-    wyzywienie?: boolean
+    city?: boolean
+    food?: boolean
     expenses?: boolean | Trip$expensesArgs<ExtArgs>
     participants?: boolean | Trip$participantsArgs<ExtArgs>
     _count?: boolean | TripCountOutputTypeDefaultArgs<ExtArgs>
@@ -3599,23 +3599,23 @@ export namespace Prisma {
 
   export type TripSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    miasto?: boolean
-    wyzywienie?: boolean
+    city?: boolean
+    food?: boolean
   }, ExtArgs["result"]["trip"]>
 
   export type TripSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    miasto?: boolean
-    wyzywienie?: boolean
+    city?: boolean
+    food?: boolean
   }, ExtArgs["result"]["trip"]>
 
   export type TripSelectScalar = {
     id?: boolean
-    miasto?: boolean
-    wyzywienie?: boolean
+    city?: boolean
+    food?: boolean
   }
 
-  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "miasto" | "wyzywienie", ExtArgs["result"]["trip"]>
+  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "city" | "food", ExtArgs["result"]["trip"]>
   export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     expenses?: boolean | Trip$expensesArgs<ExtArgs>
     participants?: boolean | Trip$participantsArgs<ExtArgs>
@@ -3632,8 +3632,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      miasto: $Enums.Miasto
-      wyzywienie: $Enums.Wyzywienie
+      city: $Enums.City
+      food: $Enums.Food
     }, ExtArgs["result"]["trip"]>
     composites: {}
   }
@@ -4060,8 +4060,8 @@ export namespace Prisma {
    */
   interface TripFieldRefs {
     readonly id: FieldRef<"Trip", 'Int'>
-    readonly miasto: FieldRef<"Trip", 'Miasto'>
-    readonly wyzywienie: FieldRef<"Trip", 'Wyzywienie'>
+    readonly city: FieldRef<"Trip", 'City'>
+    readonly food: FieldRef<"Trip", 'Food'>
   }
     
 
@@ -4537,8 +4537,8 @@ export namespace Prisma {
 
   export const ExpenseScalarFieldEnum: {
     id: 'id',
-    rodzaj: 'rodzaj',
-    kwota: 'kwota',
+    type: 'type',
+    amount: 'amount',
     tripId: 'tripId'
   };
 
@@ -4547,10 +4547,10 @@ export namespace Prisma {
 
   export const ParticipantScalarFieldEnum: {
     id: 'id',
-    imie: 'imie',
-    nazwisko: 'nazwisko',
-    dieta: 'dieta',
-    data_urodzenia: 'data_urodzenia'
+    name: 'name',
+    surname: 'surname',
+    diet: 'diet',
+    date_of_birth: 'date_of_birth'
   };
 
   export type ParticipantScalarFieldEnum = (typeof ParticipantScalarFieldEnum)[keyof typeof ParticipantScalarFieldEnum]
@@ -4558,8 +4558,8 @@ export namespace Prisma {
 
   export const TripScalarFieldEnum: {
     id: 'id',
-    miasto: 'miasto',
-    wyzywienie: 'wyzywienie'
+    city: 'city',
+    food: 'food'
   };
 
   export type TripScalarFieldEnum = (typeof TripScalarFieldEnum)[keyof typeof TripScalarFieldEnum]
@@ -4609,16 +4609,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Rodzaj'
+   * Reference to a field of type 'Type'
    */
-  export type EnumRodzajFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Rodzaj'>
+  export type EnumTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Type'>
     
 
 
   /**
-   * Reference to a field of type 'Rodzaj[]'
+   * Reference to a field of type 'Type[]'
    */
-  export type ListEnumRodzajFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Rodzaj[]'>
+  export type ListEnumTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Type[]'>
     
 
 
@@ -4651,16 +4651,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Dieta'
+   * Reference to a field of type 'Diet'
    */
-  export type EnumDietaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Dieta'>
+  export type EnumDietFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Diet'>
     
 
 
   /**
-   * Reference to a field of type 'Dieta[]'
+   * Reference to a field of type 'Diet[]'
    */
-  export type ListEnumDietaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Dieta[]'>
+  export type ListEnumDietFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Diet[]'>
     
 
 
@@ -4679,30 +4679,30 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Miasto'
+   * Reference to a field of type 'City'
    */
-  export type EnumMiastoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Miasto'>
+  export type EnumCityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'City'>
     
 
 
   /**
-   * Reference to a field of type 'Miasto[]'
+   * Reference to a field of type 'City[]'
    */
-  export type ListEnumMiastoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Miasto[]'>
+  export type ListEnumCityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'City[]'>
     
 
 
   /**
-   * Reference to a field of type 'Wyzywienie'
+   * Reference to a field of type 'Food'
    */
-  export type EnumWyzywienieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Wyzywienie'>
+  export type EnumFoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Food'>
     
 
 
   /**
-   * Reference to a field of type 'Wyzywienie[]'
+   * Reference to a field of type 'Food[]'
    */
-  export type ListEnumWyzywienieFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Wyzywienie[]'>
+  export type ListEnumFoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Food[]'>
     
   /**
    * Deep Input Types
@@ -4714,16 +4714,16 @@ export namespace Prisma {
     OR?: ExpenseWhereInput[]
     NOT?: ExpenseWhereInput | ExpenseWhereInput[]
     id?: IntFilter<"Expense"> | number
-    rodzaj?: EnumRodzajFilter<"Expense"> | $Enums.Rodzaj
-    kwota?: FloatFilter<"Expense"> | number
+    type?: EnumTypeFilter<"Expense"> | $Enums.Type
+    amount?: FloatFilter<"Expense"> | number
     tripId?: IntFilter<"Expense"> | number
     trip?: XOR<TripScalarRelationFilter, TripWhereInput>
   }
 
   export type ExpenseOrderByWithRelationInput = {
     id?: SortOrder
-    rodzaj?: SortOrder
-    kwota?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
     trip?: TripOrderByWithRelationInput
   }
@@ -4733,16 +4733,16 @@ export namespace Prisma {
     AND?: ExpenseWhereInput | ExpenseWhereInput[]
     OR?: ExpenseWhereInput[]
     NOT?: ExpenseWhereInput | ExpenseWhereInput[]
-    rodzaj?: EnumRodzajFilter<"Expense"> | $Enums.Rodzaj
-    kwota?: FloatFilter<"Expense"> | number
+    type?: EnumTypeFilter<"Expense"> | $Enums.Type
+    amount?: FloatFilter<"Expense"> | number
     tripId?: IntFilter<"Expense"> | number
     trip?: XOR<TripScalarRelationFilter, TripWhereInput>
   }, "id">
 
   export type ExpenseOrderByWithAggregationInput = {
     id?: SortOrder
-    rodzaj?: SortOrder
-    kwota?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
     _count?: ExpenseCountOrderByAggregateInput
     _avg?: ExpenseAvgOrderByAggregateInput
@@ -4756,8 +4756,8 @@ export namespace Prisma {
     OR?: ExpenseScalarWhereWithAggregatesInput[]
     NOT?: ExpenseScalarWhereWithAggregatesInput | ExpenseScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Expense"> | number
-    rodzaj?: EnumRodzajWithAggregatesFilter<"Expense"> | $Enums.Rodzaj
-    kwota?: FloatWithAggregatesFilter<"Expense"> | number
+    type?: EnumTypeWithAggregatesFilter<"Expense"> | $Enums.Type
+    amount?: FloatWithAggregatesFilter<"Expense"> | number
     tripId?: IntWithAggregatesFilter<"Expense"> | number
   }
 
@@ -4766,19 +4766,19 @@ export namespace Prisma {
     OR?: ParticipantWhereInput[]
     NOT?: ParticipantWhereInput | ParticipantWhereInput[]
     id?: IntFilter<"Participant"> | number
-    imie?: StringFilter<"Participant"> | string
-    nazwisko?: StringFilter<"Participant"> | string
-    dieta?: EnumDietaNullableFilter<"Participant"> | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFilter<"Participant"> | Date | string
+    name?: StringFilter<"Participant"> | string
+    surname?: StringFilter<"Participant"> | string
+    diet?: EnumDietNullableFilter<"Participant"> | $Enums.Diet | null
+    date_of_birth?: DateTimeFilter<"Participant"> | Date | string
     trips?: TripListRelationFilter
   }
 
   export type ParticipantOrderByWithRelationInput = {
     id?: SortOrder
-    imie?: SortOrder
-    nazwisko?: SortOrder
-    dieta?: SortOrderInput | SortOrder
-    data_urodzenia?: SortOrder
+    name?: SortOrder
+    surname?: SortOrder
+    diet?: SortOrderInput | SortOrder
+    date_of_birth?: SortOrder
     trips?: TripOrderByRelationAggregateInput
   }
 
@@ -4787,19 +4787,19 @@ export namespace Prisma {
     AND?: ParticipantWhereInput | ParticipantWhereInput[]
     OR?: ParticipantWhereInput[]
     NOT?: ParticipantWhereInput | ParticipantWhereInput[]
-    imie?: StringFilter<"Participant"> | string
-    nazwisko?: StringFilter<"Participant"> | string
-    dieta?: EnumDietaNullableFilter<"Participant"> | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFilter<"Participant"> | Date | string
+    name?: StringFilter<"Participant"> | string
+    surname?: StringFilter<"Participant"> | string
+    diet?: EnumDietNullableFilter<"Participant"> | $Enums.Diet | null
+    date_of_birth?: DateTimeFilter<"Participant"> | Date | string
     trips?: TripListRelationFilter
   }, "id">
 
   export type ParticipantOrderByWithAggregationInput = {
     id?: SortOrder
-    imie?: SortOrder
-    nazwisko?: SortOrder
-    dieta?: SortOrderInput | SortOrder
-    data_urodzenia?: SortOrder
+    name?: SortOrder
+    surname?: SortOrder
+    diet?: SortOrderInput | SortOrder
+    date_of_birth?: SortOrder
     _count?: ParticipantCountOrderByAggregateInput
     _avg?: ParticipantAvgOrderByAggregateInput
     _max?: ParticipantMaxOrderByAggregateInput
@@ -4812,10 +4812,10 @@ export namespace Prisma {
     OR?: ParticipantScalarWhereWithAggregatesInput[]
     NOT?: ParticipantScalarWhereWithAggregatesInput | ParticipantScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Participant"> | number
-    imie?: StringWithAggregatesFilter<"Participant"> | string
-    nazwisko?: StringWithAggregatesFilter<"Participant"> | string
-    dieta?: EnumDietaNullableWithAggregatesFilter<"Participant"> | $Enums.Dieta | null
-    data_urodzenia?: DateTimeWithAggregatesFilter<"Participant"> | Date | string
+    name?: StringWithAggregatesFilter<"Participant"> | string
+    surname?: StringWithAggregatesFilter<"Participant"> | string
+    diet?: EnumDietNullableWithAggregatesFilter<"Participant"> | $Enums.Diet | null
+    date_of_birth?: DateTimeWithAggregatesFilter<"Participant"> | Date | string
   }
 
   export type TripWhereInput = {
@@ -4823,16 +4823,16 @@ export namespace Prisma {
     OR?: TripWhereInput[]
     NOT?: TripWhereInput | TripWhereInput[]
     id?: IntFilter<"Trip"> | number
-    miasto?: EnumMiastoFilter<"Trip"> | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFilter<"Trip"> | $Enums.Wyzywienie
+    city?: EnumCityFilter<"Trip"> | $Enums.City
+    food?: EnumFoodFilter<"Trip"> | $Enums.Food
     expenses?: ExpenseListRelationFilter
     participants?: ParticipantListRelationFilter
   }
 
   export type TripOrderByWithRelationInput = {
     id?: SortOrder
-    miasto?: SortOrder
-    wyzywienie?: SortOrder
+    city?: SortOrder
+    food?: SortOrder
     expenses?: ExpenseOrderByRelationAggregateInput
     participants?: ParticipantOrderByRelationAggregateInput
   }
@@ -4842,16 +4842,16 @@ export namespace Prisma {
     AND?: TripWhereInput | TripWhereInput[]
     OR?: TripWhereInput[]
     NOT?: TripWhereInput | TripWhereInput[]
-    miasto?: EnumMiastoFilter<"Trip"> | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFilter<"Trip"> | $Enums.Wyzywienie
+    city?: EnumCityFilter<"Trip"> | $Enums.City
+    food?: EnumFoodFilter<"Trip"> | $Enums.Food
     expenses?: ExpenseListRelationFilter
     participants?: ParticipantListRelationFilter
   }, "id">
 
   export type TripOrderByWithAggregationInput = {
     id?: SortOrder
-    miasto?: SortOrder
-    wyzywienie?: SortOrder
+    city?: SortOrder
+    food?: SortOrder
     _count?: TripCountOrderByAggregateInput
     _avg?: TripAvgOrderByAggregateInput
     _max?: TripMaxOrderByAggregateInput
@@ -4864,157 +4864,157 @@ export namespace Prisma {
     OR?: TripScalarWhereWithAggregatesInput[]
     NOT?: TripScalarWhereWithAggregatesInput | TripScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Trip"> | number
-    miasto?: EnumMiastoWithAggregatesFilter<"Trip"> | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieWithAggregatesFilter<"Trip"> | $Enums.Wyzywienie
+    city?: EnumCityWithAggregatesFilter<"Trip"> | $Enums.City
+    food?: EnumFoodWithAggregatesFilter<"Trip"> | $Enums.Food
   }
 
   export type ExpenseCreateInput = {
-    rodzaj?: $Enums.Rodzaj
-    kwota: number
+    type?: $Enums.Type
+    amount: number
     trip: TripCreateNestedOneWithoutExpensesInput
   }
 
   export type ExpenseUncheckedCreateInput = {
     id?: number
-    rodzaj?: $Enums.Rodzaj
-    kwota: number
+    type?: $Enums.Type
+    amount: number
     tripId: number
   }
 
   export type ExpenseUpdateInput = {
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
     trip?: TripUpdateOneRequiredWithoutExpensesNestedInput
   }
 
   export type ExpenseUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
     tripId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ExpenseCreateManyInput = {
     id?: number
-    rodzaj?: $Enums.Rodzaj
-    kwota: number
+    type?: $Enums.Type
+    amount: number
     tripId: number
   }
 
   export type ExpenseUpdateManyMutationInput = {
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ExpenseUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
     tripId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ParticipantCreateInput = {
-    imie: string
-    nazwisko: string
-    dieta?: $Enums.Dieta | null
-    data_urodzenia: Date | string
+    name: string
+    surname: string
+    diet?: $Enums.Diet | null
+    date_of_birth: Date | string
     trips?: TripCreateNestedManyWithoutParticipantsInput
   }
 
   export type ParticipantUncheckedCreateInput = {
     id?: number
-    imie: string
-    nazwisko: string
-    dieta?: $Enums.Dieta | null
-    data_urodzenia: Date | string
+    name: string
+    surname: string
+    diet?: $Enums.Diet | null
+    date_of_birth: Date | string
     trips?: TripUncheckedCreateNestedManyWithoutParticipantsInput
   }
 
   export type ParticipantUpdateInput = {
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUpdateManyWithoutParticipantsNestedInput
   }
 
   export type ParticipantUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUncheckedUpdateManyWithoutParticipantsNestedInput
   }
 
   export type ParticipantCreateManyInput = {
     id?: number
-    imie: string
-    nazwisko: string
-    dieta?: $Enums.Dieta | null
-    data_urodzenia: Date | string
+    name: string
+    surname: string
+    diet?: $Enums.Diet | null
+    date_of_birth: Date | string
   }
 
   export type ParticipantUpdateManyMutationInput = {
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ParticipantUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TripCreateInput = {
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
     expenses?: ExpenseCreateNestedManyWithoutTripInput
     participants?: ParticipantCreateNestedManyWithoutTripsInput
   }
 
   export type TripUncheckedCreateInput = {
     id?: number
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
     expenses?: ExpenseUncheckedCreateNestedManyWithoutTripInput
     participants?: ParticipantUncheckedCreateNestedManyWithoutTripsInput
   }
 
   export type TripUpdateInput = {
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
     expenses?: ExpenseUpdateManyWithoutTripNestedInput
     participants?: ParticipantUpdateManyWithoutTripsNestedInput
   }
 
   export type TripUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
     expenses?: ExpenseUncheckedUpdateManyWithoutTripNestedInput
     participants?: ParticipantUncheckedUpdateManyWithoutTripsNestedInput
   }
 
   export type TripCreateManyInput = {
     id?: number
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
   }
 
   export type TripUpdateManyMutationInput = {
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
   }
 
   export type TripUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5028,11 +5028,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type EnumRodzajFilter<$PrismaModel = never> = {
-    equals?: $Enums.Rodzaj | EnumRodzajFieldRefInput<$PrismaModel>
-    in?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    not?: NestedEnumRodzajFilter<$PrismaModel> | $Enums.Rodzaj
+  export type EnumTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeFilter<$PrismaModel> | $Enums.Type
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -5053,34 +5053,34 @@ export namespace Prisma {
 
   export type ExpenseCountOrderByAggregateInput = {
     id?: SortOrder
-    rodzaj?: SortOrder
-    kwota?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
   }
 
   export type ExpenseAvgOrderByAggregateInput = {
     id?: SortOrder
-    kwota?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
   }
 
   export type ExpenseMaxOrderByAggregateInput = {
     id?: SortOrder
-    rodzaj?: SortOrder
-    kwota?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
   }
 
   export type ExpenseMinOrderByAggregateInput = {
     id?: SortOrder
-    rodzaj?: SortOrder
-    kwota?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
   }
 
   export type ExpenseSumOrderByAggregateInput = {
     id?: SortOrder
-    kwota?: SortOrder
+    amount?: SortOrder
     tripId?: SortOrder
   }
 
@@ -5100,14 +5100,14 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type EnumRodzajWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Rodzaj | EnumRodzajFieldRefInput<$PrismaModel>
-    in?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    not?: NestedEnumRodzajWithAggregatesFilter<$PrismaModel> | $Enums.Rodzaj
+  export type EnumTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeWithAggregatesFilter<$PrismaModel> | $Enums.Type
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRodzajFilter<$PrismaModel>
-    _max?: NestedEnumRodzajFilter<$PrismaModel>
+    _min?: NestedEnumTypeFilter<$PrismaModel>
+    _max?: NestedEnumTypeFilter<$PrismaModel>
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -5141,11 +5141,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumDietaNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.Dieta | EnumDietaFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumDietaNullableFilter<$PrismaModel> | $Enums.Dieta | null
+  export type EnumDietNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Diet | EnumDietFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDietNullableFilter<$PrismaModel> | $Enums.Diet | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -5176,10 +5176,10 @@ export namespace Prisma {
 
   export type ParticipantCountOrderByAggregateInput = {
     id?: SortOrder
-    imie?: SortOrder
-    nazwisko?: SortOrder
-    dieta?: SortOrder
-    data_urodzenia?: SortOrder
+    name?: SortOrder
+    surname?: SortOrder
+    diet?: SortOrder
+    date_of_birth?: SortOrder
   }
 
   export type ParticipantAvgOrderByAggregateInput = {
@@ -5188,18 +5188,18 @@ export namespace Prisma {
 
   export type ParticipantMaxOrderByAggregateInput = {
     id?: SortOrder
-    imie?: SortOrder
-    nazwisko?: SortOrder
-    dieta?: SortOrder
-    data_urodzenia?: SortOrder
+    name?: SortOrder
+    surname?: SortOrder
+    diet?: SortOrder
+    date_of_birth?: SortOrder
   }
 
   export type ParticipantMinOrderByAggregateInput = {
     id?: SortOrder
-    imie?: SortOrder
-    nazwisko?: SortOrder
-    dieta?: SortOrder
-    data_urodzenia?: SortOrder
+    name?: SortOrder
+    surname?: SortOrder
+    diet?: SortOrder
+    date_of_birth?: SortOrder
   }
 
   export type ParticipantSumOrderByAggregateInput = {
@@ -5224,14 +5224,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type EnumDietaNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Dieta | EnumDietaFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumDietaNullableWithAggregatesFilter<$PrismaModel> | $Enums.Dieta | null
+  export type EnumDietNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Diet | EnumDietFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDietNullableWithAggregatesFilter<$PrismaModel> | $Enums.Diet | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumDietaNullableFilter<$PrismaModel>
-    _max?: NestedEnumDietaNullableFilter<$PrismaModel>
+    _min?: NestedEnumDietNullableFilter<$PrismaModel>
+    _max?: NestedEnumDietNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5248,18 +5248,18 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumMiastoFilter<$PrismaModel = never> = {
-    equals?: $Enums.Miasto | EnumMiastoFieldRefInput<$PrismaModel>
-    in?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    not?: NestedEnumMiastoFilter<$PrismaModel> | $Enums.Miasto
+  export type EnumCityFilter<$PrismaModel = never> = {
+    equals?: $Enums.City | EnumCityFieldRefInput<$PrismaModel>
+    in?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    not?: NestedEnumCityFilter<$PrismaModel> | $Enums.City
   }
 
-  export type EnumWyzywienieFilter<$PrismaModel = never> = {
-    equals?: $Enums.Wyzywienie | EnumWyzywienieFieldRefInput<$PrismaModel>
-    in?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    not?: NestedEnumWyzywienieFilter<$PrismaModel> | $Enums.Wyzywienie
+  export type EnumFoodFilter<$PrismaModel = never> = {
+    equals?: $Enums.Food | EnumFoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumFoodFilter<$PrismaModel> | $Enums.Food
   }
 
   export type ExpenseListRelationFilter = {
@@ -5284,8 +5284,8 @@ export namespace Prisma {
 
   export type TripCountOrderByAggregateInput = {
     id?: SortOrder
-    miasto?: SortOrder
-    wyzywienie?: SortOrder
+    city?: SortOrder
+    food?: SortOrder
   }
 
   export type TripAvgOrderByAggregateInput = {
@@ -5294,38 +5294,38 @@ export namespace Prisma {
 
   export type TripMaxOrderByAggregateInput = {
     id?: SortOrder
-    miasto?: SortOrder
-    wyzywienie?: SortOrder
+    city?: SortOrder
+    food?: SortOrder
   }
 
   export type TripMinOrderByAggregateInput = {
     id?: SortOrder
-    miasto?: SortOrder
-    wyzywienie?: SortOrder
+    city?: SortOrder
+    food?: SortOrder
   }
 
   export type TripSumOrderByAggregateInput = {
     id?: SortOrder
   }
 
-  export type EnumMiastoWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Miasto | EnumMiastoFieldRefInput<$PrismaModel>
-    in?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    not?: NestedEnumMiastoWithAggregatesFilter<$PrismaModel> | $Enums.Miasto
+  export type EnumCityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.City | EnumCityFieldRefInput<$PrismaModel>
+    in?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    not?: NestedEnumCityWithAggregatesFilter<$PrismaModel> | $Enums.City
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumMiastoFilter<$PrismaModel>
-    _max?: NestedEnumMiastoFilter<$PrismaModel>
+    _min?: NestedEnumCityFilter<$PrismaModel>
+    _max?: NestedEnumCityFilter<$PrismaModel>
   }
 
-  export type EnumWyzywienieWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Wyzywienie | EnumWyzywienieFieldRefInput<$PrismaModel>
-    in?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    not?: NestedEnumWyzywienieWithAggregatesFilter<$PrismaModel> | $Enums.Wyzywienie
+  export type EnumFoodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Food | EnumFoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumFoodWithAggregatesFilter<$PrismaModel> | $Enums.Food
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumWyzywienieFilter<$PrismaModel>
-    _max?: NestedEnumWyzywienieFilter<$PrismaModel>
+    _min?: NestedEnumFoodFilter<$PrismaModel>
+    _max?: NestedEnumFoodFilter<$PrismaModel>
   }
 
   export type TripCreateNestedOneWithoutExpensesInput = {
@@ -5334,8 +5334,8 @@ export namespace Prisma {
     connect?: TripWhereUniqueInput
   }
 
-  export type EnumRodzajFieldUpdateOperationsInput = {
-    set?: $Enums.Rodzaj
+  export type EnumTypeFieldUpdateOperationsInput = {
+    set?: $Enums.Type
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -5378,8 +5378,8 @@ export namespace Prisma {
     set?: string
   }
 
-  export type NullableEnumDietaFieldUpdateOperationsInput = {
-    set?: $Enums.Dieta | null
+  export type NullableEnumDietFieldUpdateOperationsInput = {
+    set?: $Enums.Diet | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -5438,12 +5438,12 @@ export namespace Prisma {
     connect?: ParticipantWhereUniqueInput | ParticipantWhereUniqueInput[]
   }
 
-  export type EnumMiastoFieldUpdateOperationsInput = {
-    set?: $Enums.Miasto
+  export type EnumCityFieldUpdateOperationsInput = {
+    set?: $Enums.City
   }
 
-  export type EnumWyzywienieFieldUpdateOperationsInput = {
-    set?: $Enums.Wyzywienie
+  export type EnumFoodFieldUpdateOperationsInput = {
+    set?: $Enums.Food
   }
 
   export type ExpenseUpdateManyWithoutTripNestedInput = {
@@ -5511,11 +5511,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumRodzajFilter<$PrismaModel = never> = {
-    equals?: $Enums.Rodzaj | EnumRodzajFieldRefInput<$PrismaModel>
-    in?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    not?: NestedEnumRodzajFilter<$PrismaModel> | $Enums.Rodzaj
+  export type NestedEnumTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeFilter<$PrismaModel> | $Enums.Type
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -5545,14 +5545,14 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedEnumRodzajWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Rodzaj | EnumRodzajFieldRefInput<$PrismaModel>
-    in?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Rodzaj[] | ListEnumRodzajFieldRefInput<$PrismaModel>
-    not?: NestedEnumRodzajWithAggregatesFilter<$PrismaModel> | $Enums.Rodzaj
+  export type NestedEnumTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeWithAggregatesFilter<$PrismaModel> | $Enums.Type
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRodzajFilter<$PrismaModel>
-    _max?: NestedEnumRodzajFilter<$PrismaModel>
+    _min?: NestedEnumTypeFilter<$PrismaModel>
+    _max?: NestedEnumTypeFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -5585,11 +5585,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedEnumDietaNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.Dieta | EnumDietaFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumDietaNullableFilter<$PrismaModel> | $Enums.Dieta | null
+  export type NestedEnumDietNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.Diet | EnumDietFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDietNullableFilter<$PrismaModel> | $Enums.Diet | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -5620,14 +5620,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type NestedEnumDietaNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Dieta | EnumDietaFieldRefInput<$PrismaModel> | null
-    in?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.Dieta[] | ListEnumDietaFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumDietaNullableWithAggregatesFilter<$PrismaModel> | $Enums.Dieta | null
+  export type NestedEnumDietNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Diet | EnumDietFieldRefInput<$PrismaModel> | null
+    in?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.Diet[] | ListEnumDietFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDietNullableWithAggregatesFilter<$PrismaModel> | $Enums.Diet | null
     _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedEnumDietaNullableFilter<$PrismaModel>
-    _max?: NestedEnumDietaNullableFilter<$PrismaModel>
+    _min?: NestedEnumDietNullableFilter<$PrismaModel>
+    _max?: NestedEnumDietNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
@@ -5655,50 +5655,50 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumMiastoFilter<$PrismaModel = never> = {
-    equals?: $Enums.Miasto | EnumMiastoFieldRefInput<$PrismaModel>
-    in?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    not?: NestedEnumMiastoFilter<$PrismaModel> | $Enums.Miasto
+  export type NestedEnumCityFilter<$PrismaModel = never> = {
+    equals?: $Enums.City | EnumCityFieldRefInput<$PrismaModel>
+    in?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    not?: NestedEnumCityFilter<$PrismaModel> | $Enums.City
   }
 
-  export type NestedEnumWyzywienieFilter<$PrismaModel = never> = {
-    equals?: $Enums.Wyzywienie | EnumWyzywienieFieldRefInput<$PrismaModel>
-    in?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    not?: NestedEnumWyzywienieFilter<$PrismaModel> | $Enums.Wyzywienie
+  export type NestedEnumFoodFilter<$PrismaModel = never> = {
+    equals?: $Enums.Food | EnumFoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumFoodFilter<$PrismaModel> | $Enums.Food
   }
 
-  export type NestedEnumMiastoWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Miasto | EnumMiastoFieldRefInput<$PrismaModel>
-    in?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Miasto[] | ListEnumMiastoFieldRefInput<$PrismaModel>
-    not?: NestedEnumMiastoWithAggregatesFilter<$PrismaModel> | $Enums.Miasto
+  export type NestedEnumCityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.City | EnumCityFieldRefInput<$PrismaModel>
+    in?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.City[] | ListEnumCityFieldRefInput<$PrismaModel>
+    not?: NestedEnumCityWithAggregatesFilter<$PrismaModel> | $Enums.City
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumMiastoFilter<$PrismaModel>
-    _max?: NestedEnumMiastoFilter<$PrismaModel>
+    _min?: NestedEnumCityFilter<$PrismaModel>
+    _max?: NestedEnumCityFilter<$PrismaModel>
   }
 
-  export type NestedEnumWyzywienieWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Wyzywienie | EnumWyzywienieFieldRefInput<$PrismaModel>
-    in?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Wyzywienie[] | ListEnumWyzywienieFieldRefInput<$PrismaModel>
-    not?: NestedEnumWyzywienieWithAggregatesFilter<$PrismaModel> | $Enums.Wyzywienie
+  export type NestedEnumFoodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Food | EnumFoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Food[] | ListEnumFoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumFoodWithAggregatesFilter<$PrismaModel> | $Enums.Food
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumWyzywienieFilter<$PrismaModel>
-    _max?: NestedEnumWyzywienieFilter<$PrismaModel>
+    _min?: NestedEnumFoodFilter<$PrismaModel>
+    _max?: NestedEnumFoodFilter<$PrismaModel>
   }
 
   export type TripCreateWithoutExpensesInput = {
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
     participants?: ParticipantCreateNestedManyWithoutTripsInput
   }
 
   export type TripUncheckedCreateWithoutExpensesInput = {
     id?: number
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
     participants?: ParticipantUncheckedCreateNestedManyWithoutTripsInput
   }
 
@@ -5719,28 +5719,28 @@ export namespace Prisma {
   }
 
   export type TripUpdateWithoutExpensesInput = {
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
     participants?: ParticipantUpdateManyWithoutTripsNestedInput
   }
 
   export type TripUncheckedUpdateWithoutExpensesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
     participants?: ParticipantUncheckedUpdateManyWithoutTripsNestedInput
   }
 
   export type TripCreateWithoutParticipantsInput = {
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
     expenses?: ExpenseCreateNestedManyWithoutTripInput
   }
 
   export type TripUncheckedCreateWithoutParticipantsInput = {
     id?: number
-    miasto?: $Enums.Miasto
-    wyzywienie?: $Enums.Wyzywienie
+    city?: $Enums.City
+    food?: $Enums.Food
     expenses?: ExpenseUncheckedCreateNestedManyWithoutTripInput
   }
 
@@ -5770,19 +5770,19 @@ export namespace Prisma {
     OR?: TripScalarWhereInput[]
     NOT?: TripScalarWhereInput | TripScalarWhereInput[]
     id?: IntFilter<"Trip"> | number
-    miasto?: EnumMiastoFilter<"Trip"> | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFilter<"Trip"> | $Enums.Wyzywienie
+    city?: EnumCityFilter<"Trip"> | $Enums.City
+    food?: EnumFoodFilter<"Trip"> | $Enums.Food
   }
 
   export type ExpenseCreateWithoutTripInput = {
-    rodzaj?: $Enums.Rodzaj
-    kwota: number
+    type?: $Enums.Type
+    amount: number
   }
 
   export type ExpenseUncheckedCreateWithoutTripInput = {
     id?: number
-    rodzaj?: $Enums.Rodzaj
-    kwota: number
+    type?: $Enums.Type
+    amount: number
   }
 
   export type ExpenseCreateOrConnectWithoutTripInput = {
@@ -5796,18 +5796,18 @@ export namespace Prisma {
   }
 
   export type ParticipantCreateWithoutTripsInput = {
-    imie: string
-    nazwisko: string
-    dieta?: $Enums.Dieta | null
-    data_urodzenia: Date | string
+    name: string
+    surname: string
+    diet?: $Enums.Diet | null
+    date_of_birth: Date | string
   }
 
   export type ParticipantUncheckedCreateWithoutTripsInput = {
     id?: number
-    imie: string
-    nazwisko: string
-    dieta?: $Enums.Dieta | null
-    data_urodzenia: Date | string
+    name: string
+    surname: string
+    diet?: $Enums.Diet | null
+    date_of_birth: Date | string
   }
 
   export type ParticipantCreateOrConnectWithoutTripsInput = {
@@ -5836,8 +5836,8 @@ export namespace Prisma {
     OR?: ExpenseScalarWhereInput[]
     NOT?: ExpenseScalarWhereInput | ExpenseScalarWhereInput[]
     id?: IntFilter<"Expense"> | number
-    rodzaj?: EnumRodzajFilter<"Expense"> | $Enums.Rodzaj
-    kwota?: FloatFilter<"Expense"> | number
+    type?: EnumTypeFilter<"Expense"> | $Enums.Type
+    amount?: FloatFilter<"Expense"> | number
     tripId?: IntFilter<"Expense"> | number
   }
 
@@ -5862,75 +5862,75 @@ export namespace Prisma {
     OR?: ParticipantScalarWhereInput[]
     NOT?: ParticipantScalarWhereInput | ParticipantScalarWhereInput[]
     id?: IntFilter<"Participant"> | number
-    imie?: StringFilter<"Participant"> | string
-    nazwisko?: StringFilter<"Participant"> | string
-    dieta?: EnumDietaNullableFilter<"Participant"> | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFilter<"Participant"> | Date | string
+    name?: StringFilter<"Participant"> | string
+    surname?: StringFilter<"Participant"> | string
+    diet?: EnumDietNullableFilter<"Participant"> | $Enums.Diet | null
+    date_of_birth?: DateTimeFilter<"Participant"> | Date | string
   }
 
   export type TripUpdateWithoutParticipantsInput = {
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
     expenses?: ExpenseUpdateManyWithoutTripNestedInput
   }
 
   export type TripUncheckedUpdateWithoutParticipantsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
     expenses?: ExpenseUncheckedUpdateManyWithoutTripNestedInput
   }
 
   export type TripUncheckedUpdateManyWithoutParticipantsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    miasto?: EnumMiastoFieldUpdateOperationsInput | $Enums.Miasto
-    wyzywienie?: EnumWyzywienieFieldUpdateOperationsInput | $Enums.Wyzywienie
+    city?: EnumCityFieldUpdateOperationsInput | $Enums.City
+    food?: EnumFoodFieldUpdateOperationsInput | $Enums.Food
   }
 
   export type ExpenseCreateManyTripInput = {
     id?: number
-    rodzaj?: $Enums.Rodzaj
-    kwota: number
+    type?: $Enums.Type
+    amount: number
   }
 
   export type ExpenseUpdateWithoutTripInput = {
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ExpenseUncheckedUpdateWithoutTripInput = {
     id?: IntFieldUpdateOperationsInput | number
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ExpenseUncheckedUpdateManyWithoutTripInput = {
     id?: IntFieldUpdateOperationsInput | number
-    rodzaj?: EnumRodzajFieldUpdateOperationsInput | $Enums.Rodzaj
-    kwota?: FloatFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    amount?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ParticipantUpdateWithoutTripsInput = {
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ParticipantUncheckedUpdateWithoutTripsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ParticipantUncheckedUpdateManyWithoutTripsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    imie?: StringFieldUpdateOperationsInput | string
-    nazwisko?: StringFieldUpdateOperationsInput | string
-    dieta?: NullableEnumDietaFieldUpdateOperationsInput | $Enums.Dieta | null
-    data_urodzenia?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    diet?: NullableEnumDietFieldUpdateOperationsInput | $Enums.Diet | null
+    date_of_birth?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
