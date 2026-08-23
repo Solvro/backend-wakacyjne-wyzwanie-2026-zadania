@@ -1,10 +1,11 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
-  // url = env("DATABASE_URL") <-- Remove or comment out this line
+  // url = "postgresql://postgres:3450Dmeme@localhost:5432/test?schema=public" <-- Remove or comment out this line
 }
 
 enum ExpenseCategory {
