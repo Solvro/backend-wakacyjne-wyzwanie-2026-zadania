@@ -1,0 +1,10 @@
+Relacje między tabelami:
+
+1. Trip -> Participant (jeden do wielu)
+Jedna wycieczka może mieć wielu uczestników, każdy uczestnik jest przypisany do konkretnej wycieczki. Jak usuniemy wycieczkę, to automatycznie usuwają się też wszyscy jej uczestnicy.
+
+2. Trip -> Expense (jeden do wielu)
+Na jednej wycieczce może być wiele różnych wydatków. Każdy wydatek jest przypisany do konkretnej wycieczki. Usunięcie wycieczki kasuje też wszystkie powiązane z nią wydatki.
+
+3. Participant -> Expense (jeden do wielu)
+Każdy wydatek musi mieć wskazaną osobę, która za niego zapłaciła. Jeden uczestnik może opłacić wiele wydatków. Jeśli uczestnik zostanie usunięty, jego wydatki również się usuwają.
