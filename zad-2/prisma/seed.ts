@@ -1,8 +1,6 @@
 import { DatabaseService } from "../src/database/database.service";
 import "dotenv/config";
 
-console.log(process.env["DATABASE_URL"]);
-
 const dbs: DatabaseService = new DatabaseService();
 
 async function seed() {
