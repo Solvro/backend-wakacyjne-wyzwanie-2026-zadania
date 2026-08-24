@@ -14,9 +14,12 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('brewCoffee', () => {
+    it('should return teapot payload', () => {
+      expect(appController.getBrewCoffee()).toEqual({
+        message: 'I\'m a teapot',
+        URL: 'https://http.cat/images/418.jpg',
+      });
     });
   });
 });
