@@ -16,11 +16,11 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/solvro (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .get('/solvro')
+      .expect(307)
+      .expect('Location', 'https://solvro.pwr.edu.pl');
   });
 
   afterEach(async () => {
