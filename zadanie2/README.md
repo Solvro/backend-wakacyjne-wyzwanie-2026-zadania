@@ -1,0 +1,1 @@
+# przepraszam za opoznienie, tak jak pisalem wczesniej na dc, miałem remont, ktory dodatkowo sie przedłużył i dopiero od 2 dni moge pracować regularnie!
