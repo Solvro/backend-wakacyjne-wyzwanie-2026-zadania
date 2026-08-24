@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient, Currency } from "../generated/prisma";
+import { PrismaClient, Currency, type Participant, type Trip } from "../generated/prisma/client";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -13,7 +13,7 @@ const prisma = new PrismaClient({ adapter });
 // Zaseedować można tylko raz, bo wystąpią duplikaty.
 
 async function main() {
-  const participants = [];
+  const participants: Participant[] = [];
 
   for (let i = 1; i <= 5; i++) {
     const participant = await prisma.participant.create({
@@ -27,7 +27,7 @@ async function main() {
     participants.push(participant);
   }
 
-  const trips = [];
+  const trips: Trip[] = [];
 
   for (let i = 1; i <= 2; i++) {
     const trip = await prisma.trip.create({
@@ -64,7 +64,7 @@ async function main() {
     });
   }
 
-  console.log("Seed zakończony!");
+  console.log("Seed zakonczony!");
 }
 
 main()
