@@ -11,10 +11,10 @@ export class AppController {
     return;
   }
 
-@Get('brewCoffee')
-@HttpCode(418)
-@Header('Content-Type', 'application/json')
-getBrewCoffee() {
-  return this.appService.getBrewCoffee();
+  @Get('brewCoffee')
+  @HttpCode(418)
+  @Header('Content-Type', 'application/json')
+  getBrewCoffee() {
+    return this.appService.getBrewCoffee();
   }
 }
