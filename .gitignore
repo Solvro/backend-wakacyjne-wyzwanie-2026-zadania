@@ -1,0 +1,16 @@
+# IntelliJ / IDE
+**/ .idea/
+**/*.iml
+.idea/
+*.iml
+
+# Java / Gradle / Build
+**/target/
+**/build/
+.gradle/
+build/
+target/
+
+# Systemowe
+.DS_Store
+Thumbs.db
