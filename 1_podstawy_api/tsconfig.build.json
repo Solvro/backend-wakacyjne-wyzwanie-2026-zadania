@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "../node_modules",
+    "1_podstawy_api/test", "dist", "**/*spec.ts"]
+}
