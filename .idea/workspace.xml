@@ -110,7 +110,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "mateusz-siudy-1",
+    "git-widget-placeholder": "#119 on mateusz-siudy-2",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ryhu/IdeaProjects/backend-wakacyjne-wyzwanie-2026-zadania",
@@ -197,6 +197,7 @@
       <updated>1786269268301</updated>
       <workItem from="1786269269323" duration="2066000" />
       <workItem from="1786647399195" duration="11000" />
+      <workItem from="1787589083486" duration="439000" />
     </task>
     <servers />
   </component>
