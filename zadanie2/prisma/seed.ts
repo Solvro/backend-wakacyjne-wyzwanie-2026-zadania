@@ -10,6 +10,8 @@ const pool = new Pool({
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
+// Zaseedować można tylko raz, bo wystąpią duplikaty.
+
 async function main() {
   const participants = [];
 
