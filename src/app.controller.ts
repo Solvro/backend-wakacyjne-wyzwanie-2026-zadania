@@ -1,6 +1,8 @@
 import { Controller, Get, Redirect, HttpCode, Header } from '@nestjs/common';
 import { AppService } from './app.service';
+import { ApiExcludeController } from '@nestjs/swagger';
 
+@ApiExcludeController()
 @Controller('solvro')
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -11,10 +13,10 @@ export class AppController {
     return;
   }
 
-@Get('brewCoffee')
-@HttpCode(418)
-@Header('Content-Type', 'application/json')
-getBrewCoffee() {
-  return this.appService.getBrewCoffee();
+  @Get('brewCoffee')
+  @HttpCode(418)
+  @Header('Content-Type', 'application/json')
+  getBrewCoffee() {
+    return this.appService.getBrewCoffee();
   }
 }
