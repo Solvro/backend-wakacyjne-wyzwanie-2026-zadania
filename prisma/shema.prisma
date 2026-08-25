@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Nasz typ Enum
+enum Category {
+  FOOD
+  TRANSPORT
+  TICKETS
+}
+
+model Trip {
+  id           Int           @id @default(autoincrement())
+  name         String
+  startDate    DateTime
+  // Relacje
+  participants Participant[]
+  expenses     Expense[]
+}
+
+model Participant {
+  id      Int    @id @default(autoincrement())
+  name    String
+  tripId  Int
+  trip    Trip   @relation(fields: [tripId], references: [id])
+}
+
+model Expense {
+  id          Int       @id @default(autoincrement())
+  amount      Float
+  description String?   
+  category    Category
+  tripId      Int
+  trip        Trip      @relation(fields: [tripId], references: [id])
+}
