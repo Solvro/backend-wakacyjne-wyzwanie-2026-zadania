@@ -12,6 +12,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum PaymentMethod {
+  CASH
+  CARD
+}
+
 model Trip {
   id  Int @id @default(autoincrement())
   startDate DateTime @db.Date
@@ -37,5 +42,6 @@ model Expense {
   description String  @db.VarChar(255)
   participantId Int
   participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  paymentMethod PaymentMethod @default(CASH)
 }
 
