@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
@@ -20,8 +20,8 @@ export class ParticipantController {
   @Get()
   @ApiResponse({status:200, type:ParticipantResponseDto})
   @ApiOperation({description:"Get all participants"})
-  findAll() {
-    return this.participantService.findAll();
+  findAll(@Query('page') page:number, @Query('limit') limit:number) {
+    return this.participantService.findAll(page, limit);
   }
 
   @Get(':id')

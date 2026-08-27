@@ -19,8 +19,11 @@ export class TripService {
     });
   }
 
-  findAll() {
-    return this.prisma.trip.findMany();
+  findAll(page:number, limit:number) {
+    return this.prisma.trip.findMany({
+      take:limit,
+      skip:(page-1)*limit,
+    });
   }
 
   findOne(id: number) {

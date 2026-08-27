@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
@@ -20,8 +20,8 @@ export class TripController {
   @Get()
   @ApiOperation({summary:"Get all trips"})
   @ApiResponse({status:200, type: TripResponseDto})
-  findAll() {
-    return this.tripService.findAll();
+  findAll(@Query('page') page:number, @Query('limit') limit:number) {
+    return this.tripService.findAll(page,limit);
   }
 
   @Get(':id')

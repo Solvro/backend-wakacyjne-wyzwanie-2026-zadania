@@ -23,8 +23,11 @@ export class ParticipantService {
     });
   }
 
-  findAll() {
-    return this.prisma.participant.findMany();
+  findAll(page:number, limit:number) {
+    return this.prisma.participant.findMany({
+      take:limit,
+      skip:(page-1)*limit,
+    });
   }
 
   findOne(id: number) {

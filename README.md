@@ -1,28 +1,9 @@
-
-# Zadanie 2: Jak i gdzie przechowywać dane?
-
-
-
-
-## Relacje między modelami - Zad 2 
-
-* `Trip` posiada wielu `Participant` – relacja 1:N.
-* `Trip` posiada wiele `Expense` – relacja 1:N.
-* `Participant` może być odpowiedzialny za wiele `Expense` – relacja 1:N.
-* Każdy `Participant` należy do jednego `Trip`.
-* Każdy `Expense` należy do jednego `Trip` i ma jednego `Participant`, który go opłacił.
-
-Wizualizacja relacji i modeli znajduje się w pliku `EDR.png`
-
-Uwaga: Zastosowałam typ `Decimal` zamiast `Float`, ponieważ pola budget i amount przechowują wartości pieniężne, dla których `Decimal` zapewnia dokładniejszą reprezentację i unika typowych błędów zaokrągleń charakterystycznych dla `Float`. 
-
-### Co zostało zrobione:
 -Zaimplementowano pełny CRUD dla trzech modeli: Participant, Expense oraz Trip.
 -Przygotowano DTO dla wszystkich modeli oraz dodano walidację danych za pomocą class-validator.
 -Skonfigurowano ValidationPipe w kontrolerach, dzięki czemu dane przesyłane do API są sprawdzane.
 -Dodano i skonfigurowano Swagger UI oraz opisano w nim endpointy i DTO za pomocą odpowiednich dekoratorów.
 -Przetestowano działanie wszystkich endpointów oraz walidacji danych przy użyciu Swagger UI.
-- Dodatkowo zaimplementowano paginację przy pobieraniu listy danych dla Expense.
+- Dodatkowo zaimplementowano paginację przy pobieraniu listy danych dla Expense, Trip i Participant.
 
 ## API Documentation 
 
@@ -55,3 +36,10 @@ Uwaga: Zastosowałam typ `Decimal` zamiast `Float`, ponieważ pola budget i amou
 | GET | /trip/{id} | returns a trip by ID |
 | PATCH | /trip/{id} |updates a trip by ID |
 | DELETE | /trip/{id} | deletes a trip by ID |
+
+## Pagination
+
+Pagination was also implemented for endpoints returning lists of data: 
+- GET /trip
+- GET /expense
+- GET /participant
