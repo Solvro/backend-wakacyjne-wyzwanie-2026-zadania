@@ -29,7 +29,7 @@ async function main() {
             amount: 1000,
             category: 'ACCOMMODATION',
             description: 'Hotel',
-            createdAt: new Date('2026-08-20'),
+            created_at: new Date('2026-08-20'),
         },
     })
 

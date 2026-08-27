@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException} from '@nestjs/common';
-import { DatabaseService } from "../../database/database.service";
+import { DatabaseService } from "../database/database.service";
 import { Expense } from "@prisma/client";
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
