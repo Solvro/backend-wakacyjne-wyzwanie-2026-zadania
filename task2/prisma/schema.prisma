@@ -36,7 +36,6 @@ model Trip {
   end_date     DateTime
   expenses     Expense[]
   participants Participant[] 
-  participantTrips Participant_Trip[]
 }
 
 model Participant {
@@ -47,15 +46,4 @@ model Participant {
   age            Int?
   expenses       Expense[]
   trips          Trip[]  
-  participantTrips Participant_Trip[]
-}
-
-model Participant_Trip {
-  participant_id Int
-  trip_id        Int
-
-  participant Participant @relation(fields: [participant_id], references: [participant_id])
-  trip        Trip        @relation(fields: [trip_id], references: [trip_id])
-
-  @@id([participant_id, trip_id])
 }

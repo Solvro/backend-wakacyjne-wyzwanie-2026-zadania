@@ -53,14 +53,6 @@ export class SeedService {
       },
     });
 
-    await this.database.participant_Trip.createMany({
-      data: [
-        { participant_id: participant1.participant_id, trip_id: trip1.trip_id },
-        { participant_id: participant2.participant_id, trip_id: trip1.trip_id },
-        { participant_id: participant1.participant_id, trip_id: trip2.trip_id },
-      ],
-    });
-
     await this.database.expense.upsert({
       where: { expense_id: 1 },
       update: {},
