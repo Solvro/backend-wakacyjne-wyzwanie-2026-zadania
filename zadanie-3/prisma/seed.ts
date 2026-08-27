@@ -1,8 +1,8 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import 'dotenv/config';
 
-import { ExpenseStatus, PrismaClient } from 'src/generated/prisma/client';
-import type { User, Trip, Participant } from 'src/generated/prisma/client';
+import { ExpenseStatus, PrismaClient } from '../src/generated/prisma/client';
+import type { User, Trip, Participant } from '../src/generated/prisma/client';
 
 if (
   process.env.DATABASE_URL === undefined ||
