@@ -1,34 +1,19 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { Status } from '@prisma/client';
+import { TripService } from './trip.service.js';
+import type { TripInput } from './trip.service.js';
+
 
 @Controller('trips')
 export class TripController {
-    constructor(private prisma: PrismaService){}
+    constructor(private readonly tripService: TripService){}
 
     @Get()
-    async getAllTTrips() {
-        return this.prisma.trip.findMany({
-            include: {
-                Participants: {
-                    include: {
-                        Participant: true,
-                        Expenses: true
-                    }
-                }
-            }
-        })
+    async getAllTrips() {
+        return this.tripService.getAllTrips()
     }
 
     @Post()
-    async createTrip(@Body() body: { name: string; startDate: string; endDate?: string }) {
-    return this.prisma.trip.create({
-      data: {
-        Name: body.name,
-        StartDate: new Date(body.startDate),
-        EndDate: body.endDate ? new Date(body.endDate) : null,
-        Status: Status.PLANNING,
-      },
-    });
-  }
+    async createTrip(@Body() body: TripInput) {
+        return this.tripService.createTrip(body)
+    }
 }

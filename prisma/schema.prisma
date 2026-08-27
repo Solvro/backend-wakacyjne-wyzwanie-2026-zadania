@@ -19,40 +19,40 @@ enum Status {
 
 
 model Trip {
-	IdT          Int                  @id @default(autoincrement())
-  	Name         String               @db.VarChar(100)
-  	StartDate    DateTime             @db.Date
-  	EndDate      DateTime?            @db.Date
-  	Status       Status               @default(PLANNING)
-  	Participants TripParticipant[]
+	id           Int                  @id @default(autoincrement())
+  	name         String               @db.VarChar(100)
+  	startDate    DateTime             @db.Date
+  	endDate      DateTime?            @db.Date
+  	status       Status               @default(PLANNING)
+  	participants TripParticipant[]
 }
 
 
 model TripParticipant {
-  	IdTP          Int		      @id @default(autoincrement())
-  	TripId        Int
-  	Trip          Trip		      @relation(fields: [TripId], references: [IdT])
-  	ParticipantId Int
- 	  Participant   Participant	  @relation(fields: [ParticipantId], references: [Id])
-  	Expenses      Expense[]
+  	id          Int		      @id @default(autoincrement())
+  	tripId        Int
+  	trip          Trip		      @relation(fields: [tripId], references: [id])
+  	participantId Int
+ 	participant   Participant	  @relation(fields: [participantId], references: [id])
+  	expenses      Expense[]
 }
 
 
 model Expense {
-  	Id                Int			      @id @default(autoincrement())
-  	Title             String		      @db.VarChar(100)
-  	Amount            Float
-  	DepositDate       DateTime		      @default(now())
-  	TripParticipantId Int
-  	TripParticipant   TripParticipant	  @relation(fields: [TripParticipantId], references: [IdTP])
+  	id                Int			      @id @default(autoincrement())
+  	title             String		      @db.VarChar(100)
+  	amount            Float
+  	depositDate       DateTime		      @default(now())
+  	tripParticipantId Int
+  	tripParticipant   TripParticipant	  @relation(fields: [tripParticipantId], references: [id])
 }
 
 
 model Participant {
-  	Id       Int               	@id @default(autoincrement())
- 	NameP    String           	@db.VarChar(100)
-  	SurnameP String            	@db.VarChar(100)
-  	Phone    String           	@db.VarChar(20)
-  	Email    String?           	@db.VarChar(100)
-  	Trips    TripParticipant[]
+  	id       		   Int               	@id @default(autoincrement())
+ 	nameParticipant    String           	@db.VarChar(100)
+  	surnameParticipant String            	@db.VarChar(100)
+  	phone    		   String           	@db.VarChar(20)
+  	email    		   String?           	@db.VarChar(100)
+  	trips    		   TripParticipant[]
 }
