@@ -2,7 +2,6 @@ import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient, Role, Category } from '@prisma/client';
 
-// Konfiguracja adaptera dla Prisma 7
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
@@ -15,47 +14,51 @@ async function main() {
 
   const trip = await prisma.trip.create({
     data: {
-      Title: 'Wyjazd do Karpacza',
-      Description: 'Wyprawa autostopem do Karpacza w celu zdobycia Śnieżki.',
-      Cost_pln: 500,
+      title: 'Wyjazd do Karpacza',
+      description: 'Wyprawa autostopem do Karpacza w celu zdobycia Śnieżki.',
+      costPln: 500,
     },
   });
 
   const jan = await prisma.participant.create({
     data: {
-      Name: 'Jan Kowalski',
-      Age: 30,
-      Email: 'jan.kowalski@example.com',
-      Role: Role.Owner,
-      Trip_id: trip.Trip_id,
+      name: 'Jan Kowalski',
+      age: 30,
+      email: 'jan.kowalski@example.com',
+      role: Role.Owner,
+      trips: {
+        connect: [{ id: trip.id }],
+      },
     },
   });
 
   const anna = await prisma.participant.create({
     data: {
-      Name: 'Anna Nowak',
-      Age: 28,
-      Email: 'anna.nowak@example.com',
-      Role: Role.Member,
-      Trip_id: trip.Trip_id,
+      name: 'Anna Nowak',
+      age: 28,
+      email: 'anna.nowak@example.com',
+      role: Role.Member,
+      trips: {
+        connect: [{ id: trip.id }],
+      },
     },
   });
 
   await prisma.expense.createMany({
     data: [
       {
-        Product_name: 'Nocleg',
-        Amount_pln: 100,
-        Category: Category.Accomodation,
-        Paid_by_id: jan.Participant_id,
-        Trip_id: trip.Trip_id,
+        productName: 'Nocleg',
+        amountPln: 100,
+        category: Category.Accomodation,
+        paidById: jan.id,
+        tripId: trip.id,
       },
       {
-        Product_name: 'Jedzenie',
-        Amount_pln: 50,
-        Category: Category.Food,
-        Paid_by_id: anna.Participant_id,
-        Trip_id: trip.Trip_id,
+        productName: 'Jedzenie',
+        amountPln: 50,
+        category: Category.Food,
+        paidById: anna.id,
+        tripId: trip.id,
       },
     ],
   });
