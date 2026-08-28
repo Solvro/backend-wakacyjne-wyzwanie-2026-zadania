@@ -7,12 +7,12 @@ export class AppController {
 
   @Get()
   @Redirect('https://solvro.pwr.edu.pl', 307)
-  redirect(){}
+  redirect() {}
 
   @Get('brewCoffee')
   @HttpCode(418)
   @Header('Content-Type', 'application/json')
-  coffee(){
+  coffee() {
     return this.appService.coffee();
   }
 }
