@@ -1,19 +1,32 @@
-import { Controller, Get, Header, HttpCode, Redirect } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get } from '@nestjs/common';
+import { AppService } from './app.service.js';
+import { PrismaService } from './prisma/prisma.service.js';
 
-@Controller('solvro')
+@Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly prisma: PrismaService,
+  ) {}
 
   @Get()
-  @Redirect('https://solvro.pwr.edu.pl', 307)
-  solvroRedirect() {
+  getHello(): string {
+    return this.appService.getHello();
   }
 
-  @Get('brewCoffee')
-  @HttpCode(418)
-  @Header('Content-Type', "application/json")
-  getTeapot(): object {
-    return this.appService.getTeapot();
+  @Get('test-db')
+  async testDb() {
+    const tripsCount = await this.prisma.trip.count();
+    const participantsCount = await this.prisma.participant.count();
+    const expensesCount = await this.prisma.expense.count();
+
+    return {
+      status: 'connected',
+      counts: {
+        trips: tripsCount,
+        participants: participantsCount,
+        expenses: expensesCount,
+      },
+    };
   }
 }
