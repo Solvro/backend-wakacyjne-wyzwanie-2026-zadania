@@ -1,0 +1,26 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Trip {
+  id        Int      @id @default(autoincrement())
+  name      String
+  startDate DateTime
+}
+
+model Participant {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+}
+
+model Expense {
+  id        Int      @id @default(autoincrement())
+  name      String
+  amount    Float
+}
