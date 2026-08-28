@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -18,6 +19,9 @@ async function bootstrap() {
     .setTitle('Trip Expenses API')
     .setDescription('Dokumentacja API do zarządzania wycieczkami, uczestnikami i wydatkami')
     .setVersion('1.0')
+    .addTag('participants', 'Zarządzanie uczestnikami')
+    .addTag('trips', 'Zarządzanie wycieczkami')
+    .addTag('expenses', 'Zarządzanie wydatkami')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
