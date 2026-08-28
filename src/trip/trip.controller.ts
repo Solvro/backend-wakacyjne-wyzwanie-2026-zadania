@@ -40,6 +40,7 @@ export class TripController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a trip by ID' })
+  @ApiResponse({ status: 200, description: 'The trip has been successfully deleted.', type: TripResponseDto })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.tripService.remove(id);
   }

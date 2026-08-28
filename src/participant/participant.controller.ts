@@ -40,6 +40,7 @@ export class ParticipantController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a participant by ID' })
+  @ApiResponse({ status: 200, description: 'The participant with the specified ID has been deleted.', type: ParticipantResponseDto })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.participantService.remove(id);
   }

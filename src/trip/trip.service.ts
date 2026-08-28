@@ -23,7 +23,7 @@ export class TripService {
   }
 
   async findOne(id: number) {
-    const trip = this.dataBaseService.trip.findUnique({
+    const trip = await this.dataBaseService.trip.findUnique({
       where: { id: id },
     });
 

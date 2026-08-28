@@ -40,6 +40,7 @@ export class ExpenseController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an expense by ID' })
+  @ApiResponse({ status: 200, description: 'The expense has been successfully deleted.', type: ExpenseResponseDto })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.expenseService.remove(id);
   }
