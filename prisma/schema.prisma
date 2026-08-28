@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ExpenseType {
+  FOOD
+  TRANSPORT
+  ACCOMMODATION
+  ENTERTAINMENT
+  OTHER
+}
+
+model Trip {
+  Trip_id    Int       @id @default(autoincrement())
+  Location   String    @db.VarChar(255)
+  Begin_date DateTime
+  End_date   DateTime?
+
+  expenses     Expense[]
+  participants TripParticipant[]
+}
+
+model Participant {
+  Participant_id Int     @id @default(autoincrement())
+  Name           String  @db.VarChar(255)
+  Email          String? @db.VarChar(255)
+  Age            Int
+  Phone          String  @db.VarChar(255)
+
+  expenses Expense[]         @relation("PayerExpenses")
+  trips    TripParticipant[]
+}
+
+model Expense {
+  Expense_id Int         @id @default(autoincrement())
+  Trip_id    Int
+  Payer_id   Int
+  Type       ExpenseType
+  Amount     Decimal     @db.Decimal(10, 2)
+
+  trip  Trip        @relation(fields: [Trip_id], references: [Trip_id])
+  payer Participant @relation("PayerExpenses", fields: [Payer_id], references: [Participant_id])
+}
+
+model TripParticipant {
+  id             Int @id @default(autoincrement())
+  Trip_id        Int
+  Participant_id Int
+
+  trip        Trip        @relation(fields: [Trip_id], references: [Trip_id])
+  participant Participant @relation(fields: [Participant_id], references: [Participant_id])
+
+  @@unique([Trip_id, Participant_id])
+}
