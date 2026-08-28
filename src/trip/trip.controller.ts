@@ -1,34 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
+import type { UpdateTripDto } from './dto/update-trip.dto';
 
-@Controller('trip')
+@Controller('trips')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Post()
-  create(@Body() createTripDto: CreateTripDto) {
+  async create(@Body() createTripDto: CreateTripDto) {
     return this.tripService.create(createTripDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.tripService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tripService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.tripService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTripDto: UpdateTripDto) {
-    return this.tripService.update(+id, updateTripDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateTripDto: UpdateTripDto,
+  ) {
+    return this.tripService.update(id, updateTripDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tripService.remove(+id);
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    return this.tripService.remove(id);
   }
 }

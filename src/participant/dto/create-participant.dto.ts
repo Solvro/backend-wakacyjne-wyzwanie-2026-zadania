@@ -1,10 +1,10 @@
 import {
-  IsCurrency,
   IsEmail,
   IsNotEmpty,
   IsNumber,
   IsPhoneNumber,
   IsString,
+  Min,
   MaxLength,
 } from 'class-validator';
 
@@ -25,7 +25,7 @@ export class CreateParticipantDto {
 
   @IsNumber()
   @IsNotEmpty({ message: 'budget is required' })
-  @IsCurrency({ allow_negatives: false, require_symbol: true, symbol: 'zł' })
+  @Min(0, { message: 'budget must not be negative' })
   budget!: number;
 
   @IsNotEmpty({ message: 'email is required' })
