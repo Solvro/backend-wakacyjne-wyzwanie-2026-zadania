@@ -1,0 +1,55 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+  moduleFormat    = "cjs"
+}
+
+enum ExpenseType {
+  ACCOMODATION
+  FOOD
+  OTHER
+}
+
+model Trip {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  title String @unique
+  startDate DateTime
+  endDate DateTime
+  expenses Expense[]
+  participants Participant[]
+}
+
+model Expense {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  title String
+  value Float
+  trip Trip @relation(fields: [tripId], references: [id])
+  tripId Int
+  buyer Participant? @relation(fields: [participantId], references: [id])
+  participantId Int?
+  type ExpenseType?
+}
+
+model Participant {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  firstName String
+  lastName String
+  budget Float
+  email String
+  phone String?
+  expenses Expense[]
+  trip Trip @relation(fields: [tripId], references: [id])
+  tripId Int
+
+  @@unique([tripId, email])
+}
