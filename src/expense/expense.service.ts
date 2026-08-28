@@ -7,7 +7,25 @@ import { DatabaseService } from '../database/database.service';
 export class ExpenseService {
   constructor(private readonly dataBaseService: DatabaseService) {}
 
-  async create(createExpenseDto: CreateExpenseDto){
+  async create(createExpenseDto: CreateExpenseDto) {
+    const { id_participant, id_trip } = createExpenseDto;
+
+    const participantExists = await this.dataBaseService.participant.findUnique({
+      where: { id: id_participant },
+    });
+
+    if (!participantExists) {
+      throw new NotFoundException(`Participant with ID ${id_participant} not found`);
+    }
+
+    const tripExists = await this.dataBaseService.trip.findUnique({
+      where: { id: id_trip },
+    });
+
+    if (!tripExists) {
+      throw new NotFoundException(`Trip with ID ${id_trip} not found`);
+    }
+
     return this.dataBaseService.expense.create({ 
       data: {
         id_participant: createExpenseDto.id_participant,
