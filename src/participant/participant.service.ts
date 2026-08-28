@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { DatabaseService } from '../database/database.service';
@@ -29,7 +29,7 @@ export class ParticipantService {
     });
 
     if (!participant) {
-      throw new Error(`Participant with ID ${id} not found`);
+      throw new NotFoundException(`Participant with ID ${id} not found`);
     }
 
     return participant;

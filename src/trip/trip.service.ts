@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { DatabaseService } from '../database/database.service';
@@ -28,7 +28,7 @@ export class TripService {
     });
 
     if (!trip) {
-      throw new Error(`Trip with ID ${id} not found`);
+      throw new NotFoundException(`Trip with ID ${id} not found`);
     }
 
     return trip;

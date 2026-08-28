@@ -6,14 +6,13 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ParticipantResponseDto } from './dto/response-participant.dto';
 
 @ApiTags('Participant')
-@Controller('participant')
+@Controller('participants')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new participant' })
   @ApiResponse({ status: 201, description: 'The participant has been successfully created.', type: ParticipantResponseDto })
-  @UsePipes(new ValidationPipe())
   create(@Body() createParticipantDto: CreateParticipantDto) {
     return this.participantService.create(createParticipantDto);
   }
@@ -21,7 +20,6 @@ export class ParticipantController {
   @Get()
   @ApiOperation({ summary: 'Get all participants' })
   @ApiResponse({ status: 200, description: 'List of all participants.', type: [ParticipantResponseDto] })
-  @UsePipes(new ValidationPipe())
   findAll() {
     return this.participantService.findAll();
   }
@@ -29,7 +27,6 @@ export class ParticipantController {
   @Get(':id')
   @ApiOperation({ summary: 'Get a participant by ID' })
   @ApiResponse({ status: 200, description: 'The participant with the specified ID.', type: ParticipantResponseDto })
-  @UsePipes(new ValidationPipe())
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.participantService.findOne(id);
   }
@@ -37,14 +34,12 @@ export class ParticipantController {
   @Patch(':id')
   @ApiOperation({ summary: 'Update a participant by ID' })
   @ApiResponse({ status: 200, description: 'The participant with the specified ID has been updated.', type: ParticipantResponseDto })
-  @UsePipes(new ValidationPipe())
   update(@Param('id', ParseIntPipe) id: number, @Body() updateParticipantDto: UpdateParticipantDto) {
     return this.participantService.update(id, updateParticipantDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a participant by ID' })
-  @UsePipes(new ValidationPipe())
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.participantService.remove(id);
   }
