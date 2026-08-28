@@ -1,26 +1,58 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class ParticipantService {
-  create(createParticipantDto: CreateParticipantDto) {
-    return 'This action adds a new participant';
+  constructor(private databaseService: DatabaseService) {}
+
+  async create(createParticipantDto: CreateParticipantDto) {
+    return this.databaseService.participant.create({
+      data: {
+        ...createParticipantDto,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all participant`;
+  async findAll() {
+    return this.databaseService.participant.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} participant`;
+  async findOne(id: number) {
+    const participant = await this.databaseService.participant.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!participant) {
+      throw new NotFoundException(
+        `Unable to find participant with ID of ${id.toString()}`,
+      );
+    }
+
+    return participant;
   }
 
-  update(id: number, updateParticipantDto: UpdateParticipantDto) {
-    return `This action updates a #${id} participant`;
+  async update(id: number, updateParticipantDto: UpdateParticipantDto) {
+    await this.findOne(id);
+    return this.databaseService.participant.update({
+      where: {
+        id,
+      },
+      data: {
+        ...updateParticipantDto,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} participant`;
+  async remove(id: number) {
+    await this.findOne(id);
+    return this.databaseService.participant.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
