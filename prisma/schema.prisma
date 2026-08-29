@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TripStatus {
+  PLANNED
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+enum ExpenseCategory {
+  FOOD
+  TRANSPORT
+  ACCOMMODATION
+  ENTERTAINMENT
+  OTHER
+}
+
+model Trip {
+  id           Int @id @default(autoincrement())
+  name         String
+  destination  String
+  startDate    DateTime
+  endDate      DateTime
+  budget       Float
+  status       TripStatus
+  notes        String?
+  participants Participant[]
+  expenses     Expense[]
+}
+
+model Participant {
+  id           Int @id @default(autoincrement())
+  name         String
+  email        String
+  tripId       Int
+  trip         Trip @relation(fields: [tripId], references: [id])
+  expensesPaid Expense[]
+}
+
+model Expense {
+  id          Int @id @default(autoincrement())
+  description String
+  amount      Float
+  category    ExpenseCategory
+  datetime    DateTime
+  tripId      Int
+  trip        Trip @relation(fields: [tripId], references: [id])
+  paidById    Int
+  paidBy      Participant @relation(fields: [paidById], references: [id])
+}
