@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3000/trip
 ###
-GET {{baseUrl}}
+GET {{baseUrl}}/?limit=1&offset=1
 Accept: application/json
 
 ###
