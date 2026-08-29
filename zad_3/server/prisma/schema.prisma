@@ -36,9 +36,9 @@ model Participant {
 
 model Expense {
   id                Int         @id @default(autoincrement())
-  trip              Trip        @relation(fields: [tripId], references: [id])
+  trip              Trip        @relation(fields: [tripId], references: [id], onDelete: Cascade)
   tripId            Int
-  participant       Participant @relation(fields: [participantId], references: [id])
+  participant       Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   participantId     Int
   value             Float       @db.Real
   includesTransport Boolean
