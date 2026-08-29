@@ -9,6 +9,14 @@ export class ParticipantService {
   constructor(private databaseService: DatabaseService) { }
 
   async create(createParticipantDto: CreateParticipantDto): Promise<Participant> {
+    const trip = await this.databaseService.trip.findUnique({
+      where: { id: createParticipantDto.tripId },
+    });
+    if (!trip) {
+      throw new NotFoundException(
+        `Trip with this ID not found`,
+      );
+    }
     return this.databaseService.participant.create({
       data: {
         name: createParticipantDto.name,

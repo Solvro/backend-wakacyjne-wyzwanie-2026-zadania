@@ -10,6 +10,23 @@ export class ExpenseService {
   constructor(private databaseService: DatabaseService) { }
 
   async create(createExpenseDto: CreateExpenseDto): Promise<Expense> {
+    const trip = await this.databaseService.trip.findUnique({
+      where: { id: createExpenseDto.tripId },
+    });
+    if (!trip) {
+      throw new NotFoundException(
+        `Trip with this ID not found`,
+      );
+    }
+
+    const payer = await this.databaseService.participant.findUnique({
+      where: { id: createExpenseDto.payerId },
+    });
+    if (!payer) {
+      throw new NotFoundException(
+        `Participant with this ID not found`,
+      );
+    }
     return this.databaseService.expense.create({
       data: {
         title: createExpenseDto.title,

@@ -18,7 +18,7 @@ export class ExpenseController {
   @ApiResponse({
     status: 201,
     description: "Expense created successfully",
-    type: [CreateExpenseResponseDto]
+    type: CreateExpenseResponseDto
   })
   async create(@Body() createExpenseDto: CreateExpenseDto) {
     return this.expenseService.create(createExpenseDto);

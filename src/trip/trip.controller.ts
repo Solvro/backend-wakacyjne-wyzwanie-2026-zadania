@@ -19,7 +19,7 @@ export class TripController {
   @ApiResponse({
     status: 201,
     description: "Trip created successfully",
-    type: [CreateTripResponseDto]
+    type: CreateTripResponseDto
   })
   async create(@Body() createTripDto: CreateTripDto) {
     return this.tripService.create(createTripDto);

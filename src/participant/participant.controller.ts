@@ -18,7 +18,7 @@ export class ParticipantController {
   @ApiResponse({
     status: 201,
     description: "Participant created successfully",
-    type: [CreateParticipantResponseDto]
+    type: CreateParticipantResponseDto
   })
   async create(@Body() createParticipantDto: CreateParticipantDto) {
     return this.participantService.create(createParticipantDto);
