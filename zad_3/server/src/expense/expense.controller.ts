@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { ExpenseService } from "./expense.service";
 import { CreateExpenseDto } from "./dto/create-expense.dto";
@@ -26,17 +27,20 @@ export class ExpenseController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id", ParseIntPipe) id: number) {
     return this.expenseService.findOne(+id);
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateExpenseDto: UpdateExpenseDto,
+  ) {
     return this.expenseService.update(+id, updateExpenseDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id", ParseIntPipe) id: number) {
     return this.expenseService.remove(+id);
   }
 }

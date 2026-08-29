@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { ParticipantService } from "./participant.service";
 import { CreateParticipantDto } from "./dto/create-participant.dto";
@@ -26,20 +27,20 @@ export class ParticipantController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id", ParseIntPipe) id: number) {
     return this.participantService.findOne(+id);
   }
 
   @Patch(":id")
   update(
-    @Param("id") id: string,
+    @Param("id", ParseIntPipe) id: number,
     @Body() updateParticipantDto: UpdateParticipantDto,
   ) {
     return this.participantService.update(+id, updateParticipantDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id", ParseIntPipe) id: number) {
     return this.participantService.remove(+id);
   }
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { TripService } from "./trip.service";
 import { CreateTripDto } from "./dto/create-trip.dto";
@@ -26,17 +27,20 @@ export class TripController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id", ParseIntPipe) id: number) {
     return this.tripService.findOne(+id);
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateTripDto: UpdateTripDto) {
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateTripDto: UpdateTripDto,
+  ) {
     return this.tripService.update(+id, updateTripDto);
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id", ParseIntPipe) id: number) {
     return this.tripService.remove(+id);
   }
 }
