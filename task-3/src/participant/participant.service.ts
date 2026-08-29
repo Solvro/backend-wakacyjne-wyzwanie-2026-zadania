@@ -28,6 +28,10 @@ export class ParticipantService {
   async findOne(id: number) {
     const participant = await this.prisma.participant.findUnique({
       where: { id },
+      include: {
+        expenses: true,
+        trips: true,
+      },
     });
     if (!participant) {
       throw new NotFoundException(`Participant with id ${id} does not exist`);
