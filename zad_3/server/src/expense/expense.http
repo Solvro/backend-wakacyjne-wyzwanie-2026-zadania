@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:3000/participant
+@baseUrl = http://localhost:3000/expense
 ###
 GET {{baseUrl}}
 Accept: application/json
@@ -14,9 +14,11 @@ POST {{baseUrl}}
 Content-Type: application/json
 
 {
-  "name": "Kacper",
-  "age": 67,
-  "gender": "MALE"
+  "tripId": 1,
+  "participantId": 1,
+  "value": 145.50,
+  "includesTransport": true,
+  "timestamp": "2026-08-29T12:00:00Z"
 }
 
 ###
@@ -25,7 +27,8 @@ PATCH {{baseUrl}}/2
 Content-Type: application/json
 
 {
-  "age": 20
+  "value": 160.00,
+  "includesTransport": false
 }
 
 ###
