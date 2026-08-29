@@ -7,13 +7,18 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  ClassSerializerInterceptor,
+  UseInterceptors,
 } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { ParticipantService } from "./participant.service";
 import { CreateParticipantDto } from "./dto/create-participant.dto";
 import { UpdateParticipantDto } from "./dto/update-participant.dto";
+import { ParticipantResponseDto } from "./dto/response-participant.dto";
+import { plainToInstance } from "class-transformer";
 
 @Controller("participant")
+@UseInterceptors(ClassSerializerInterceptor)
 @ApiTags("participant")
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
@@ -40,10 +45,11 @@ export class ParticipantController {
   @ApiResponse({
     status: 200,
     description: "A list of participants has been successfully retrieved.",
-    type: [CreateParticipantDto],
+    type: [ParticipantResponseDto],
   })
   findAll() {
-    return this.participantService.findAll();
+    const rawParticipants = this.participantService.findAll();
+    return plainToInstance(ParticipantResponseDto, rawParticipants);
   }
 
   @Get(":id")
@@ -55,10 +61,11 @@ export class ParticipantController {
   @ApiResponse({
     status: 200,
     description: "The participant has been successfully retrieved.",
-    type: CreateParticipantDto,
+    type: ParticipantResponseDto,
   })
-  findOne(@Param("id", ParseIntPipe) id: number) {
-    return this.participantService.findOne(id);
+  async findOne(@Param("id", ParseIntPipe) id: number) {
+    const rawParticipant = await this.participantService.findOne(id);
+    return plainToInstance(ParticipantResponseDto, rawParticipant);
   }
 
   @Patch(":id")
