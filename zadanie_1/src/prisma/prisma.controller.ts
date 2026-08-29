@@ -1,4 +1,11 @@
-import { Controller, Post, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Delete,
+  Body,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { PrismaService } from './prisma.service';
 
 @Controller('expenses')
