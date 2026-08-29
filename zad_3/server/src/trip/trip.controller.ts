@@ -7,8 +7,10 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  DefaultValuePipe,
+  Query,
 } from "@nestjs/common";
-import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from "@nestjs/swagger";
 import { TripService } from "./trip.service";
 import { CreateTripDto } from "./dto/create-trip.dto";
 import { UpdateTripDto } from "./dto/update-trip.dto";
@@ -37,13 +39,28 @@ export class TripController {
     summary: "Retrieve a list of trips",
     description: "Retrieves a list of trips from the database.",
   })
+  @ApiQuery({
+    name: "offset",
+    type: Number,
+    required: false,
+    description: "Amount to skip (default is 0)",
+  })
+  @ApiQuery({
+    name: "limit",
+    type: Number,
+    required: false,
+    description: "Max amount of returned records (default is 10)",
+  })
   @ApiResponse({
     status: 200,
     description: "A list of trips has been successfully retrieved.",
     type: [CreateTripDto],
   })
-  async findAll() {
-    return this.tripService.findAll();
+  async findAll(
+    @Query("offset", new DefaultValuePipe(0), ParseIntPipe) offset: number,
+    @Query("limit", new DefaultValuePipe(10), ParseIntPipe) limit: number,
+  ) {
+    return this.tripService.findAll(offset, limit);
   }
 
   @Get(":id")

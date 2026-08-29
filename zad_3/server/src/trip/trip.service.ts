@@ -16,8 +16,11 @@ export class TripService {
     });
   }
 
-  async findAll() {
-    return this.prisma.trip.findMany();
+  async findAll(offset: number, limit: number) {
+    return this.prisma.trip.findMany({
+      skip: offset,
+      take: limit,
+    });
   }
 
   async findOne(id: number) {
