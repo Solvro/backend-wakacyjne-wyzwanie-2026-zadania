@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -21,6 +22,7 @@ import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { Trip } from './entities/trip.entity';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @ApiTags('trip')
 @Controller('trip')
@@ -39,13 +41,12 @@ export class TripController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Retrieve all trips' })
+  @ApiOperation({ summary: 'Retrieve all trips with pagination' })
   @ApiOkResponse({
-    description: 'List of all trips.',
-    type: [Trip],
+    description: 'Paginated list of trips.',
   })
-  findAll() {
-    return this.tripService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.tripService.findAll(paginationDto);
   }
 
   @Get(':id')

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -21,6 +22,7 @@ import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { Expense } from './entities/expense.entity';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @ApiTags('expense')
 @Controller('expense')
@@ -39,13 +41,12 @@ export class ExpenseController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Retrieve all expenses' })
+  @ApiOperation({ summary: 'Retrieve all expenses with pagination' })
   @ApiOkResponse({
-    description: 'List of all expenses.',
-    type: [Expense],
+    description: 'Paginated list of expenses.',
   })
-  findAll() {
-    return this.expenseService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.expenseService.findAll(paginationDto);
   }
 
   @Get(':id')

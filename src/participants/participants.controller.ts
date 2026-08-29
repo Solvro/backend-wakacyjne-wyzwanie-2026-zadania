@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -21,6 +22,7 @@ import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { Participant } from './entities/participant.entity';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @ApiTags('participants')
 @Controller('participants')
@@ -39,13 +41,12 @@ export class ParticipantsController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Retrieve all participants' })
+  @ApiOperation({ summary: 'Retrieve all participants with pagination' })
   @ApiOkResponse({
-    description: 'List of all participants.',
-    type: [Participant],
+    description: 'Paginated list of participants.',
   })
-  findAll() {
-    return this.participantsService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.participantsService.findAll(paginationDto);
   }
 
   @Get(':id')

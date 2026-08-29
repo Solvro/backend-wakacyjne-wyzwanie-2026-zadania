@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class TripService {
@@ -11,8 +12,28 @@ export class TripService {
     return this.prisma.trip.create({ data: createTripDto });
   }
 
-  findAll() {
-    return this.prisma.trip.findMany();
+  async findAll(paginationDto?: PaginationDto) {
+    const page = paginationDto?.page ?? 1;
+    const limit = paginationDto?.limit ?? 10;
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await Promise.all([
+      this.prisma.trip.findMany({
+        skip,
+        take: limit,
+      }),
+      this.prisma.trip.count(),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   findOne(id: number) {
