@@ -1,0 +1,32 @@
+@baseUrl = http://localhost:3000/trip
+###
+GET {{baseUrl}}/?limit=1&offset=1
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/1
+Accept: application/json
+
+###
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "destination": "Rzym",
+  "date": "2026-10-15"
+}
+
+###
+
+PATCH {{baseUrl}}/2
+Content-Type: application/json
+
+{
+  "date": "2026-10-16"
+}
+
+###
+DELETE {{baseUrl}}/2
+Accept: application/json

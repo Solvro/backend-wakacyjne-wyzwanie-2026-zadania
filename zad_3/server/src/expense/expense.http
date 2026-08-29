@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:3000/expense
+###
+GET {{baseUrl}}
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/1
+Accept: application/json
+
+###
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "tripId": 1,
+  "participantId": 1,
+  "value": 145.50,
+  "includesTransport": true,
+  "timestamp": "2026-08-29T12:00:00Z"
+}
+
+###
+
+PATCH {{baseUrl}}/2
+Content-Type: application/json
+
+{
+  "value": 160.00,
+  "includesTransport": false
+}
+
+###
+DELETE {{baseUrl}}/2
+Accept: application/json
