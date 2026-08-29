@@ -47,7 +47,7 @@ export class TripService {
   }
 
   async update(id: number, dto: UpdateTripDto) {
-    await this.findOne(id); // throws NotFoundException if not found
+    await this.findOne(id); 
 
     return this.prisma.trip.update({
       where: { id },
@@ -64,7 +64,7 @@ export class TripService {
   }
 
   async remove(id: number) {
-    await this.findOne(id); // throws NotFoundException if not found
+    await this.findOne(id); 
 
     return this.prisma.trip.delete({
       where: { id },

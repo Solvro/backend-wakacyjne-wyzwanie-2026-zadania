@@ -1,9 +1,4 @@
-import { TripCategory } from '@prisma/client';
+import { PartialType } from '@nestjs/swagger';
+import { CreateTripDto } from './create-trip.dto';
 
-export class UpdateTripDto {
-  title?: string;
-  category?: TripCategory;
-  startDate?: string;
-  endDate?: string;
-  description?: string;
-}
+export class UpdateTripDto extends PartialType(CreateTripDto) {}
