@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
@@ -18,17 +27,20 @@ export class ExpenseController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.expenseService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.expenseService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
-    return this.expenseService.update(+id, updateExpenseDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateExpenseDto: UpdateExpenseDto,
+  ) {
+    return this.expenseService.update(id, updateExpenseDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.expenseService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.expenseService.remove(id);
   }
 }

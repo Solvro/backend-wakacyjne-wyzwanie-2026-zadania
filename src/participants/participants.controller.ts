@@ -4,17 +4,20 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
+import { CreateParticipantDto } from './dto/create-participant.dto';
+import { UpdateParticipantDto } from './dto/update-participant.dto';
 
 @Controller('participants')
 export class ParticipantsController {
   constructor(private readonly participantsService: ParticipantsService) {}
 
   @Post()
-  create(@Body() createParticipantDto) {
+  create(@Body() createParticipantDto: CreateParticipantDto) {
     return this.participantsService.create(createParticipantDto);
   }
 
@@ -24,17 +27,20 @@ export class ParticipantsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.participantsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.participantsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateParticipantDto) {
-    return this.participantsService.update(+id, updateParticipantDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateParticipantDto: UpdateParticipantDto,
+  ) {
+    return this.participantsService.update(id, updateParticipantDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.participantsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.participantsService.remove(id);
   }
 }
