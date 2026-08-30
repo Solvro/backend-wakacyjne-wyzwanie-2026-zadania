@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { DatabaseService } from 'src/database/database.service';
@@ -12,26 +12,48 @@ export class TripService {
     return this.databaseService.trip.create({
       data: {
         title: createTripDto.title,
-        startDate: createTripDto.startDate,
-        endDate: createTripDto.endDate,
+        startDate: new Date(createTripDto.startDate),
+        endDate: createTripDto.endDate ? new Date(createTripDto.endDate) : null,
         status: createTripDto.status,
       },
     });
   }
 
-  findAll() {
-    return `This action returns all trip`;
+  async findAll(): Promise<Trip[]> {
+    return this.databaseService.trip.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} trip`;
+  async findOne(id: number): Promise<Trip> {
+    const trip = await this.databaseService.trip.findUnique({
+      where: { id },
+    });
+    if (!trip) {
+      throw new NotFoundException(`Trip with id ${id} not found`);
+    }
+    return trip;
   }
 
-  update(id: number, updateTripDto: UpdateTripDto) {
-    return `This action updates a #${id} trip`;
+  async update(id: number, updateTripDto: UpdateTripDto): Promise<Trip> {
+    await this.findOne(id);
+    return this.databaseService.trip.update({
+      where: { id },
+      data: {
+        title: updateTripDto.title,
+        startDate: updateTripDto.startDate
+          ? new Date(updateTripDto.startDate)
+          : undefined,
+        endDate: updateTripDto.endDate
+          ? new Date(updateTripDto.endDate)
+          : undefined,
+        status: updateTripDto.status,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} trip`;
+  async remove(id: number): Promise<Trip> {
+    await this.findOne(id);
+    return this.databaseService.trip.delete({
+      where: { id },
+    });
   }
 }
