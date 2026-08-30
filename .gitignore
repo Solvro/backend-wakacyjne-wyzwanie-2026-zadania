@@ -1,16 +1,44 @@
-# IntelliJ / IDE
-**/ .idea/
-**/*.iml
+# IntelliJ / WebStorm / IDE
 .idea/
 *.iml
+*.iws
+*.ipr
+out/
 
-# Java / Gradle / Build
-**/target/
-**/build/
-.gradle/
+# Dependencies & Build
+node_modules/
+**/node_modules/
+dist/
+**/dist/
 build/
+**/build/
 target/
+**/target/
+.gradle/
 
-# Systemowe
+# Environment & local config
+.env
+**/.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS Files
 .DS_Store
 Thumbs.db
+
+# AI Assistant Skills & Artifacts
+.agents/
+**/.agents/
+.claude/
+**/.claude/
+.windsurf/
+**/.windsurf/
+skills-lock.json
+**/skills-lock.json
