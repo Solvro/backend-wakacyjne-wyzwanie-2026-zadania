@@ -1,0 +1,1 @@
+{"version":3,"file":"trips.service.d.ts","sourceRoot":"","sources":["trips.service.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,aAAa,EAAE,MAAM,uBAAuB,CAAC;AACtD,OAAO,EAAE,aAAa,EAAE,MAAM,uBAAuB,CAAC;AAEtD,qBACa,YAAY;IACvB,MAAM,CAAC,aAAa,EAAE,aAAa;IAInC,OAAO;IAIP,OAAO,CAAC,EAAE,EAAE,MAAM;IAIlB,MAAM,CAAC,EAAE,EAAE,MAAM,EAAE,aAAa,EAAE,aAAa;IAI/C,MAAM,CAAC,EAAE,EAAE,MAAM;CAGlB"}

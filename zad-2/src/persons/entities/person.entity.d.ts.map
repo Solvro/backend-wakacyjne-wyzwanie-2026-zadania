@@ -1,0 +1,1 @@
+{"version":3,"file":"person.entity.d.ts","sourceRoot":"","sources":["person.entity.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,8BAA8B,CAAC;AAE3D,qBAAa,MAAM;IACf,EAAE,EAAG,MAAM,CAAC;IACZ,UAAU,EAAG,MAAM,CAAC;IACpB,SAAS,EAAG,MAAM,CAAC;IACnB,GAAG,EAAG,IAAI,CAAC;IACX,MAAM,EAAG,MAAM,CAAC;CACnB"}

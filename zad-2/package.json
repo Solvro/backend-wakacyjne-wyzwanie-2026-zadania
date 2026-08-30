@@ -2,25 +2,37 @@
   "type": "module",
   "name": "zad-2",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^26.2.0",
     "@types/pg": "^8.23.1",
-    "prisma": "^7.9.1",
+    "prisma": "^7.10.0",
     "tsx": "^4.23.12",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@nestjs/common": "^11.2.1",
-    "@prisma/adapter-pg": "^7.9.1",
-    "@prisma/client": "^7.9.1",
+    "@nestjs/common": "^12.0.1",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/platform-express": "^12.0.1",
+    "@nestjs/swagger": "^12.0.1",
+    "@nestjs/testing": "^12.0.1",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/adapter-ppg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "@prisma/ppg": "^1.0.1",
+    "class-validator": "^0.15.1",
     "dotenv": "^17.4.2",
-    "pg": "^8.23.0"
+    "node": "^26.8.1",
+    "pg": "^8.23.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
   }
 }

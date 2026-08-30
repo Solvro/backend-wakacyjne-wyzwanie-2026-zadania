@@ -1,0 +1,1 @@
+{"version":3,"file":"create-person.dto.d.ts","sourceRoot":"","sources":["create-person.dto.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,MAAM,EAAE,MAAM,8BAA8B,CAAC;AAGtD,qBAAa,eAAe;IAGxB,EAAE,EAAG,MAAM,CAAC;IAGZ,UAAU,EAAG,MAAM,CAAC;IAGpB,SAAS,EAAG,MAAM,CAAC;IAEnB,GAAG,EAAG,IAAI,CAAC;IAGX,MAAM,EAAG,MAAM,CAAC;CACnB"}
