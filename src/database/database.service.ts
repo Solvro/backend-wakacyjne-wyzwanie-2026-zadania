@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from 'src/generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
