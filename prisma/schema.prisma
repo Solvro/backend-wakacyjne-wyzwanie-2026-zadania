@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -11,8 +10,10 @@ model Participant {
   id               Int               @id @default(autoincrement())
   name             String
   surname          String
-  email            String
-  tel              String
+  email            String?
+  tel              String?
+
+
   expenses         Expense[]
   tripParticipants TripParticipant[] 
 }
@@ -25,6 +26,7 @@ model Trip {
   end              DateTime
   cost             Float
   status           TripStatus
+  
   expenses         Expense[]
   tripParticipants TripParticipant[]
 }
@@ -32,7 +34,8 @@ model Trip {
 model TripParticipant {
   id            Int         @id @default(autoincrement())
   tripId        Int         
-  participantId Int         
+  participantId Int  
+
   trip          Trip        @relation(fields: [tripId], references: [id])
   participant   Participant @relation(fields: [participantId], references: [id])
 }
@@ -43,7 +46,8 @@ model Expense {
   payerId     Int             
   tripId      Int             
   amount      Float
-  category    ExpenseCategory
+  category    ExpenseCategory?
+
   payer       Participant     @relation(fields: [payerId], references: [id])
   trip        Trip            @relation(fields: [tripId], references: [id])
 }
