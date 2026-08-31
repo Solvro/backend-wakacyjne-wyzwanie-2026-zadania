@@ -13,7 +13,7 @@ import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('trip')
+@Controller('trips')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 

@@ -13,7 +13,7 @@ import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('participant')
+@Controller('participants')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
