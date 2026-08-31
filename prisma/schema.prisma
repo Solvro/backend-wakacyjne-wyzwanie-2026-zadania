@@ -1,39 +1,26 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  ADMIN
-  USER
-}
-
 model Trip {
-  id           Int           @id @default(autoincrement())
-  name         String
-  startDate    DateTime
-  participants Participant[]
-  expenses     Expense[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  startDate DateTime
 }
 
 model Participant {
-  id       Int       @id @default(autoincrement())
-  name     String
-  role     Role
-  tripId   Int
-  trip     Trip      @relation(fields: [tripId], references: [id])
-  expenses Expense[]
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
 }
 
 model Expense {
-  id            Int         @id @default(autoincrement())
-  amount        Float
-  description   String?
-  tripId        Int
-  trip          Trip        @relation(fields: [tripId], references: [id])
-  participantId Int
-  participant   Participant @relation(fields: [participantId], references: [id])
+  id        Int      @id @default(autoincrement())
+  name      String
+  amount    Float
 }
