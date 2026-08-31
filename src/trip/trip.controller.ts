@@ -47,7 +47,7 @@ export class TripController {
   @ApiResponse({
     status: 200,
     description: "Trip retrieved successfully",
-    type: [CreateTripResponseDto]
+    type: CreateTripResponseDto
   })
   @ApiResponse({
     status: 404,
@@ -65,7 +65,7 @@ export class TripController {
   @ApiResponse({
     status: 200,
     description: "Trip updated successfully",
-    type: [CreateTripResponseDto]
+    type: CreateTripResponseDto
   })
   @ApiResponse({
     status: 404,
@@ -83,7 +83,7 @@ export class TripController {
   @ApiResponse({
     status: 200,
     description: "Trip deleted successfully",
-    type: [CreateTripResponseDto]
+    type: CreateTripResponseDto
   })
   @ApiResponse({
     status: 404,

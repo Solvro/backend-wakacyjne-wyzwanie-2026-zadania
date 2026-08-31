@@ -58,6 +58,28 @@ export class ExpenseService {
 
   async update(id: number, updateExpenseDto: UpdateExpenseDto) {
     await this.findOne(id);
+
+    if (updateExpenseDto.tripId !== undefined) {
+      const trip = await this.databaseService.trip.findUnique({
+        where: { id: updateExpenseDto.tripId },
+      });
+      if (!trip) {
+        throw new NotFoundException(
+          `Trip with this ID not found`,
+        );
+      }
+    }
+
+    if (updateExpenseDto.payerId !== undefined) {
+      const payer = await this.databaseService.participant.findUnique({
+        where: { id: updateExpenseDto.payerId },
+      });
+      if (!payer) {
+        throw new NotFoundException(
+          `Participant with this ID not found`,
+        );
+      }
+    }
     return this.databaseService.expense.update({
       where: { id },
       data: {

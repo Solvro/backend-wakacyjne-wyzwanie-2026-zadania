@@ -46,6 +46,17 @@ export class ParticipantService {
 
   async update(id: number, updateParticipantDto: UpdateParticipantDto) {
     await this.findOne(id);
+
+    if (updateParticipantDto.tripId !== undefined) {
+      const trip = await this.databaseService.trip.findUnique({
+        where: { id: updateParticipantDto.tripId },
+      });
+      if (!trip) {
+        throw new NotFoundException(
+          `Trip with this ID not found`,
+        );
+      }
+    }
     return this.databaseService.participant.update({
       where: { id },
       data: {

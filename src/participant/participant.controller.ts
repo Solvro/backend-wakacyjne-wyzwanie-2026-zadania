@@ -46,7 +46,7 @@ export class ParticipantController {
   @ApiResponse({
     status: 200,
     description: "Participant retrieved successfully",
-    type: [CreateParticipantResponseDto]
+    type: CreateParticipantResponseDto
   })
   @ApiResponse({
     status: 404,
@@ -64,7 +64,7 @@ export class ParticipantController {
   @ApiResponse({
     status: 200,
     description: "Participant updated successfully",
-    type: [CreateParticipantResponseDto]
+    type: CreateParticipantResponseDto
   })
   @ApiResponse({
     status: 404,
@@ -82,7 +82,7 @@ export class ParticipantController {
   @ApiResponse({
     status: 200,
     description: "Participant deleted successfully",
-    type: [CreateParticipantResponseDto]
+    type: CreateParticipantResponseDto
   })
   @ApiResponse({
     status: 404,

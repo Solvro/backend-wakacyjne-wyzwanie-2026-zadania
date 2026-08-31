@@ -46,7 +46,7 @@ export class ExpenseController {
   @ApiResponse({
     status: 200,
     description: "Expense retrieved successfully",
-    type: [CreateExpenseResponseDto]
+    type: CreateExpenseResponseDto
   })
   @ApiResponse({
     status: 404,
@@ -64,7 +64,7 @@ export class ExpenseController {
   @ApiResponse({
     status: 200,
     description: "Expense updated successfully",
-    type: [CreateExpenseResponseDto]
+    type: CreateExpenseResponseDto
   })
   @ApiResponse({
     status: 404,
@@ -82,7 +82,7 @@ export class ExpenseController {
   @ApiResponse({
     status: 200,
     description: "Expense deleted successfully",
-    type: [CreateExpenseResponseDto]
+    type: CreateExpenseResponseDto
   })
   @ApiResponse({
     status: 404,
