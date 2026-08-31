@@ -3,9 +3,10 @@ import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ParseIntPipe } from '@nestjs/common';
-import { ApiOperation, ApiResponse} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse} from '@nestjs/swagger';
 
 @Controller('expense')
+@ApiTags('expense')
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
 

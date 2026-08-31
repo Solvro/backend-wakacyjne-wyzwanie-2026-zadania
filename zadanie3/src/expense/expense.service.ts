@@ -50,7 +50,7 @@ export class ExpenseService {
     })
 
     if( ! expense){
-      throw new NotFoundException('Expense with id ${id} not found');
+      throw new NotFoundException(`Expense with id ${id} not found`);
     }
 
     return expense;

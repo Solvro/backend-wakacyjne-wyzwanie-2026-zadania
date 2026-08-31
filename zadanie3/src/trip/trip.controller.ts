@@ -3,9 +3,10 @@ import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { ParseIntPipe } from '@nestjs/common';
-import { ApiOperation, ApiResponse} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse} from '@nestjs/swagger';
 
 @Controller('trip')
+@ApiTags('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 

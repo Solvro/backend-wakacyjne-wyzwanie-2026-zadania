@@ -42,7 +42,7 @@ export class TripService {
     });
 
     if(! trip){
-      throw new NotFoundException('Trip with id ${id} not found');
+      throw new NotFoundException(`Trip with id ${id} not found`);
     }
 
     return trip;

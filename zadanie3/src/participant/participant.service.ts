@@ -48,7 +48,7 @@ export class ParticipantService {
     })
     
     if( ! participant) {
-      throw new NotFoundException('Participant with id ${id} not found');
+      throw new NotFoundException(`Participant with id ${id} not found`);
     }
 
     return participant;

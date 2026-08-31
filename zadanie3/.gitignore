@@ -14,9 +14,9 @@ lerna-debug.log*
 
 #added by me
 /.nest
-zadanie3.agents
-zadanie3.claude
-zadanie3.windsurf
+zadanie3/.agents
+zadnie3/.claude
+zadanie3/.windsurf
 .codeium
 .copilot
 .history
