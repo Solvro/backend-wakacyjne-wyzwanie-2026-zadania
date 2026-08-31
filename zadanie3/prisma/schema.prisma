@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client"
+  output          = "../src/generated/prisma"
+  moduleFormat  = "cjs"
+}
+
+model Expense {
+  id      Int    @id @default(autoincrement())
+  type    Type   @default(ACCOMMODATION)
+  amount  Float
+  tripId  Int
+  trip    Trip   @relation(fields: [tripId], references: [id])
+}
+
+model Participant {
+  id             Int      @id @default(autoincrement())
+  name           String
+  surname        String
+  diet           Diet?
+  date_of_birth  DateTime
+  trips          Trip[]   @relation("ParticipantToTrip")
+}
+
+model Trip {
+  id           Int           @id @default(autoincrement())
+  city         City          @default(WARSAW)
+  food         Food          @default(BREAKFAST)
+  expenses     Expense[]
+  participants Participant[] @relation("ParticipantToTrip")
+}
+
+enum Type {
+  ACCOMMODATION
+  TRANSPORTATION
+  FOOD
+}
+
+enum Diet {
+  VEGETARIAN
+  VEGAN
+  GLUTEN_FREE
+  LACTOSE_FREE
+}
+
+enum City {
+  WARSAW
+  SEOUL
+  PARIS
+  TOKYO
+  SZANGHAI
+  SINGAPORE
+}
+
+enum Food {
+  ALL_INCLUSIVE
+  MEALS_3
+  MEALS_2
+  BREAKFAST
+  WITHOUT
+}
+
