@@ -1,39 +1,57 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service.js';
-import { Status } from '@prisma/client';
-
-export interface TripInput {
-    name: string; 
-    startDate: string; 
-    endDate?: string;
-}
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateTripDto } from './dto/create-trip.dto';
+import { UpdateTripDto } from './dto/update-trip.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
-export class TripService{
+export class TripService {
+  constructor(private prismaService: PrismaService) {};
 
-    constructor(private readonly prisma: PrismaService) {}
+  async create(createTripDto: CreateTripDto) {
+    return this.prismaService.trip.create({
+      data: {
+        name: createTripDto.name,  
+        startDate: createTripDto.startDate,
+        endDate: createTripDto.endDate, 
+        status: createTripDto.status,   
+      }
+    });
+  }
 
-    async getAllTrips() {
-        return this.prisma.trip.findMany({
-            include: {
-                participants: {
-                    include: {
-                        participant: true,
-                        expenses: true
-                    }
-                }
-            }
-        })
+  async findAll() {
+    return this.prismaService.trip.findMany();
+  }
+
+  async findOne(id: number) {
+    const value = this.prismaService.trip.findUnique({
+      where: {id}
+    })
+
+    if (!value){
+      throw new NotFoundException("No trip with this id found in DB");
     }
 
-    async createTrip(body: TripInput) {
-        return this.prisma.trip.create({
-          data: {
-            name: body.name,
-            startDate: new Date(body.startDate),
-            endDate: body.endDate ? new Date(body.endDate) : null,
-            status: Status.PLANNING,
-          },
+    return value
+  }
+
+  async update(id: number, updateTripDto: UpdateTripDto) {
+    await this.findOne(id)
+    return this.prismaService.trip.update({
+      where: {id},
+      data: {
+        name: updateTripDto.name,  
+        startDate: updateTripDto.startDate,
+        endDate: updateTripDto.endDate, 
+        status: updateTripDto.status,   
+      }
+    })
+  }
+
+  async remove(id: number) {
+    await this.findOne(id);
+    return this.prismaService.trip.delete({
+      where: {id}
     });
-}
+  }
 }
