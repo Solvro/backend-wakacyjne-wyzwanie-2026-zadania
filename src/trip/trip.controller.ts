@@ -9,17 +9,20 @@ import {
   ParseIntPipe,
   Query,
   DefaultValuePipe,
+  UseGuards,
 } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Trips')
 @Controller('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: 'Utwórz nową wycieczkę',
@@ -72,6 +75,7 @@ export class TripController {
     return this.tripService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: 'Zaktualizuj wycieczkę' })
   @ApiResponse({
@@ -85,6 +89,7 @@ export class TripController {
     return this.tripService.update(id, updateTripDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: 'Usuń wycieczkę' })
   @ApiResponse({

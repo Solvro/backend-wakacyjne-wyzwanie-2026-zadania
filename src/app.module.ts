@@ -5,9 +5,18 @@ import { DatabaseModule } from './database/database.module';
 import { ParticipantModule } from './participant/participant.module';
 import { ExpenseModule } from './expense/expense.module';
 import { TripModule } from './trip/trip.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [DatabaseModule, ParticipantModule, ExpenseModule, TripModule],
+  imports: [
+    DatabaseModule,
+    ParticipantModule,
+    ExpenseModule,
+    TripModule,
+    AuthModule,
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

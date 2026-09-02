@@ -9,12 +9,15 @@ import {
   ParseIntPipe,
   Query,
   DefaultValuePipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Participants')
 @Controller('participant')
 export class ParticipantController {

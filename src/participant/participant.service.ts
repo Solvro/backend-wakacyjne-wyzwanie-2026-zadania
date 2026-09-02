@@ -8,23 +8,27 @@ export class ParticipantService {
   constructor(private databaseService: DatabaseService) {}
 
   async create(createParticipantDto: CreateParticipantDto) {
-    return this.databaseService.participant.create({
+    return (this.databaseService as any).participant.create({
       data: {
         name: createParticipantDto.name,
-        tripId: createParticipantDto.tripId,
+        trips: {
+          connect: { id: createParticipantDto.tripId },
+        },
       },
     });
   }
 
   async findAll(skip?: number, take?: number) {
-    return this.databaseService.participant.findMany({
+    return (this.databaseService as any).participant.findMany({
       skip,
       take,
     });
   }
 
   async findOne(id: number) {
-    const participant = await this.databaseService.participant.findUnique({
+    const participant = await (
+      this.databaseService as any
+    ).participant.findUnique({
       where: { id },
     });
 
@@ -36,18 +40,26 @@ export class ParticipantService {
 
   async update(id: number, updateParticipantDto: UpdateParticipantDto) {
     await this.findOne(id);
-    return this.databaseService.participant.update({
+
+    const dataToUpdate: any = {
+      name: updateParticipantDto.name,
+    };
+
+    if (updateParticipantDto.tripId) {
+      dataToUpdate.trips = {
+        connect: { id: updateParticipantDto.tripId },
+      };
+    }
+
+    return (this.databaseService as any).participant.update({
       where: { id },
-      data: {
-        name: updateParticipantDto.name,
-        tripId: updateParticipantDto.tripId,
-      },
+      data: dataToUpdate,
     });
   }
 
   async remove(id: number) {
     await this.findOne(id);
-    return this.databaseService.participant.delete({
+    return (this.databaseService as any).participant.delete({
       where: { id },
     });
   }
