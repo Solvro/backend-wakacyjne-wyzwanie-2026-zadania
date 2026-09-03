@@ -24,7 +24,7 @@ export class TripService {
   }
 
   async findOne(id: number) {
-    const value = this.prismaService.trip.findUnique({
+    const value = await this.prismaService.trip.findUnique({
       where: {id}
     })
 

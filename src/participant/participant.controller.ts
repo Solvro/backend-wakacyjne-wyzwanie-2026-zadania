@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
@@ -12,7 +12,6 @@ export class ParticipantController {
   @ApiOperation({summary: "Add a new participant"})
   @ApiResponse({status: 201, description: "The participant has been successfully created."})
   @ApiResponse({status: 400, description: "Bad request."})
-  @UsePipes(new ValidationPipe)
   create(@Body() createParticipantDto: CreateParticipantDto) {
     return this.participantService.create(createParticipantDto);
   }
@@ -37,7 +36,6 @@ export class ParticipantController {
   @ApiResponse({status: 200, description: "The participant has been successfully updated."})
   @ApiResponse({status: 400, description: "Bad request."})
   @ApiResponse({status: 404, description: "Participant not found."})
-  @UsePipes(new ValidationPipe)
   update(@Param('id') id: string, @Body() updateParticipantDto: UpdateParticipantDto) {
     return this.participantService.update(+id, updateParticipantDto);
   }

@@ -23,7 +23,7 @@ export class ParticipantService {
   }
 
   async findOne(id: number) {
-    const participant = this.prismaService.participant.findUnique({
+    const participant = await this.prismaService.participant.findUnique({
       where: {id}
     });
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
@@ -12,7 +12,6 @@ export class ExpenseController {
   @ApiOperation({summary: "Add a new expense"})
   @ApiResponse({status: 201, description: "The expense has been successfully created."})
   @ApiResponse({status: 400, description: "Bad request."})
-  @UsePipes(new ValidationPipe)
   create(@Body() createExpenseDto: CreateExpenseDto) {
     return this.expenseService.create(createExpenseDto);
   }
@@ -37,7 +36,6 @@ export class ExpenseController {
   @ApiResponse({status: 200, description: "The expense has been successfully updated."})
   @ApiResponse({status: 400, description: "Bad request."})
   @ApiResponse({status: 404, description: "Expense not found."})
-  @UsePipes(new ValidationPipe)
   update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
     return this.expenseService.update(+id, updateExpenseDto);
   }

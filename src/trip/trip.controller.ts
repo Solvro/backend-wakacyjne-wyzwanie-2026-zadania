@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
@@ -12,7 +12,6 @@ export class TripController {
   @ApiOperation({summary: "Add a new trip"})
   @ApiResponse({status: 201, description: "The expense has been successfully created."})
   @ApiResponse({status: 400, description: "Bad request."})
-  @UsePipes(new ValidationPipe)
   create(@Body() createTripDto: CreateTripDto) {
     return this.tripService.create(createTripDto);
   }
@@ -37,7 +36,6 @@ export class TripController {
   @ApiResponse({status: 200, description: "The trip has been successfully updated."})
   @ApiResponse({status: 400, description: "Bad request."})
   @ApiResponse({status: 404, description: "Trip not found."})
-  @UsePipes(new ValidationPipe)
   update(@Param('id') id: string, @Body() updateTripDto: UpdateTripDto) {
     return this.tripService.update(+id, updateTripDto);
   }
