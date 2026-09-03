@@ -4,8 +4,8 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -66,6 +66,14 @@ model Expense {
 
   trip        Trip        @relation(fields: [trip_id], references: [id])
   participant Participant @relation(fields: [participant_id], references: [id])
+}
+
+model User {
+  id         Int    @id @default(autoincrement())
+  email      String @unique
+  password   String
+  first_name String
+  last_name  String
 }
 
 model Trip_Participant {
