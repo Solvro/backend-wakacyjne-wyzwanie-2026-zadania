@@ -6,6 +6,7 @@ import { ParticipantModule } from './participant/participant.module';
 import { TripModule } from './trip/trip.module';
 import { ExpenseModule } from './expense/expense.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     TripModule,
     ExpenseModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
