@@ -23,6 +23,7 @@ async function bootstrap() {
     .addTag('trips', 'Zarządzanie wycieczkami')
     .addTag('expenses', 'Zarządzanie wydatkami')
     .addTag('auth', 'Uwierzytelnianie i autoryzacja')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
