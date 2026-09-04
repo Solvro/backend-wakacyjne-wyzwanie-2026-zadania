@@ -15,6 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TripsController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const swagger_2 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("./auth/jwt-auth.guard");
+const common_2 = require("@nestjs/common");
 const trips_service_1 = require("./trips/trips.service");
 const create_trip_dto_1 = require("./trips/dto/create-trip.dto");
 const update_trip_dto_1 = require("./trips/dto/update-trip.dto");
@@ -23,20 +26,20 @@ let TripsController = class TripsController {
     constructor(tripsService) {
         this.tripsService = tripsService;
     }
-    findAll() {
-        return this.tripsService.findAll();
+    findAll(request) {
+        return this.tripsService.findAll(request.user.id);
     }
-    create(createTripDto) {
-        return this.tripsService.create(createTripDto);
+    create(request, createTripDto) {
+        return this.tripsService.create(request.user.id, createTripDto);
     }
-    findOne(id) {
-        return this.tripsService.findOne(id);
+    findOne(request, id) {
+        return this.tripsService.findOne(request.user.id, id);
     }
-    update(id, updateTripDto) {
-        return this.tripsService.update(id, updateTripDto);
+    update(request, id, updateTripDto) {
+        return this.tripsService.update(request.user.id, id, updateTripDto);
     }
-    remove(id) {
-        return this.tripsService.remove(id);
+    remove(request, id) {
+        return this.tripsService.remove(request.user.id, id);
     }
 };
 exports.TripsController = TripsController;
@@ -44,17 +47,19 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({ summary: 'List all trips' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Trips returned successfully.' }),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create a trip' }),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Trip created successfully.' }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_trip_dto_1.CreateTripDto]),
+    __metadata("design:paramtypes", [Object, create_trip_dto_1.CreateTripDto]),
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "create", null);
 __decorate([
@@ -62,9 +67,10 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Get a trip by ID' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Trip returned successfully.' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Trip not found.' }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "findOne", null);
 __decorate([
@@ -72,10 +78,11 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update a trip' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Trip updated successfully.' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Trip not found.' }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_trip_dto_1.UpdateTripDto]),
+    __metadata("design:paramtypes", [Object, Number, update_trip_dto_1.UpdateTripDto]),
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "update", null);
 __decorate([
@@ -83,14 +90,17 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Delete a trip' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Trip deleted successfully.' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Trip not found.' }),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object, Number]),
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "remove", null);
 exports.TripsController = TripsController = __decorate([
     (0, common_1.Controller)('trips'),
     (0, swagger_1.ApiTags)('trips'),
+    (0, swagger_2.ApiBearerAuth)(),
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [trips_service_1.TripsService])
 ], TripsController);
 //# sourceMappingURL=trips.controller.js.map

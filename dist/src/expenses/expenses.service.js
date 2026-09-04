@@ -17,12 +17,14 @@ let ExpensesService = class ExpensesService {
     constructor(databaseService) {
         this.databaseService = databaseService;
     }
-    findAll() {
+    findAll(userId) {
         return this.databaseService.expense.findMany({
+            where: { trip: { userId } },
             include: { trip: true, participant: true },
         });
     }
-    create(createExpenseDto) {
+    async create(userId, createExpenseDto) {
+        await this.validateRelations(userId, createExpenseDto.tripId, createExpenseDto.participantId);
         return this.databaseService.expense.create({
             data: {
                 cost: createExpenseDto.cost,
@@ -33,9 +35,9 @@ let ExpensesService = class ExpensesService {
             },
         });
     }
-    async findOne(id) {
+    async findOne(userId, id) {
         const expense = await this.databaseService.expense.findUnique({
-            where: { id },
+            where: { id, trip: { userId } },
             include: { trip: true, participant: true },
         });
         if (!expense) {
@@ -43,8 +45,11 @@ let ExpensesService = class ExpensesService {
         }
         return expense;
     }
-    async update(id, updateExpenseDto) {
-        await this.findOne(id);
+    async update(userId, id, updateExpenseDto) {
+        const expense = await this.findOne(userId, id);
+        const tripId = updateExpenseDto.tripId ?? expense.tripId;
+        const participantId = updateExpenseDto.participantId ?? expense.participantId;
+        await this.validateRelations(userId, tripId, participantId);
         return this.databaseService.expense.update({
             where: { id },
             data: {
@@ -56,9 +61,18 @@ let ExpensesService = class ExpensesService {
             },
         });
     }
-    async remove(id) {
-        await this.findOne(id);
+    async remove(userId, id) {
+        await this.findOne(userId, id);
         return this.databaseService.expense.delete({ where: { id } });
+    }
+    async validateRelations(userId, tripId, participantId) {
+        const trip = await this.databaseService.trip.findFirst({ where: { id: tripId, userId } });
+        const participant = await this.databaseService.participant.findFirst({
+            where: { id: participantId, tripId },
+        });
+        if (!trip || !participant) {
+            throw new common_1.NotFoundException('Trip lub uczestnik nie istnieje w Twoich danych');
+        }
     }
 };
 exports.ExpensesService = ExpensesService;

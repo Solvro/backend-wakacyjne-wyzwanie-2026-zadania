@@ -7,26 +7,28 @@ import { UpdateTripDto } from './dto/update-trip.dto';
 export class TripsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  findAll() {
+  findAll(userId: number) {
     return this.databaseService.trip.findMany({
+      where: { userId },
       include: { expenses: true, participants: true },
     });
   }
 
-  create(createTripDto: CreateTripDto) {
+  create(userId: number, createTripDto: CreateTripDto) {
     return this.databaseService.trip.create({
       data: {
         destination: createTripDto.destination,
         startDate: new Date(createTripDto.startDate),
         endDate: createTripDto.endDate ? new Date(createTripDto.endDate) : undefined,
         status: createTripDto.status,
+        userId,
       },
     });
   }
 
-  async findOne(id: number) {
+  async findOne(userId: number, id: number) {
     const trip = await this.databaseService.trip.findUnique({
-      where: { id },
+      where: { id, userId },
       include: { expenses: true, participants: true },
     });
 
@@ -37,8 +39,8 @@ export class TripsService {
     return trip;
   }
 
-  async update(id: number, updateTripDto: UpdateTripDto) {
-    await this.findOne(id);
+  async update(userId: number, id: number, updateTripDto: UpdateTripDto) {
+    await this.findOne(userId, id);
 
     return this.databaseService.trip.update({
       where: { id },
@@ -51,8 +53,8 @@ export class TripsService {
     });
   }
 
-  async remove(id: number) {
-    await this.findOne(id);
-    return this.databaseService.trip.delete({ where: { id } });
+  async remove(userId: number, id: number) {
+    await this.findOne(userId, id);
+    return this.databaseService.trip.delete({ where: { id, userId } });
   }
 }
