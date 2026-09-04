@@ -6,8 +6,10 @@ import { AppService } from './app.service';
 import { ParticipantModule } from './participant/participant.module';
 import { ExpenseModule } from './expense/expense.module';
 import { TripModule } from './trip/trip.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), DatabaseModule, ParticipantModule, ExpenseModule, TripModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), DatabaseModule, ParticipantModule, ExpenseModule, TripModule, AuthModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

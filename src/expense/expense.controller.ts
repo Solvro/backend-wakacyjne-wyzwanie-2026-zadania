@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateExpenseResponseDto } from './dto/create-expense-response.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('expenses')
 @ApiTags("expenses")
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) { }
 
@@ -20,6 +23,7 @@ export class ExpenseController {
     description: "Expense created successfully",
     type: CreateExpenseResponseDto
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async create(@Body() createExpenseDto: CreateExpenseDto) {
     return this.expenseService.create(createExpenseDto);
   }
@@ -34,6 +38,7 @@ export class ExpenseController {
     description: "List retrieved successfully",
     type: [CreateExpenseResponseDto]
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async findAll() {
     return this.expenseService.findAll();
   }
@@ -52,6 +57,7 @@ export class ExpenseController {
     status: 404,
     description: " Expense not found"
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.expenseService.findOne(id);
   }
@@ -70,6 +76,7 @@ export class ExpenseController {
     status: 404,
     description: " Expense not found"
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateExpenseDto: UpdateExpenseDto) {
     return this.expenseService.update(id, updateExpenseDto);
   }
@@ -88,6 +95,7 @@ export class ExpenseController {
     status: 404,
     description: " Expense not found"
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async remove(@Param('id', ParseIntPipe) id: number) {
     return this.expenseService.remove(id);
   }
