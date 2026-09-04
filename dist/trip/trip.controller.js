@@ -87,6 +87,7 @@ __decorate([
 ], TripController.prototype, "remove", null);
 exports.TripController = TripController = __decorate([
     (0, swagger_1.ApiTags)('Trips'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('trips'),
     __metadata("design:paramtypes", [trip_service_1.TripService])
 ], TripController);

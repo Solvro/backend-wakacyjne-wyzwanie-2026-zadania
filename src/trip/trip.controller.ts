@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
@@ -7,6 +7,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 
 @ApiTags('Trips')
+@ApiBearerAuth()
 @Controller('trips')
 export class TripController {
   constructor(private readonly tripService: TripService) {}

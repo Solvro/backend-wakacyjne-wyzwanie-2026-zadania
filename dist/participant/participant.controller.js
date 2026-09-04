@@ -19,6 +19,7 @@ const create_participant_dto_1 = require("./dto/create-participant.dto");
 const update_participant_dto_1 = require("./dto/update-participant.dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const common_2 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 let ParticipantController = class ParticipantController {
     constructor(participantService) {
         this.participantService = participantService;
@@ -79,6 +80,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ParticipantController.prototype, "remove", null);
 exports.ParticipantController = ParticipantController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('participant'),
     __metadata("design:paramtypes", [participant_service_1.ParticipantService])
 ], ParticipantController);

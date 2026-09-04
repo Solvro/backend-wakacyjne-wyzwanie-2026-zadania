@@ -1,4 +1,4 @@
-import { Module, Global } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -10,7 +10,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
   imports: [
     PrismaModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secretKey',
+      secret: process.env.JWT_SECRET || "KeyString",
     }),
   ],
   controllers: [AuthController],

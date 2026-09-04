@@ -22,7 +22,7 @@ exports.AuthModule = AuthModule = __decorate([
         imports: [
             prisma_module_1.PrismaModule,
             jwt_1.JwtModule.register({
-                secret: process.env.JWT_SECRET || 'secretKey',
+                secret: process.env.JWT_SECRET || "KeyString",
             }),
         ],
         controllers: [auth_controller_1.AuthController],

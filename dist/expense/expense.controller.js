@@ -19,6 +19,7 @@ const create_expense_dto_1 = require("./dto/create-expense.dto");
 const update_expense_dto_1 = require("./dto/update-expense.dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const common_2 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 let ExpenseController = class ExpenseController {
     constructor(expenseService) {
         this.expenseService = expenseService;
@@ -79,6 +80,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ExpenseController.prototype, "remove", null);
 exports.ExpenseController = ExpenseController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('expense'),
     __metadata("design:paramtypes", [expense_service_1.ExpenseService])
 ], ExpenseController);

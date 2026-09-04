@@ -6,32 +6,32 @@ export declare class ParticipantController {
     constructor(participantService: ParticipantService);
     create(createParticipantDto: CreateParticipantDto): import(".prisma/client").Prisma.Prisma__ParticipantClient<{
         id: number;
+        tripId: number;
         name: string;
         email: string;
-        tripId: number;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
+        tripId: number;
         name: string;
         email: string;
-        tripId: number;
     }[]>;
     findOne(id: string): Promise<{
         id: number;
+        tripId: number;
         name: string;
         email: string;
-        tripId: number;
     }>;
     update(id: string, updateParticipantDto: UpdateParticipantDto): Promise<{
         id: number;
+        tripId: number;
         name: string;
         email: string;
-        tripId: number;
     }>;
     remove(id: string): Promise<{
         id: number;
+        tripId: number;
         name: string;
         email: string;
-        tripId: number;
     }>;
 }

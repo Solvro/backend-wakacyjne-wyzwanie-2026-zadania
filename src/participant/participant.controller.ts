@@ -4,7 +4,9 @@ import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
