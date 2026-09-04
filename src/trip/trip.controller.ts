@@ -7,11 +7,14 @@ import {
   Patch,
   ParseIntPipe,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { ApiOperation } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+@UseGuards(AuthGuard('jwt'))
 @Controller('trips')
 export class TripController {
   constructor(private readonly tripService: TripService) {}

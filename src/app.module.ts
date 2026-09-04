@@ -9,8 +9,15 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { ParticipantController } from './participant/participant.controller';
 import { ExpenseController } from './expense/expense.controller';
+import { UserModule } from './user/user.module';
 @Module({
-  imports: [TripModule, ExpenseModule, ParticipantModule, PrismaModule],
+  imports: [
+    TripModule,
+    ExpenseModule,
+    ParticipantModule,
+    PrismaModule,
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

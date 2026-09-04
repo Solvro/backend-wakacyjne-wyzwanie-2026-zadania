@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ApiOperation } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+@UseGuards(AuthGuard('jwt'))
 @Controller('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
