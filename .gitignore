@@ -21,6 +21,7 @@ target/
 **/.env
 .env.*
 !.env.example
+/generated/prisma
 
 # Logs
 logs

@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Expense {
+  id                     Int      @id @default(autoincrement())
+  title                  String
+  amount                 Decimal
+  currency               String
+  date                   DateTime @db.Date
+  trip_id                Int
+  paid_by_participant_id Int
+
+  // relacje
+  trip        Trip        @relation(fields: [trip_id], references: [id])
+  participant Participant @relation(fields: [paid_by_participant_id], references: [id])
+}
+
+model Trip {
+  id          Int      @id @default(autoincrement())
+  title       String
+  start_date  DateTime @db.Date
+  end_date    DateTime @db.Date
+  description String?
+
+  expenses Expense[]
+}
+
+model Participant {
+  id     Int    @id @default(autoincrement())
+  name   String
+  email  String
+  status String
+
+  expenses Expense[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+}
