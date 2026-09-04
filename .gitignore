@@ -56,7 +56,6 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
-.agents/skills
-.claude/skills
-.windsurf/skills
-generated/prisma
+/.agents/skills
+/.claude/skills
+/.windsurf/skills
