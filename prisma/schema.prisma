@@ -46,3 +46,11 @@ model Expense {
   payerId   Int
   paidBy    Participant     @relation(fields: [payerId], references: [id], onDelete: Cascade)
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

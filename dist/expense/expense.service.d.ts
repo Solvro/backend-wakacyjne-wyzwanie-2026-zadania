@@ -5,62 +5,62 @@ export declare class ExpenseService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(createExpenseDto: CreateExpenseDto): import(".prisma/client").Prisma.Prisma__ExpenseClient<{
-        title: string;
-        amount: number;
-        category: import(".prisma/client").$Enums.ExpenseCategory;
         createdAt: Date;
         id: number;
+        title: string;
         tripId: number;
+        amount: number;
+        category: import(".prisma/client").$Enums.ExpenseCategory;
         payerId: number;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
         trip: {
-            title: string;
             id: number;
+            title: string;
             budget: number;
             startDate: Date;
             endDate: Date | null;
         };
         paidBy: {
-            id: number;
-            tripId: number;
-            name: string;
             email: string;
+            id: number;
+            name: string;
+            tripId: number;
         };
     } & {
-        title: string;
-        amount: number;
-        category: import(".prisma/client").$Enums.ExpenseCategory;
         createdAt: Date;
         id: number;
+        title: string;
         tripId: number;
+        amount: number;
+        category: import(".prisma/client").$Enums.ExpenseCategory;
         payerId: number;
     })[]>;
     findOne(id: number): Promise<{
-        title: string;
-        amount: number;
-        category: import(".prisma/client").$Enums.ExpenseCategory;
         createdAt: Date;
         id: number;
+        title: string;
         tripId: number;
+        amount: number;
+        category: import(".prisma/client").$Enums.ExpenseCategory;
         payerId: number;
     }>;
     update(id: number, updateExpenseDto: UpdateExpenseDto): Promise<{
-        title: string;
-        amount: number;
-        category: import(".prisma/client").$Enums.ExpenseCategory;
         createdAt: Date;
         id: number;
+        title: string;
         tripId: number;
+        amount: number;
+        category: import(".prisma/client").$Enums.ExpenseCategory;
         payerId: number;
     }>;
     remove(id: number): Promise<{
-        title: string;
-        amount: number;
-        category: import(".prisma/client").$Enums.ExpenseCategory;
         createdAt: Date;
         id: number;
+        title: string;
         tripId: number;
+        amount: number;
+        category: import(".prisma/client").$Enums.ExpenseCategory;
         payerId: number;
     }>;
 }
