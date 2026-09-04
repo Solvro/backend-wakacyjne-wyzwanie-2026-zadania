@@ -1,10 +1,14 @@
+import { Request } from 'express';
+import { AuthenticatedUser } from '../auth/jwt.strategy';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 export declare class ParticipantsController {
     private readonly participantsService;
     constructor(participantsService: ParticipantsService);
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<({
+    findAll(request: Request & {
+        user: AuthenticatedUser;
+    }): import("@prisma/client").Prisma.PrismaPromise<({
         expenses: {
             id: number;
             tripId: number;
@@ -19,18 +23,23 @@ export declare class ParticipantsController {
             endDate: Date | null;
             status: import("@prisma/client").$Enums.TripStatus;
             id: number;
+            userId: number | null;
         };
     } & {
         id: number;
         name: string;
         tripId: number;
     })[]>;
-    create(createParticipantDto: CreateParticipantDto): import("@prisma/client").Prisma.Prisma__ParticipantClient<{
+    create(request: Request & {
+        user: AuthenticatedUser;
+    }, createParticipantDto: CreateParticipantDto): Promise<{
         id: number;
         name: string;
         tripId: number;
-    }, never, import("@prisma/client/runtime/client").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findOne(id: number): Promise<{
+    }>;
+    findOne(request: Request & {
+        user: AuthenticatedUser;
+    }, id: number): Promise<{
         expenses: {
             id: number;
             tripId: number;
@@ -45,18 +54,23 @@ export declare class ParticipantsController {
             endDate: Date | null;
             status: import("@prisma/client").$Enums.TripStatus;
             id: number;
+            userId: number | null;
         };
     } & {
         id: number;
         name: string;
         tripId: number;
     }>;
-    update(id: number, updateParticipantDto: UpdateParticipantDto): Promise<{
+    update(request: Request & {
+        user: AuthenticatedUser;
+    }, id: number, updateParticipantDto: UpdateParticipantDto): Promise<{
         id: number;
         name: string;
         tripId: number;
     }>;
-    remove(id: number): Promise<{
+    remove(request: Request & {
+        user: AuthenticatedUser;
+    }, id: number): Promise<{
         id: number;
         name: string;
         tripId: number;

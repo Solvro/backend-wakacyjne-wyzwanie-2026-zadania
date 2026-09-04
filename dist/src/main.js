@@ -11,6 +11,7 @@ async function bootstrap() {
         .setTitle('Trips API')
         .setDescription('CRUD API for trips, participants and expenses')
         .setVersion('1.0')
+        .addBearerAuth()
         .build();
     const swaggerDocument = swagger_1.SwaggerModule.createDocument(app, swaggerConfig);
     swagger_1.SwaggerModule.setup('api', app, swaggerDocument);

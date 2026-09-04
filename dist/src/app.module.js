@@ -14,12 +14,14 @@ const prisma_module_1 = require("./prisma.module");
 const trips_module_1 = require("./trips/trips.module");
 const participants_module_1 = require("./participants/participants.module");
 const expenses_module_1 = require("./expenses/expenses.module");
+const auth_module_1 = require("./auth/auth.module");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule, trips_module_1.TripsModule, participants_module_1.ParticipantsModule, expenses_module_1.ExpensesModule],
+        imports: [prisma_module_1.PrismaModule, auth_module_1.AuthModule, user_module_1.UserModule, trips_module_1.TripsModule, participants_module_1.ParticipantsModule, expenses_module_1.ExpensesModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

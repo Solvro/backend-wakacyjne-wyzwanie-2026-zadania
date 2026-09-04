@@ -17,12 +17,14 @@ let ParticipantsService = class ParticipantsService {
     constructor(databaseService) {
         this.databaseService = databaseService;
     }
-    findAll() {
+    findAll(userId) {
         return this.databaseService.participant.findMany({
+            where: { trip: { userId } },
             include: { trip: true, expenses: true },
         });
     }
-    create(createParticipantDto) {
+    async create(userId, createParticipantDto) {
+        await this.findTrip(userId, createParticipantDto.tripId);
         return this.databaseService.participant.create({
             data: {
                 name: createParticipantDto.name,
@@ -30,9 +32,9 @@ let ParticipantsService = class ParticipantsService {
             },
         });
     }
-    async findOne(id) {
+    async findOne(userId, id) {
         const participant = await this.databaseService.participant.findUnique({
-            where: { id },
+            where: { id, trip: { userId } },
             include: { trip: true, expenses: true },
         });
         if (!participant) {
@@ -40,8 +42,11 @@ let ParticipantsService = class ParticipantsService {
         }
         return participant;
     }
-    async update(id, updateParticipantDto) {
-        await this.findOne(id);
+    async update(userId, id, updateParticipantDto) {
+        await this.findOne(userId, id);
+        if (updateParticipantDto.tripId) {
+            await this.findTrip(userId, updateParticipantDto.tripId);
+        }
         return this.databaseService.participant.update({
             where: { id },
             data: {
@@ -50,9 +55,16 @@ let ParticipantsService = class ParticipantsService {
             },
         });
     }
-    async remove(id) {
-        await this.findOne(id);
+    async remove(userId, id) {
+        await this.findOne(userId, id);
         return this.databaseService.participant.delete({ where: { id } });
+    }
+    async findTrip(userId, tripId) {
+        const trip = await this.databaseService.trip.findFirst({ where: { id: tripId, userId } });
+        if (!trip) {
+            throw new common_1.NotFoundException(`Trip with ID ${tripId} not found`);
+        }
+        return trip;
     }
 };
 exports.ParticipantsService = ParticipantsService;

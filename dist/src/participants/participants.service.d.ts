@@ -4,7 +4,7 @@ import { UpdateParticipantDto } from './dto/update-participant.dto';
 export declare class ParticipantsService {
     private readonly databaseService;
     constructor(databaseService: DatabaseService);
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<({
+    findAll(userId: number): import("@prisma/client").Prisma.PrismaPromise<({
         expenses: {
             id: number;
             tripId: number;
@@ -19,18 +19,19 @@ export declare class ParticipantsService {
             endDate: Date | null;
             status: import("@prisma/client").$Enums.TripStatus;
             id: number;
+            userId: number | null;
         };
     } & {
         id: number;
         name: string;
         tripId: number;
     })[]>;
-    create(createParticipantDto: CreateParticipantDto): import("@prisma/client").Prisma.Prisma__ParticipantClient<{
+    create(userId: number, createParticipantDto: CreateParticipantDto): Promise<{
         id: number;
         name: string;
         tripId: number;
-    }, never, import("@prisma/client/runtime/client").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findOne(id: number): Promise<{
+    }>;
+    findOne(userId: number, id: number): Promise<{
         expenses: {
             id: number;
             tripId: number;
@@ -45,20 +46,22 @@ export declare class ParticipantsService {
             endDate: Date | null;
             status: import("@prisma/client").$Enums.TripStatus;
             id: number;
+            userId: number | null;
         };
     } & {
         id: number;
         name: string;
         tripId: number;
     }>;
-    update(id: number, updateParticipantDto: UpdateParticipantDto): Promise<{
+    update(userId: number, id: number, updateParticipantDto: UpdateParticipantDto): Promise<{
         id: number;
         name: string;
         tripId: number;
     }>;
-    remove(id: number): Promise<{
+    remove(userId: number, id: number): Promise<{
         id: number;
         name: string;
         tripId: number;
     }>;
+    private findTrip;
 }

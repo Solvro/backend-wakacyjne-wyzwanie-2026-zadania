@@ -4,70 +4,73 @@ import { UpdateExpenseDto } from './dto/update-expense.dto';
 export declare class ExpensesService {
     private readonly databaseService;
     constructor(databaseService: DatabaseService);
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<({
+    findAll(userId: number): import("@prisma/client").Prisma.PrismaPromise<({
         trip: {
-            id: number;
             destination: string;
             startDate: Date;
             endDate: Date | null;
             status: import("@prisma/client").$Enums.TripStatus;
+            id: number;
+            userId: number | null;
         };
         participant: {
-            tripId: number;
             id: number;
             name: string;
+            tripId: number;
         };
     } & {
-        description: string | null;
-        cost: number;
-        date: Date;
-        tripId: number;
-        participantId: number;
         id: number;
+        tripId: number;
+        cost: number;
+        description: string | null;
+        date: Date;
+        participantId: number;
     })[]>;
-    create(createExpenseDto: CreateExpenseDto): import("@prisma/client").Prisma.Prisma__ExpenseClient<{
-        description: string | null;
-        cost: number;
-        date: Date;
-        tripId: number;
-        participantId: number;
+    create(userId: number, createExpenseDto: CreateExpenseDto): Promise<{
         id: number;
-    }, never, import("@prisma/client/runtime/client").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findOne(id: number): Promise<{
+        tripId: number;
+        cost: number;
+        description: string | null;
+        date: Date;
+        participantId: number;
+    }>;
+    findOne(userId: number, id: number): Promise<{
         trip: {
-            id: number;
             destination: string;
             startDate: Date;
             endDate: Date | null;
             status: import("@prisma/client").$Enums.TripStatus;
+            id: number;
+            userId: number | null;
         };
         participant: {
-            tripId: number;
             id: number;
             name: string;
+            tripId: number;
         };
     } & {
-        description: string | null;
-        cost: number;
-        date: Date;
-        tripId: number;
-        participantId: number;
         id: number;
-    }>;
-    update(id: number, updateExpenseDto: UpdateExpenseDto): Promise<{
-        description: string | null;
-        cost: number;
-        date: Date;
         tripId: number;
-        participantId: number;
-        id: number;
-    }>;
-    remove(id: number): Promise<{
-        description: string | null;
         cost: number;
+        description: string | null;
         date: Date;
-        tripId: number;
         participantId: number;
-        id: number;
     }>;
+    update(userId: number, id: number, updateExpenseDto: UpdateExpenseDto): Promise<{
+        id: number;
+        tripId: number;
+        cost: number;
+        description: string | null;
+        date: Date;
+        participantId: number;
+    }>;
+    remove(userId: number, id: number): Promise<{
+        id: number;
+        tripId: number;
+        cost: number;
+        description: string | null;
+        date: Date;
+        participantId: number;
+    }>;
+    private validateRelations;
 }

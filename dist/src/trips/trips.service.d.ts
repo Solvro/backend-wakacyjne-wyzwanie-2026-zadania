@@ -4,13 +4,13 @@ import { UpdateTripDto } from './dto/update-trip.dto';
 export declare class TripsService {
     private readonly databaseService;
     constructor(databaseService: DatabaseService);
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<({
+    findAll(userId: number): import("@prisma/client").Prisma.PrismaPromise<({
         expenses: {
-            description: string | null;
             id: number;
-            cost: number;
-            date: Date;
             tripId: number;
+            cost: number;
+            description: string | null;
+            date: Date;
             participantId: number;
         }[];
         participants: {
@@ -24,21 +24,23 @@ export declare class TripsService {
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     })[]>;
-    create(createTripDto: CreateTripDto): import("@prisma/client").Prisma.Prisma__TripClient<{
+    create(userId: number, createTripDto: CreateTripDto): import("@prisma/client").Prisma.Prisma__TripClient<{
         destination: string;
         startDate: Date;
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findOne(id: number): Promise<{
+    findOne(userId: number, id: number): Promise<{
         expenses: {
-            description: string | null;
             id: number;
-            cost: number;
-            date: Date;
             tripId: number;
+            cost: number;
+            description: string | null;
+            date: Date;
             participantId: number;
         }[];
         participants: {
@@ -52,19 +54,22 @@ export declare class TripsService {
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }>;
-    update(id: number, updateTripDto: UpdateTripDto): Promise<{
+    update(userId: number, id: number, updateTripDto: UpdateTripDto): Promise<{
         destination: string;
         startDate: Date;
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }>;
-    remove(id: number): Promise<{
+    remove(userId: number, id: number): Promise<{
         destination: string;
         startDate: Date;
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }>;
 }

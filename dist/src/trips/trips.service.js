@@ -17,24 +17,26 @@ let TripsService = class TripsService {
     constructor(databaseService) {
         this.databaseService = databaseService;
     }
-    findAll() {
+    findAll(userId) {
         return this.databaseService.trip.findMany({
+            where: { userId },
             include: { expenses: true, participants: true },
         });
     }
-    create(createTripDto) {
+    create(userId, createTripDto) {
         return this.databaseService.trip.create({
             data: {
                 destination: createTripDto.destination,
                 startDate: new Date(createTripDto.startDate),
                 endDate: createTripDto.endDate ? new Date(createTripDto.endDate) : undefined,
                 status: createTripDto.status,
+                userId,
             },
         });
     }
-    async findOne(id) {
+    async findOne(userId, id) {
         const trip = await this.databaseService.trip.findUnique({
-            where: { id },
+            where: { id, userId },
             include: { expenses: true, participants: true },
         });
         if (!trip) {
@@ -42,8 +44,8 @@ let TripsService = class TripsService {
         }
         return trip;
     }
-    async update(id, updateTripDto) {
-        await this.findOne(id);
+    async update(userId, id, updateTripDto) {
+        await this.findOne(userId, id);
         return this.databaseService.trip.update({
             where: { id },
             data: {
@@ -54,9 +56,9 @@ let TripsService = class TripsService {
             },
         });
     }
-    async remove(id) {
-        await this.findOne(id);
-        return this.databaseService.trip.delete({ where: { id } });
+    async remove(userId, id) {
+        await this.findOne(userId, id);
+        return this.databaseService.trip.delete({ where: { id, userId } });
     }
 };
 exports.TripsService = TripsService;

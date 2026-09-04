@@ -7,13 +7,15 @@ import { UpdateParticipantDto } from './dto/update-participant.dto';
 export class ParticipantsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  findAll() {
+  findAll(userId: number) {
     return this.databaseService.participant.findMany({
+      where: { trip: { userId } },
       include: { trip: true, expenses: true },
     });
   }
 
-  create(createParticipantDto: CreateParticipantDto) {
+  async create(userId: number, createParticipantDto: CreateParticipantDto) {
+    await this.findTrip(userId, createParticipantDto.tripId);
     return this.databaseService.participant.create({
       data: {
         name: createParticipantDto.name,
@@ -22,9 +24,9 @@ export class ParticipantsService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(userId: number, id: number) {
     const participant = await this.databaseService.participant.findUnique({
-      where: { id },
+      where: { id, trip: { userId } },
       include: { trip: true, expenses: true },
     });
 
@@ -35,8 +37,11 @@ export class ParticipantsService {
     return participant;
   }
 
-  async update(id: number, updateParticipantDto: UpdateParticipantDto) {
-    await this.findOne(id);
+  async update(userId: number, id: number, updateParticipantDto: UpdateParticipantDto) {
+    await this.findOne(userId, id);
+    if (updateParticipantDto.tripId) {
+      await this.findTrip(userId, updateParticipantDto.tripId);
+    }
 
     return this.databaseService.participant.update({
       where: { id },
@@ -47,8 +52,16 @@ export class ParticipantsService {
     });
   }
 
-  async remove(id: number) {
-    await this.findOne(id);
+  async remove(userId: number, id: number) {
+    await this.findOne(userId, id);
     return this.databaseService.participant.delete({ where: { id } });
+  }
+
+  private async findTrip(userId: number, tripId: number) {
+    const trip = await this.databaseService.trip.findFirst({ where: { id: tripId, userId } });
+    if (!trip) {
+      throw new NotFoundException(`Trip with ID ${tripId} not found`);
+    }
+    return trip;
   }
 }

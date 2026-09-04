@@ -1,16 +1,20 @@
+import { Request } from 'express';
+import { AuthenticatedUser } from './auth/jwt.strategy';
 import { TripsService } from './trips/trips.service';
 import { CreateTripDto } from './trips/dto/create-trip.dto';
 import { UpdateTripDto } from './trips/dto/update-trip.dto';
 export declare class TripsController {
     private readonly tripsService;
     constructor(tripsService: TripsService);
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<({
+    findAll(request: Request & {
+        user: AuthenticatedUser;
+    }): import("@prisma/client").Prisma.PrismaPromise<({
         expenses: {
-            description: string | null;
             id: number;
-            cost: number;
-            date: Date;
             tripId: number;
+            cost: number;
+            description: string | null;
+            date: Date;
             participantId: number;
         }[];
         participants: {
@@ -24,21 +28,27 @@ export declare class TripsController {
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     })[]>;
-    create(createTripDto: CreateTripDto): import("@prisma/client").Prisma.Prisma__TripClient<{
+    create(request: Request & {
+        user: AuthenticatedUser;
+    }, createTripDto: CreateTripDto): import("@prisma/client").Prisma.Prisma__TripClient<{
         destination: string;
         startDate: Date;
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findOne(id: number): Promise<{
+    findOne(request: Request & {
+        user: AuthenticatedUser;
+    }, id: number): Promise<{
         expenses: {
-            description: string | null;
             id: number;
-            cost: number;
-            date: Date;
             tripId: number;
+            cost: number;
+            description: string | null;
+            date: Date;
             participantId: number;
         }[];
         participants: {
@@ -52,19 +62,26 @@ export declare class TripsController {
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }>;
-    update(id: number, updateTripDto: UpdateTripDto): Promise<{
+    update(request: Request & {
+        user: AuthenticatedUser;
+    }, id: number, updateTripDto: UpdateTripDto): Promise<{
         destination: string;
         startDate: Date;
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }>;
-    remove(id: number): Promise<{
+    remove(request: Request & {
+        user: AuthenticatedUser;
+    }, id: number): Promise<{
         destination: string;
         startDate: Date;
         endDate: Date | null;
         status: import("@prisma/client").$Enums.TripStatus;
         id: number;
+        userId: number | null;
     }>;
 }
