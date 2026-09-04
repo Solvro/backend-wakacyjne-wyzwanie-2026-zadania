@@ -1,5 +1,6 @@
 import { PrismaPg } from '@prisma/adapter-pg';
 import 'dotenv/config';
+import * as bcrypt from 'bcrypt';
 
 import { ExpenseStatus, PrismaClient } from '../src/generated/prisma/client';
 import type { User, Trip, Participant } from '../src/generated/prisma/client';
@@ -22,12 +23,15 @@ async function main() {
   await prisma.participant.deleteMany();
   await prisma.user.deleteMany();
 
+  const defaultPassword = 'password123';
+  const hashedPassword = await bcrypt.hash(defaultPassword, 10);
+
   const user1: User = await prisma.user.create({
     data: {
       email: 'jan@example.com',
       name: 'Jan',
       surname: 'Kowalski',
-      password: 'password123',
+      password: hashedPassword,
     },
   });
 
@@ -36,7 +40,7 @@ async function main() {
       email: 'anna@example.com',
       name: 'Anna',
       surname: 'Nowak',
-      password: 'password123',
+      password: hashedPassword,
     },
   });
 
