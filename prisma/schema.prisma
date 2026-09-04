@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  PLANNING
+  COMPLETED
+}
+
+
+model Trip {
+	id           Int                  @id @default(autoincrement())
+  	name         String               @db.VarChar(100)
+  	startDate    DateTime             @db.Date
+  	endDate      DateTime?            @db.Date
+  	status       Status               @default(PLANNING)
+  	participants TripParticipant[]
+}
+
+
+model TripParticipant {
+  	id          Int		      @id @default(autoincrement())
+  	tripId        Int
+  	trip          Trip		      @relation(fields: [tripId], references: [id])
+  	participantId Int
+ 	participant   Participant	  @relation(fields: [participantId], references: [id])
+  	expenses      Expense[]
+}
+
+
+model Expense {
+  	id                Int			      @id @default(autoincrement())
+  	title             String		      @db.VarChar(100)
+  	amount            Float
+  	depositDate       DateTime		      @default(now())
+  	tripParticipantId Int
+  	tripParticipant   TripParticipant	  @relation(fields: [tripParticipantId], references: [id])
+}
+
+
+model Participant {
+  	id       		   Int               	@id @default(autoincrement())
+ 	nameParticipant    String           	@db.VarChar(100)
+  	surnameParticipant String            	@db.VarChar(100)
+  	phone    		   String           	@db.VarChar(20)
+  	email    		   String?           	@db.VarChar(100)
+  	trips    		   TripParticipant[]
+}
+
+model User {
+	id 			Int 		@id @default(autoincrement())
+	email 		String 		@unique @db.VarChar(100)
+	password 	String 		@db.VarChar(60)
+	createdAt 	DateTime 	@default(now())
+}
