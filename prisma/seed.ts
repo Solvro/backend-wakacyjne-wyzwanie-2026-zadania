@@ -1,6 +1,7 @@
 import "dotenv/config"
 import {PrismaClient, Category, Currency } from "../generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { connect } from "http2";
 
 const adapter = new PrismaBetterSqlite3({
     url: process.env.DATABASE_URL!,
@@ -9,13 +10,25 @@ const adapter = new PrismaBetterSqlite3({
 const prisma = new PrismaClient({adapter});
 
 async function main() {
+    const user = await prisma.user.create({
+        data:{
+            email:"test@test.com",
+            hashedPassword:"testtest123"
+        }
+    })
     const trip = await prisma.trip.create({
         data:{
             destination: "Mazury",
             description: "super fajna wycieczka",
             startDate: new Date("2026-01-10"),
             endDate: new Date("2026-01-13"),
-            budget: 2000.00
+            budget: 2000.00,
+            user:
+            {
+                connect:{
+                id:user.id
+            }}
+
         }
     });
     const kamilNowak = await prisma.participant.create({

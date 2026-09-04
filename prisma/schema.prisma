@@ -36,6 +36,9 @@ model Trip {
 
   participants      Participant[]
   expenses          Expense[]
+
+  userId            Int
+  user           User @relation(fields:[userId],references:[id])
 }
 
 model Expense {
@@ -73,4 +76,12 @@ enum Currency{
   CAD
   HKD
   SGD
+}
+
+model User{
+  id Int @id @default(autoincrement())
+  email String @unique
+  hashedPassword String
+  createdAt DateTime @default(now())
+  trips     Trip[]
 }
