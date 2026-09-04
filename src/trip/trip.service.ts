@@ -6,14 +6,20 @@ import { PrismaService } from '../database/database.service';
 @Injectable()
 export class TripService {
   constructor(private readonly prisma: PrismaService){}
-  create(createTripDto: CreateTripDto) {
+  create(userId: number, createTripDto: CreateTripDto) {
     return this.prisma.trip.create({
       data:{
       destination:createTripDto.destination,
       description: createTripDto.description,
       startDate: new Date(createTripDto.startDate),
       endDate: new Date (createTripDto.endDate),
-      budget: createTripDto.budget
+      budget: createTripDto.budget,
+
+      user:{
+        connect:{
+          id:userId
+        }
+      }
     },
 
     });
