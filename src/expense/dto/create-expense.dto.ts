@@ -43,12 +43,4 @@ export class CreateExpenseDto {
         example: 'Obiad w restauracji'
     })
     description!: string;
-
-    @IsDateString({}, { message: 'Data utworzenia musi być poprawną datą (YYYY-MM-DDTHH:MM:SSZ)' })
-    @IsNotEmpty( { message: 'Data utworzenia jest wymagana' } )
-    @ApiProperty({
-        description: 'Data utworzenia wydatku',
-        example: '2024-07-01T00:00:00Z'
-    })
-    created_at!: string;
 }
