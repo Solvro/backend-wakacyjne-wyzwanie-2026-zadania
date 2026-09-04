@@ -7,19 +7,24 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiParam,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ParticipantResponseDto } from './dto/participant-response.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('participant')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
@@ -38,6 +43,10 @@ export class ParticipantController {
     status: 400,
     description: 'Niepoprawne dane wejściowe (błąd walidacji).',
   })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
+  })
   async create(@Body() createParticipantDto: CreateParticipantDto) {
     return this.participantService.create(createParticipantDto);
   }
@@ -51,6 +60,10 @@ export class ParticipantController {
     status: 200,
     description: 'Lista uczestników pobrana pomyślnie.',
     type: [ParticipantResponseDto],
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
   })
   async findAll() {
     return this.participantService.findAll();
@@ -71,6 +84,10 @@ export class ParticipantController {
     status: 200,
     description: 'Uczestnik znaleziony.',
     type: ParticipantResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
   })
   @ApiResponse({
     status: 404,
@@ -101,6 +118,10 @@ export class ParticipantController {
     description: 'Niepoprawne dane aktualizacji (błąd walidacji).',
   })
   @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
+  })
+  @ApiResponse({
     status: 404,
     description: 'Uczestnik o podanym ID nie został znaleziony.',
   })
@@ -126,6 +147,10 @@ export class ParticipantController {
     status: 200,
     description: 'Uczestnik został pomyślnie usunięty.',
     type: ParticipantResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
   })
   @ApiResponse({
     status: 404,

@@ -7,19 +7,24 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiParam,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ExpensesService } from './expenses.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ExpenseResponseDto } from './dto/expense-response.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('expenses')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('expenses')
 export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
@@ -38,6 +43,10 @@ export class ExpensesController {
     status: 400,
     description: 'Niepoprawne dane wejściowe (błąd walidacji).',
   })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
+  })
   async create(@Body() createExpenseDto: CreateExpenseDto) {
     return this.expensesService.create(createExpenseDto);
   }
@@ -51,6 +60,10 @@ export class ExpensesController {
     status: 200,
     description: 'Lista wydatków pobrana pomyślnie.',
     type: [ExpenseResponseDto],
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
   })
   async findAll() {
     return this.expensesService.findAll();
@@ -71,6 +84,10 @@ export class ExpensesController {
     status: 200,
     description: 'Wydatek znaleziony.',
     type: ExpenseResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
   })
   @ApiResponse({
     status: 404,
@@ -101,6 +118,10 @@ export class ExpensesController {
     description: 'Niepoprawne dane aktualizacji (błąd walidacji).',
   })
   @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
+  })
+  @ApiResponse({
     status: 404,
     description: 'Wydatek o podanym ID nie został znaleziony.',
   })
@@ -126,6 +147,10 @@ export class ExpensesController {
     status: 200,
     description: 'Wydatek został pomyślnie usunięty.',
     type: ExpenseResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Brak autoryzacji (wymagany token JWT).',
   })
   @ApiResponse({
     status: 404,
