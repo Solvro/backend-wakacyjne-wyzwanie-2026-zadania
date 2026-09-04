@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('API Wycieczek')
     .setDescription('Dokumentacja endpointów dla CRUD')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   
