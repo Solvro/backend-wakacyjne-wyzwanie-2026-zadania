@@ -2,10 +2,12 @@
   "dependencies": {
     "@nestjs/common": "^12.0.1",
     "@nestjs/core": "^12.0.1",
+    "@nestjs/jwt": "^12.0.1",
     "@nestjs/platform-express": "^12.0.1",
     "@nestjs/swagger": "^12.0.1",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
+    "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "dotenv": "^17.4.2",
@@ -15,6 +17,8 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^12.0.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
     "prisma": "^7.10.0",
     "ts-node": "^10.9.2",

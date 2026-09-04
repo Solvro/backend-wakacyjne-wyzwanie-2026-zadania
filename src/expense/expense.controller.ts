@@ -3,6 +3,8 @@ import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('expense')
 @Controller('expense')
@@ -10,6 +12,7 @@ export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() createExpenseDto: CreateExpenseDto) {
     return this.expenseService.create(createExpenseDto);
   }
@@ -25,11 +28,13 @@ export class ExpenseController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
     return this.expenseService.update(+id, updateExpenseDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
     return this.expenseService.remove(+id);
   }

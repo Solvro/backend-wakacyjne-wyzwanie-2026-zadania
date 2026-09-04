@@ -3,6 +3,8 @@ import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('trip')
 @ApiTags('trip')
@@ -10,6 +12,7 @@ export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Create a new trip' })
   @ApiResponse({ status: 201, description: 'The trip has been successfully created.' })
   create(@Body() createTripDto: CreateTripDto) {
@@ -31,6 +34,7 @@ export class TripController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Update a trip by ID' })
   @ApiResponse({ status: 200, description: 'The trip has been successfully updated.' })
   update(@Param('id', ParseIntPipe) id: number, @Body() updateTripDto: UpdateTripDto) {
@@ -38,6 +42,7 @@ export class TripController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Delete a trip by ID' })
   @ApiResponse({ status: 200, description: 'The trip has been successfully deleted.' })
   remove(@Param('id', ParseIntPipe) id: number) {
