@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
-import { ApiTags, ApiOperation, ApiCreatedResponse, ApiOkResponse, ApiNotFoundResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiCreatedResponse, ApiOkResponse, ApiNotFoundResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('trip')
 @Controller('trip')
@@ -10,6 +11,8 @@ export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Tworzenie nowej wycieczki' })
   @ApiCreatedResponse({ description: 'Wycieczka została pomyślnie utworzona.' })
   create(@Body() createTripDto: CreateTripDto) {
@@ -32,6 +35,8 @@ export class TripController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Aktualizacja danych wycieczki' })
   @ApiOkResponse({ description: 'Wycieczka została zaktualizowana.' })
   update(@Param('id', ParseIntPipe) id: number, @Body() updateTripDto: UpdateTripDto) {
@@ -39,6 +44,8 @@ export class TripController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Usuwanie wycieczki' })
   @ApiOkResponse({ description: 'Wycieczka została usunięta.' })
   remove(@Param('id', ParseIntPipe) id: number) {
