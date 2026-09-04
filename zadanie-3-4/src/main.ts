@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,18 +31,6 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  const configService = app.get(ConfigService);
-  const corsEntries = configService
-    .getOrThrow<string>('CORS_ORIGINS')
-    .split(',')
-    .map((o) => o.trim())
-    .filter(Boolean);
-  const allowAll = corsEntries.includes('*');
-  const exactOrigins = new Set(corsEntries.filter((o) => !o.startsWith('*.')));
-  const wildcardDomains = corsEntries
-    .filter((o) => o.startsWith('*.'))
-    .map((o) => o.slice(1));
-
   app.enableCors({
     origin: (
       origin: string | undefined,
@@ -54,17 +41,10 @@ async function bootstrap() {
         return;
       }
 
-      if (allowAll) {
-        callback(null, true);
-        return;
-      }
+      const allowedOriginRegex =
+        /^https?:\/\/(localhost|127\.0\.0\.1):(5[0-5][0-9]{2})$/;
 
-      if (exactOrigins.has(origin)) {
-        callback(null, true);
-        return;
-      }
-
-      if (wildcardDomains.some((domain) => origin.endsWith(domain))) {
+      if (allowedOriginRegex.test(origin)) {
         callback(null, true);
         return;
       }
