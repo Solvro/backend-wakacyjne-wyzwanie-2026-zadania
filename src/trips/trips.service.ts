@@ -19,19 +19,12 @@ export class TripsService {
   }
 
   async findAll() {
-    return this.prisma.trip.findMany({
-      include: {
-        expenses: true,
-      },
-    });
+    return this.prisma.trip.findMany();
   }
 
   async findOne(id: number) {
     const trip = await this.prisma.trip.findUnique({
       where: { id },
-      include: {
-        expenses: true,
-      },
     });
     if (!trip) {
       throw new NotFoundException(`Wycieczka o ID ${id} nie została znaleziona`);

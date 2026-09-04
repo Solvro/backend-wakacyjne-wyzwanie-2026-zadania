@@ -14,19 +14,12 @@ export class ParticipantsService {
   }
 
   async findAll() {
-    return this.prisma.participant.findMany({
-      include: {
-        expenses: true,
-      },
-    });
+    return this.prisma.participant.findMany();
   }
 
   async findOne(id: number) {
     const participant = await this.prisma.participant.findUnique({
       where: { id },
-      include: {
-        expenses: true,
-      },
     });
     if (!participant) {
       throw new NotFoundException(`Uczestnik o ID ${id} nie został znaleziony`);
