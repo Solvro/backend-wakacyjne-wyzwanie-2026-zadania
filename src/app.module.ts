@@ -12,10 +12,15 @@ import { TripsService } from './trips/trips.service';
 import { TripParticipantsService } from './trip_participants/trip_participants.service';
 import { ExpensesService } from './expenses/expenses.service';
 import { DatabaseService } from './database/database.service';
+import { UsersModule } from './users/users.module';
+import { UsersService } from './users/users.service';
+import { UsersController } from './users/users.controller';
+import { AuthModule } from './auth/auth.module.js';
 
 @Module({
-    controllers: [PersonsController, TripsController, TripParticipantsController, ExpensesController],
-    providers: [PersonsService, TripsService, TripParticipantsService, ExpensesService, DatabaseService]
+    controllers: [PersonsController, TripsController, TripParticipantsController, ExpensesController, UsersController],
+    providers: [PersonsService, TripsService, TripParticipantsService, ExpensesService, UsersService, DatabaseService],
+    imports: [AuthModule],
 })
 export class AppModule {
 

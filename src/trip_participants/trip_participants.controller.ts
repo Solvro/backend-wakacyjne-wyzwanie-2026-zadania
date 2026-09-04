@@ -1,13 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Inject } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, ParseIntPipe, Inject, UseGuards } from '@nestjs/common';
 import { TripParticipantsService } from './trip_participants.service';
 import { CreateTripParticipantDto } from './dto/create-trip_participant.dto';
-import { UpdateTripParticipantDto } from './dto/update-trip_participant.dto';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
 
 @Controller('trip-participants')
 export class TripParticipantsController {
   constructor(@Inject(TripParticipantsService) private tripParticipantsService: TripParticipantsService) {}
 
   @Post()
+  @UseGuards(LocalAuthGuard)
   create(@Body() createTripParticipantDto: CreateTripParticipantDto) {
     return this.tripParticipantsService.create(createTripParticipantDto);
   }
@@ -28,6 +29,7 @@ export class TripParticipantsController {
   }
 
   @Delete(':tripId/:personId')
+  @UseGuards(LocalAuthGuard)
   remove(@Param('id', ParseIntPipe) tripId: number, @Param('id', ParseIntPipe) personId: number) {
     return this.tripParticipantsService.remove(+tripId, +personId);
   }

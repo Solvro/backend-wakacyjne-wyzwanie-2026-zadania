@@ -5,7 +5,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -29,6 +29,12 @@ model Person {
   dob DateTime
   gender Gender
   trips TripParticipant[]
+}
+
+model User {
+  id BigInt @id @default(autoincrement())
+  email String @unique
+  pwhash String
 }
 
 enum Gender {

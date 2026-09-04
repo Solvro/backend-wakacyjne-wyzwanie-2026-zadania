@@ -10,6 +10,7 @@
  */
 export type * from './models/Trip'
 export type * from './models/Person'
+export type * from './models/User'
 export type * from './models/Expense'
 export type * from './models/TripParticipant'
 export type * from './commonInputTypes'

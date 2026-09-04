@@ -19,7 +19,7 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "types": ["node"],
+    "types": ["node", "jest"],
     "ignoreDeprecations": "6.0"
   }
 }

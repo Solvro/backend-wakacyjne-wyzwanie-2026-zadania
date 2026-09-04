@@ -3,6 +3,8 @@ import type { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+import 'dotenv/config';
+
 declare global {
   interface BigInt {
     toJSON(): string;
@@ -29,4 +31,5 @@ async function bootstrap() {
   console.log("Running on port " + port);
   await app.listen(port);
 }
+
 bootstrap();
