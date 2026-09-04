@@ -5,9 +5,10 @@ import { TripModule } from './trip/trip.module';
 import { ParticipantModule } from './participant/participant.module';
 import { ExpenseModule } from './expense/expense.module';
 import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [TripModule, ParticipantModule, ExpenseModule, DatabaseModule], // <-- Tutaj dodajesz swoje moduły!
+  imports: [TripModule, ParticipantModule, ExpenseModule, DatabaseModule, AuthModule], // <-- Tutaj dodajesz swoje moduły!
   controllers: [AppController],
   providers: [AppService],
 })
