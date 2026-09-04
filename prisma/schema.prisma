@@ -47,6 +47,9 @@ model Participant {
 
   paidExpenses Expense[]
 
+  userId Int? @unique @map("user_id")
+  user   User? @relation(fields: [userId], references: [id])
+
   @@map("participants")
 }
 
@@ -65,4 +68,15 @@ model Expense {
   payer Participant @relation(fields: [payerId], references: [id])
 
   @@map("expenses")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  participant Participant?
+
+  @@map("users")
 }

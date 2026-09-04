@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateParticipantResponseDto } from './dto/create-participant-response.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('participants')
 @ApiTags("participants")
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) { }
 
@@ -20,6 +23,7 @@ export class ParticipantController {
     description: "Participant created successfully",
     type: CreateParticipantResponseDto
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async create(@Body() createParticipantDto: CreateParticipantDto) {
     return this.participantService.create(createParticipantDto);
   }
@@ -34,6 +38,7 @@ export class ParticipantController {
     description: "List retrieved successfully",
     type: [CreateParticipantResponseDto]
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async findAll() {
     return this.participantService.findAll();
   }
@@ -52,6 +57,7 @@ export class ParticipantController {
     status: 404,
     description: " Participant not found"
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.participantService.findOne(id);
   }
@@ -70,6 +76,7 @@ export class ParticipantController {
     status: 404,
     description: " Participant not found"
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateParticipantDto: UpdateParticipantDto) {
     return this.participantService.update(id, updateParticipantDto);
   }
@@ -88,6 +95,7 @@ export class ParticipantController {
     status: 404,
     description: " Participant not found"
   })
+  @ApiResponse({ status: 401, description: 'Unathorized' })
   async remove(@Param('id', ParseIntPipe) id: number) {
     return this.participantService.remove(id);
   }
