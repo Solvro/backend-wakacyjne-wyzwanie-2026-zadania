@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CustomJwtGuard } from '../auth/custom-jwt.guard';
 
 @Controller('expense')
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
 
+  @UseGuards(CustomJwtGuard)
   @Post()
   @ApiOperation({summary: "Add a new expense"})
   @ApiResponse({status: 201, description: "The expense has been successfully created."})
@@ -31,6 +33,7 @@ export class ExpenseController {
     return this.expenseService.findOne(+id);
   }
 
+  @UseGuards(CustomJwtGuard)
   @Patch(':id')
   @ApiOperation({summary: "Update an expense with given ID"})
   @ApiResponse({status: 200, description: "The expense has been successfully updated."})
@@ -40,6 +43,7 @@ export class ExpenseController {
     return this.expenseService.update(+id, updateExpenseDto);
   }
 
+  @UseGuards(CustomJwtGuard)
   @Delete(':id')
   @ApiOperation({summary: "Delete an expense with given ID"})
   @ApiResponse({status: 200, description: "The expense has been successfully deleted."})

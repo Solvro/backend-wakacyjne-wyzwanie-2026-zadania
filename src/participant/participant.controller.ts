@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { CustomJwtGuard } from '../auth/custom-jwt.guard';
 
 @Controller('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
+  @UseGuards(CustomJwtGuard)
   @Post()
   @ApiOperation({summary: "Add a new participant"})
   @ApiResponse({status: 201, description: "The participant has been successfully created."})
@@ -31,6 +33,7 @@ export class ParticipantController {
     return this.participantService.findOne(+id);
   }
 
+  @UseGuards(CustomJwtGuard)
   @Patch(':id')
   @ApiOperation({summary: "Update a participant with given ID"})
   @ApiResponse({status: 200, description: "The participant has been successfully updated."})
@@ -39,7 +42,8 @@ export class ParticipantController {
   update(@Param('id') id: string, @Body() updateParticipantDto: UpdateParticipantDto) {
     return this.participantService.update(+id, updateParticipantDto);
   }
-
+  
+  @UseGuards(CustomJwtGuard)
   @Delete(':id')
   @ApiOperation({summary: "Delete a participant with given ID"})
   @ApiResponse({status: 200, description: "The participant has been successfully deleted."})
