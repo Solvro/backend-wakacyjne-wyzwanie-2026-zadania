@@ -9,12 +9,21 @@ import {
   ParseUUIDPipe,
   HttpCode,
   HttpStatus,
-  Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { User } from '../user/entities/user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Expenses')
 @Controller('expenses')
@@ -22,12 +31,18 @@ export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new expense for a trip' })
   @ApiResponse({
     status: 201,
     description: 'The expense has been successfully created',
   })
   @ApiResponse({ status: 400, description: 'Bad request (validation error)' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
   @ApiResponse({
     status: 403,
     description:
@@ -36,9 +51,9 @@ export class ExpensesController {
   @ApiResponse({ status: 404, description: 'Trip or payer not found' })
   async create(
     @Body() createExpenseDto: CreateExpenseDto,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
-    return await this.expensesService.create(createExpenseDto, currentUser);
+    return await this.expensesService.create(createExpenseDto, req.user.uuid);
   }
 
   @Get()
@@ -63,6 +78,8 @@ export class ExpensesController {
   }
 
   @Patch(':uuid')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update an expense by UUID' })
   @ApiParam({
     name: 'uuid',
@@ -75,6 +92,10 @@ export class ExpensesController {
     description: 'The expense has been successfully updated',
   })
   @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden (only the creator or trip owner can update)',
   })
@@ -82,16 +103,18 @@ export class ExpensesController {
   async update(
     @Param('uuid', ParseUUIDPipe) uuid: string,
     @Body() updateExpenseDto: UpdateExpenseDto,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
     return await this.expensesService.update(
       uuid,
       updateExpenseDto,
-      currentUser,
+      req.user.uuid,
     );
   }
 
   @Delete(':uuid')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete an expense by UUID' })
   @ApiParam({
     name: 'uuid',
@@ -103,13 +126,17 @@ export class ExpensesController {
     status: 204,
     description: 'The expense has been successfully deleted',
   })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Expense not found' })
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(
     @Param('uuid', ParseUUIDPipe) uuid: string,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
-    await this.expensesService.remove(uuid, currentUser);
+    await this.expensesService.remove(uuid, req.user.uuid);
   }
 }
