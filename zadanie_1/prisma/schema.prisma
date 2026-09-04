@@ -35,3 +35,10 @@ model Expense {
   participant    Participant @relation(fields: [Participant_id], references: [Participant_id], onDelete: Cascade)
   trip           Trip        @relation(fields: [Trip_id], references: [Trip_id], onDelete: Cascade)
 }
+
+model User {
+  id        Int   @id @default(autoincrement())
+  email     String   @unique
+  password  String   
+  name      String?
+}
