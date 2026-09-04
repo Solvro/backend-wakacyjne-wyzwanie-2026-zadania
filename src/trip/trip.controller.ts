@@ -1,15 +1,19 @@
 // src/trips/trips.controller.ts
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { TripsService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @ApiTags('Trips')
+@ApiBearerAuth()
 @Controller('trips')
 export class TripsController {
   constructor(private readonly tripsService: TripsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({ summary: 'Create a new trip' })
   @ApiResponse({ status: 201, description: 'Trip created successfully.' })
@@ -30,12 +34,14 @@ export class TripsController {
     return this.tripsService.findOne(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: 'Update trip details' })
   update(@Param('id', ParseIntPipe) id: number, @Body() updateTripDto: UpdateTripDto) {
     return this.tripsService.update(id, updateTripDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a trip' })
   remove(@Param('id', ParseIntPipe) id: number) {

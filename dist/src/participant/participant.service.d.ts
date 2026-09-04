@@ -5,38 +5,38 @@ export declare class ParticipantsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(dto: CreateParticipantDto): import(".prisma/client").Prisma.Prisma__ParticipantClient<{
-        name: string;
         email: string;
-        phone: string | null;
         id: number;
+        name: string;
+        phone: string | null;
         tripId: number;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<{
-        name: string;
         email: string;
-        phone: string | null;
         id: number;
+        name: string;
+        phone: string | null;
         tripId: number;
     }[]>;
     findOne(id: number): Promise<{
-        name: string;
         email: string;
-        phone: string | null;
         id: number;
+        name: string;
+        phone: string | null;
         tripId: number;
     }>;
     update(id: number, dto: UpdateParticipantDto): Promise<{
-        name: string;
         email: string;
-        phone: string | null;
         id: number;
+        name: string;
+        phone: string | null;
         tripId: number;
     }>;
     remove(id: number): Promise<{
-        name: string;
         email: string;
-        phone: string | null;
         id: number;
+        name: string;
+        phone: string | null;
         tripId: number;
     }>;
 }

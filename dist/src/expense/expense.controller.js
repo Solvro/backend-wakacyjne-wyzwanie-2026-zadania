@@ -18,6 +18,8 @@ const swagger_1 = require("@nestjs/swagger");
 const expense_service_1 = require("./expense.service");
 const create_expense_dto_1 = require("./dto/create-expense.dto");
 const update_expense_dto_1 = require("./dto/update-expense.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const common_2 = require("@nestjs/common");
 let ExpensesController = class ExpensesController {
     constructor(expensesService) {
         this.expensesService = expensesService;
@@ -40,6 +42,7 @@ let ExpensesController = class ExpensesController {
 };
 exports.ExpensesController = ExpensesController;
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create an expense' }),
     __param(0, (0, common_1.Body)()),
@@ -63,6 +66,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ExpensesController.prototype, "findOne", null);
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Update an expense' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -72,6 +76,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ExpensesController.prototype, "update", null);
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete an expense' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -81,6 +86,7 @@ __decorate([
 ], ExpensesController.prototype, "remove", null);
 exports.ExpensesController = ExpensesController = __decorate([
     (0, swagger_1.ApiTags)('Expenses'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('expenses'),
     __metadata("design:paramtypes", [expense_service_1.ExpensesService])
 ], ExpensesController);

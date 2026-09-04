@@ -10,11 +10,13 @@ exports.TripModule = void 0;
 const common_1 = require("@nestjs/common");
 const trip_service_1 = require("./trip.service");
 const trip_controller_1 = require("./trip.controller");
+const auth_module_1 = require("../auth/auth.module");
 let TripModule = class TripModule {
 };
 exports.TripModule = TripModule;
 exports.TripModule = TripModule = __decorate([
     (0, common_1.Module)({
+        imports: [auth_module_1.AuthModule],
         controllers: [trip_controller_1.TripsController],
         providers: [trip_service_1.TripsService],
     })
