@@ -19,6 +19,14 @@ async function bootstrap() {
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, documentFactory)
+
+  app.enableCors({
+    //regex allows for ports from 5000 to 5599 on localhost
+    origin: /^http:\/\/localhost:5[0-5][0-9]{2}$/,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  });
   
   await app.listen(process.env.PORT ?? 3000);
 }
