@@ -1,10 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, UseGuards, UseInterceptors, ClassSerializerInterceptor} from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
-import {ApiOperation, ApiTags, ApiResponse} from '@nestjs/swagger';
+import {ApiOperation, ApiTags, ApiResponse, ApiBearerAuth} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('participant')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @ApiTags('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}

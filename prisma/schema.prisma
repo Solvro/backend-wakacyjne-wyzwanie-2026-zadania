@@ -19,14 +19,14 @@ enum Status {
 }
 
 model Trip {
-  id            Int      @id @default(autoincrement())
-  destination   String
-  start_date    DateTime
-  end_date      DateTime
-  status        Status   @default(PLANNED)
+  id          Int      @id @default(autoincrement())
+  destination String
+  start_date  DateTime
+  end_date    DateTime
+  status      Status   @default(PLANNED)
 
-  participants  Participant[]
-  expenses      Expense[]
+  participants Participant[]
+  expenses     Expense[]
 }
 
 enum Role {
@@ -35,14 +35,14 @@ enum Role {
 }
 
 model Participant {
-  id        Int      @id @default(autoincrement())
-  trip      Trip     @relation(fields: [trip_id], references: [id])
-  trip_id   Int
-  name      String
-  email     String?
-  role      Role     @default(MEMBER)
+  id      Int     @id @default(autoincrement())
+  trip    Trip    @relation(fields: [trip_id], references: [id])
+  trip_id Int
+  name    String
+  email   String?
+  role    Role    @default(MEMBER)
 
-  expenses  Expense[]
+  expenses Expense[]
 }
 
 enum Category {
@@ -63,4 +63,10 @@ model Expense {
   category    Category
   description String
   created_at  DateTime    @default(now())
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
 }
