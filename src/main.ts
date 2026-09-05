@@ -20,6 +20,7 @@ async function bootstrap() {
     .setDescription('Dokumentacja API ze Swaggera')
     .setVersion('1.0')
     .addTag('solvro')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

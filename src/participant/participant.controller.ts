@@ -7,17 +7,21 @@ import {
   ParseIntPipe,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
-import type { UpdateParticipantDto } from './dto/update-participant.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UpdateParticipantDto } from './dto/update-participant.dto';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Participant } from './entities/participant.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('participants')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: 'Create a new participant',
@@ -61,6 +65,8 @@ export class ParticipantController {
     return this.participantService.findOne(id);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a participant',
@@ -79,6 +85,8 @@ export class ParticipantController {
     return this.participantService.update(id, updateParticipantDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete a participant',
