@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Param,
-  ParseIntPipe,
   Patch,
   Delete,
 } from '@nestjs/common';
@@ -46,25 +45,25 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
+  @Get(':email')
   @ApiOperation({
     summary: 'Get a user',
-    description: 'Retrieves a single user by their ID',
+    description: 'Retrieves a single user by their email',
   })
   @ApiResponse({
     status: 200,
-    description: 'The user with the given ID',
+    description: 'The user with the given email',
     type: User,
   })
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
+  async findOne(@Param('email') email: string) {
+    return this.usersService.findOne(email);
   }
 
-  @Patch(':id')
+  @Patch(':email')
   @ApiOperation({
     summary: 'Update a user',
     description:
-      'Updates a user by their ID. If the email is changed, it must remain unique',
+      'Updates a user by their email. If the email is changed, it must remain unique',
   })
   @ApiResponse({
     status: 200,
@@ -72,23 +71,23 @@ export class UsersController {
     type: User,
   })
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('email') email: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.usersService.update(id, updateUserDto);
+    return this.usersService.update(email, updateUserDto);
   }
 
-  @Delete(':id')
+  @Delete(':email')
   @ApiOperation({
     summary: 'Delete a user',
-    description: 'Removes a user from the database by their ID',
+    description: 'Removes a user from the database by their email',
   })
   @ApiResponse({
     status: 200,
     description: 'The user has been successfully deleted',
     type: User,
   })
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(id);
+  async delete(@Param('email') email: string) {
+    return this.usersService.remove(email);
   }
 }

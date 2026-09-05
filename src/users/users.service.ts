@@ -44,33 +44,31 @@ export class UsersService {
     return this.databaseService.user.findMany({ select: userSelect });
   }
 
-  async findOne(id: number) {
+  async findOne(email: string) {
     const user = await this.databaseService.user.findUnique({
       where: {
-        id,
+        email,
       },
       select: userSelect,
     });
 
     if (!user) {
-      throw new NotFoundException(
-        `Unable to find user with ID of ${id.toString()}`,
-      );
+      throw new NotFoundException(`Unable to find user with email "${email}"`);
     }
 
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    await this.findOne(id);
+  async update(email: string, updateUserDto: UpdateUserDto) {
+    const user = await this.findOne(email);
 
-    if (updateUserDto.email) {
-      await this.ensureEmailNotTaken(updateUserDto.email, id);
+    if (updateUserDto.email && updateUserDto.email !== email) {
+      await this.ensureEmailNotTaken(updateUserDto.email, user.id);
     }
 
     return this.databaseService.user.update({
       where: {
-        id,
+        email,
       },
       data: {
         ...updateUserDto,
@@ -79,12 +77,12 @@ export class UsersService {
     });
   }
 
-  async remove(id: number) {
-    await this.findOne(id);
+  async remove(email: string) {
+    await this.findOne(email);
 
     return this.databaseService.user.delete({
       where: {
-        id,
+        email,
       },
       select: userSelect,
     });
