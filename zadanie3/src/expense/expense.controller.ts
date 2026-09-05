@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { ParseIntPipe } from '@nestjs/common';
+import { ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../user/jwt.authguard';
 
 @Controller('expense')
 @ApiTags('expense')
@@ -11,6 +12,7 @@ export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Create a new expense',
     description: 'Add a new expense to the database',
@@ -50,6 +52,7 @@ export class ExpenseController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Update the expense with chosen ID',
     description: 'Update and save the changed information about the expense with chosen ID',
@@ -63,6 +66,7 @@ export class ExpenseController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Delete the expense with chosen ID',
     description: 'Delete the expense with chosen ID from the database',
