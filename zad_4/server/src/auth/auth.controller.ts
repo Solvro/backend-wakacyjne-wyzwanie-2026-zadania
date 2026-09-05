@@ -28,6 +28,12 @@ export class AuthController {
   }
 
   @Post("login")
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: "User login" })
+  @ApiResponse({
+    status: 200,
+    description: "Logged in succesfully, JWT sent as response.",
+  })
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
