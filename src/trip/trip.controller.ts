@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
-import type { UpdateTripDto } from './dto/update-trip.dto';
+import { UpdateTripDto } from './dto/update-trip.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Trip } from './entities/trip.entity';
 

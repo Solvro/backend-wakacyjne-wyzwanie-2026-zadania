@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
-import type { UpdateParticipantDto } from './dto/update-participant.dto';
+import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Participant } from './entities/participant.entity';
 
