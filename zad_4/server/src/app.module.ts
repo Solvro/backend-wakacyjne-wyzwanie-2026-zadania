@@ -6,6 +6,7 @@ import { ConfigModule } from "@nestjs/config";
 import { ParticipantModule } from "./participant/participant.module";
 import { ExpenseModule } from "./expense/expense.module";
 import { TripModule } from "./trip/trip.module";
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TripModule } from "./trip/trip.module";
     ParticipantModule,
     ExpenseModule,
     TripModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
