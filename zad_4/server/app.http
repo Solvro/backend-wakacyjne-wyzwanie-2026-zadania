@@ -1,0 +1,13 @@
+GET http://localhost:3000/trips
+Accept: application/json
+
+###
+
+
+POST http://localhost:3000/trips
+Content-Type: application/json
+
+{
+  "destination": "Rzym",
+  "date": "2026-09-15T12:00:00Z"
+}

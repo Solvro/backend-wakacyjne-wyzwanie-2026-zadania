@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:3000/participant
+###
+GET {{baseUrl}}
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/1
+Accept: application/json
+
+###
+
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+  "name": "Kacper",
+  "age": 67,
+  "gender": "MALE"
+}
+
+###
+
+PATCH {{baseUrl}}/2
+Content-Type: application/json
+
+{
+  "age": 20
+}
+
+###
+DELETE {{baseUrl}}/2
+Accept: application/json
