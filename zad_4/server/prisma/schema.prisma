@@ -19,6 +19,12 @@ enum Gender {
   OTHER
 }
 
+enum UserRole {
+  USER
+  MOD
+  ADMIN
+}
+
 model Trip {
   id          Int       @id @default(autoincrement())
   destination String    @db.VarChar(30)
@@ -43,4 +49,13 @@ model Expense {
   value             Float       @db.Real
   includesTransport Boolean
   timestamp         DateTime
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  name            String   @db.VarChar(20)
+  hashed_password String
+  role            UserRole
+  createdAt       DateTime @default(now()) @db.Timestamp()
 }
