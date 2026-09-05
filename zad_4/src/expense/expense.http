@@ -1,0 +1,41 @@
+@baseUrl = http://localhost:3000/expense
+###
+GET {{baseUrl}}
+Accept: application/json
+Authorization: Bearer {{JWT}} 
+
+###
+
+GET {{baseUrl}}/1
+Accept: application/json
+Authorization: Bearer {{JWT}} 
+
+###
+
+POST {{baseUrl}}
+Content-Type: application/json
+Authorization: Bearer {{JWT}} 
+
+{
+  "tripId": 1,
+  "participantId": 1,
+  "value": 145.50,
+  "includesTransport": true,
+  "timestamp": "2026-08-29T12:00:00Z"
+}
+
+###
+
+PATCH {{baseUrl}}/2
+Content-Type: application/json
+Authorization: Bearer {{JWT}} 
+
+{
+  "value": 160.00,
+  "includesTransport": false
+}
+
+###
+DELETE {{baseUrl}}/2
+Accept: application/json
+Authorization: Bearer {{JWT}} 
