@@ -11,3 +11,11 @@ Content-Type: application/json
 }
 
 ###
+
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "contact@example.com",
+    "password": "i-DO-pieca67"
+}
