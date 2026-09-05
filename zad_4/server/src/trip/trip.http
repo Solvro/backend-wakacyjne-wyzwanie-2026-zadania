@@ -12,6 +12,7 @@ Accept: application/json
 
 POST {{baseUrl}}
 Content-Type: application/json
+Authorization: Bearer {{JWT}} 
 
 {
   "destination": "Rzym",
@@ -22,6 +23,7 @@ Content-Type: application/json
 
 PATCH {{baseUrl}}/2
 Content-Type: application/json
+Authorization: Bearer {{JWT}} 
 
 {
   "date": "2026-10-16"
@@ -30,3 +32,4 @@ Content-Type: application/json
 ###
 DELETE {{baseUrl}}/2
 Accept: application/json
+Authorization: Bearer {{JWT2}} 

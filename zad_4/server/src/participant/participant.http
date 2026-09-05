@@ -2,16 +2,19 @@
 ###
 GET {{baseUrl}}
 Accept: application/json
+Authorization: Bearer {{JWT}} 
 
 ###
 
 GET {{baseUrl}}/1
 Accept: application/json
+Authorization: Bearer {{JWT}} 
 
 ###
 
 POST {{baseUrl}}
 Content-Type: application/json
+Authorization: Bearer {{JWT}} 
 
 {
   "name": "Kacper",
@@ -23,6 +26,7 @@ Content-Type: application/json
 
 PATCH {{baseUrl}}/2
 Content-Type: application/json
+Authorization: Bearer {{JWT}} 
 
 {
   "age": 20
@@ -31,3 +35,4 @@ Content-Type: application/json
 ###
 DELETE {{baseUrl}}/2
 Accept: application/json
+Authorization: Bearer {{JWT}} 
