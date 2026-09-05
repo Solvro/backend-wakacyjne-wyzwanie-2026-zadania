@@ -40,7 +40,7 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email, role: user.role };
     return this.jwtService.sign(payload, {
       expiresIn: parseInt(process.env.EXPIRY_TIME_MS as string) / 1000, // Takes in seconds
-      secret: process.env.JWT_secret as string,
+      secret: process.env.JWT_SECRET as string,
     });
   }
 }
