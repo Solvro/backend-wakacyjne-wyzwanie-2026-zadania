@@ -2,12 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/auth/jwt/jwt.guard';
 @Controller('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Post()
   @ApiOperation({
     summary: "Tworzy nową wycieczkę",
@@ -33,7 +35,8 @@ export class TripController {
   findOne(@Param('id') id: string) {
     return this.tripService.findOne(+id);
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Patch(':id')
   @ApiOperation({
     summary: "Modyfikuje wycieczkę"
@@ -41,7 +44,8 @@ export class TripController {
   update(@Param('id') id: string, @Body() updateTripDto: UpdateTripDto) {
     return this.tripService.update(+id, updateTripDto);
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Delete(':id')
   @ApiOperation({
     summary: "Usuwa wycieczkę"
