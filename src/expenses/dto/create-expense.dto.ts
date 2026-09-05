@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from '@prisma/client';
-import { IsEnum, IsNumber, IsString, Min } from 'class-validator';
+import { IsEnum, IsInt, IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateExpenseDto {
   @ApiProperty({ example: 'Nocleg w schronisku' })
@@ -16,11 +16,11 @@ export class CreateExpenseDto {
   @IsEnum(Category)
   category: Category;
 
-  @ApiProperty({ example: 1, description: 'ID uczestnika (liczba)' })
-  @IsNumber()
+  @ApiProperty({ example: 1, description: 'ID uczestnika' })
+  @IsInt()
   paidById: number;
 
-  @ApiProperty({ example: 1, description: 'ID wycieczki (liczba)' })
-  @IsNumber()
+  @ApiProperty({ example: 1, description: 'ID wycieczki' })
+  @IsInt()
   tripId: number;
 }
