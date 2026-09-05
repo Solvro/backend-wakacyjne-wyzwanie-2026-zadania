@@ -8,5 +8,5 @@ export class User {
   createdAt: Date;
 
   @ApiProperty()
-  username: string;
+  email: string;
 }

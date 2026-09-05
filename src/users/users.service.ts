@@ -10,30 +10,27 @@ import { DatabaseService } from '../database/database.service';
 const userSelect = {
   id: true,
   createdAt: true,
-  username: true,
+  email: true,
 } as const;
 
 @Injectable()
 export class UsersService {
   constructor(private databaseService: DatabaseService) {}
 
-  private async ensureUsernameNotTaken(
-    username: string,
-    excludeUserId?: number,
-  ) {
+  private async ensureEmailNotTaken(email: string, excludeUserId?: number) {
     const existing = await this.databaseService.user.findFirst({
-      where: { username },
+      where: { email },
     });
 
     if (existing && existing.id !== excludeUserId) {
       throw new ConflictException(
-        `A user with username "${username}" already exists`,
+        `A user with email "${email}" already exists`,
       );
     }
   }
 
   async create(createUserDto: CreateUserDto) {
-    await this.ensureUsernameNotTaken(createUserDto.username);
+    await this.ensureEmailNotTaken(createUserDto.email);
 
     return this.databaseService.user.create({
       data: {
@@ -67,8 +64,8 @@ export class UsersService {
   async update(id: number, updateUserDto: UpdateUserDto) {
     await this.findOne(id);
 
-    if (updateUserDto.username) {
-      await this.ensureUsernameNotTaken(updateUserDto.username, id);
+    if (updateUserDto.email) {
+      await this.ensureEmailNotTaken(updateUserDto.email, id);
     }
 
     return this.databaseService.user.update({

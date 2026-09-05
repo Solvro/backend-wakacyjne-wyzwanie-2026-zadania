@@ -21,7 +21,7 @@ export class UsersController {
   @Post()
   @ApiOperation({
     summary: 'Create a new user',
-    description: 'Adds a user to the database. The username must be unique',
+    description: 'Adds a user to the database. The email must be unique',
   })
   @ApiResponse({
     status: 201,
@@ -64,7 +64,7 @@ export class UsersController {
   @ApiOperation({
     summary: 'Update a user',
     description:
-      'Updates a user by their ID. If the username is changed, it must remain unique',
+      'Updates a user by their ID. If the email is changed, it must remain unique',
   })
   @ApiResponse({
     status: 200,
