@@ -58,4 +58,5 @@ model User {
   hashed_password String
   role            UserRole
   createdAt       DateTime @default(now()) @db.Timestamp()
+  tokenVersion    Int      @default(0)
 }

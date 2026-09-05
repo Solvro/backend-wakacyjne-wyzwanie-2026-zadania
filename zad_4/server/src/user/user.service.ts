@@ -1,5 +1,5 @@
 import { ConflictException, Injectable } from "@nestjs/common";
-import { Prisma } from "generated/prisma/client";
+import { Prisma, UserRole } from "generated/prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UserEntity } from "./entities/user.entity";
 
@@ -25,5 +25,15 @@ export class UserService {
         throw new ConflictException("Email is already used");
       }
     }
+  }
+
+  async changeUserRole(userId: number, newRole: UserRole) {
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        role: newRole,
+        tokenVersion: { increment: 1 },
+      },
+    });
   }
 }

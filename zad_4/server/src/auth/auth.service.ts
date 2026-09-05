@@ -5,6 +5,7 @@ import { UserService } from "src/user/user.service";
 import { UserEntity } from "src/user/entities/user.entity";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
+import { JwtPayload } from "./strategies/jwt.strategy";
 
 @Injectable()
 export class AuthService {
@@ -37,7 +38,12 @@ export class AuthService {
       throw new UnauthorizedException(ERR_MESSAGE);
     }
 
-    const payload = { sub: user.id, email: user.email, role: user.role };
+    const payload: JwtPayload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+      tokenVersion: user.tokenVersion,
+    };
     return this.jwtService.sign(payload, {
       expiresIn: parseInt(process.env.EXPIRY_TIME_MS as string) / 1000, // Takes in seconds
       secret: process.env.JWT_SECRET as string,
