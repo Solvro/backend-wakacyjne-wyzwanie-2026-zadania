@@ -9,13 +9,20 @@ import {
   ParseIntPipe,
   DefaultValuePipe,
   Query,
+  UseGuards,
 } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from "@nestjs/swagger";
 import { TripService } from "./trip.service";
 import { CreateTripDto } from "./dto/create-trip.dto";
 import { UpdateTripDto } from "./dto/update-trip.dto";
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { RolesGuard } from "src/auth/guards/roles.guard";
+import { Public } from "src/auth/decorators/public.decorator";
+import { UserRole } from "generated/prisma/enums";
+import { Roles } from "src/auth/decorators/roles.decorator";
 
 @Controller("trip")
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags("trip")
 export class TripController {
   constructor(private readonly tripService: TripService) {}
@@ -35,6 +42,7 @@ export class TripController {
   }
 
   @Get()
+  @Public()
   @ApiOperation({
     summary: "Retrieve a list of trips",
     description: "Retrieves a list of trips from the database.",
@@ -64,6 +72,7 @@ export class TripController {
   }
 
   @Get(":id")
+  @Public()
   @ApiOperation({
     summary: "Retrieve a trip by ID",
     description: "Retrieves a trip by their unique ID from the database.",
@@ -78,6 +87,7 @@ export class TripController {
   }
 
   @Patch(":id")
+  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Update a trip by ID",
     description: "Updates a trip by their unique ID from the database.",
@@ -95,6 +105,7 @@ export class TripController {
   }
 
   @Delete(":id")
+  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Delete a trip by ID",
     description: "Deletes a trip by their unique ID from the database.",

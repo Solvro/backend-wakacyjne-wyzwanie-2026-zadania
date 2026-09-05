@@ -7,13 +7,19 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { ExpenseService } from "./expense.service";
 import { CreateExpenseDto } from "./dto/create-expense.dto";
 import { UpdateExpenseDto } from "./dto/update-expense.dto";
+import { RolesGuard } from "src/auth/guards/roles.guard";
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { Roles } from "src/auth/decorators/roles.decorator";
+import { UserRole } from "generated/prisma/enums";
 
 @Controller("expense")
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags("expense")
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
@@ -61,6 +67,7 @@ export class ExpenseController {
   }
 
   @Patch(":id")
+  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Update an expense by ID",
     description: "Updates an expense by their unique ID from the database.",
@@ -78,6 +85,7 @@ export class ExpenseController {
   }
 
   @Delete(":id")
+  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Delete an expense by ID",
     description: "Deletes an expense by their unique ID from the database.",

@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   ClassSerializerInterceptor,
   UseInterceptors,
+  UseGuards,
 } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
 import { ParticipantService } from "./participant.service";
@@ -16,8 +17,13 @@ import { CreateParticipantDto } from "./dto/create-participant.dto";
 import { UpdateParticipantDto } from "./dto/update-participant.dto";
 import { ParticipantResponseDto } from "./dto/response-participant.dto";
 import { plainToInstance } from "class-transformer";
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { RolesGuard } from "src/auth/guards/roles.guard";
+import { UserRole } from "generated/prisma/enums";
+import { Roles } from "src/auth/decorators/roles.decorator";
 
 @Controller("participant")
+@UseGuards(JwtAuthGuard, RolesGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 @ApiTags("participant")
 export class ParticipantController {
@@ -69,6 +75,7 @@ export class ParticipantController {
   }
 
   @Patch(":id")
+  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Update a participant by ID",
     description: "Updates a participant by their unique ID from the database.",
@@ -86,6 +93,7 @@ export class ParticipantController {
   }
 
   @Delete(":id")
+  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Delete a participant by ID",
     description: "Deletes a participant by their unique ID from the database.",
