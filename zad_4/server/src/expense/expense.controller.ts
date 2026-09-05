@@ -20,6 +20,7 @@ import { UserRole } from "generated/prisma/enums";
 
 @Controller("expense")
 @UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.MOD, UserRole.ADMIN)
 @ApiTags("expense")
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
@@ -67,7 +68,6 @@ export class ExpenseController {
   }
 
   @Patch(":id")
-  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Update an expense by ID",
     description: "Updates an expense by their unique ID from the database.",
@@ -85,7 +85,6 @@ export class ExpenseController {
   }
 
   @Delete(":id")
-  @Roles(UserRole.MOD, UserRole.ADMIN)
   @ApiOperation({
     summary: "Delete an expense by ID",
     description: "Deletes an expense by their unique ID from the database.",
