@@ -30,6 +30,13 @@ model Participant {
   trips          Trip[]   @relation("ParticipantToTrip")
 }
 
+model User {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  password       String   
+  date_of_birth  DateTime
+}
+
 model Trip {
   id           Int           @id @default(autoincrement())
   city         City          @default(WARSAW)

@@ -1,10 +1,11 @@
 import { Type } from '../../generated/prisma/enums'
 import { IsNumber, IsNotEmpty, IsEnum, IsPositive} from 'class-validator'
 import { ApiProperty} from '@nestjs/swagger'
-
+import { Expose } from 'class-transformer';
 
 export class CreateExpenseDto {
 
+    @Expose()
     @IsEnum(Type, {message: "Type must be selected from: ACCOMMODATION, TRANSPORTATION, FOOD"})
     @ApiProperty({
         enum: ['ACCOMODATION', 'TRANSPORTATION', 'FOOD'],
@@ -13,6 +14,7 @@ export class CreateExpenseDto {
     })
     type!: Type
 
+    @Expose()
     @IsNotEmpty({message: "Amount can't be empty"})
     @IsNumber()
     @IsPositive({message: "Amount must be greater than 0"})
@@ -22,6 +24,7 @@ export class CreateExpenseDto {
     })
     amount!: number
 
+    @Expose()
     @IsNotEmpty({message: "TripId can't be empty"})
     @IsNumber()
     @ApiProperty({
