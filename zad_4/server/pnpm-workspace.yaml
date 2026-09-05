@@ -1,5 +1,8 @@
 allowBuilds:
-  '@prisma/engines': true
+  "@prisma/engines": true
   esbuild: true
   prisma: true
   unrs-resolver: true
+
+onlyBuiltDependencies:
+  - "@nestjs/jwt"
