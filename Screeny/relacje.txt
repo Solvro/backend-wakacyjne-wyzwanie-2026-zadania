@@ -1,0 +1,8 @@
+Trip - Expense (1:n)
+Jedna wycieczka może mieć wiele wydatków, ale każdy wydatek jest przypisany do dokładnie jednej wycieczki. Relacja realizowana przez klucz obcy Trip_id w tabeli Expense.
+
+Participant - Expense (1:n, jako płatnik)
+Jeden uczestnik może opłacić wiele wydatków, ale każdy wydatek ma dokładnie jednego płatnika. Relacja realizowana przez klucz obcy Payer_id w tabeli Expense, wskazujący na Participant_id.
+
+Trip - Participant (n:n)
+Jedna wycieczka może mieć wielu uczestników, a jeden uczestnik może brać udział w wielu wycieczkach. Relacja wiele-do-wielu jest zrealizowana za pomocą tabeli łączącej Trip_participants, która przechowuje pary Trip_id i Participant_id.
