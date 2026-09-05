@@ -14,6 +14,11 @@ DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/nestjs_db?schema=pub
 POSTGRES_USER="myuser"
 POSTGRES_PASSWORD="mypassword"
 POSTGRES_DB="nestjs_db"
+
+
+# JWT
+JWT_SECRET=
+EXPIRY_TIME_MS=
 ```
 
 ### 3. Wake docker up
