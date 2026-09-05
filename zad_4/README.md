@@ -19,6 +19,9 @@ POSTGRES_DB="nestjs_db"
 # JWT
 JWT_SECRET=
 EXPIRY_TIME_MS=
+
+## JWT dev tests with .http files
+JWT=
 ```
 
 ### 3. Wake docker up
