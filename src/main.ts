@@ -18,6 +18,7 @@ async function bootstrap() {
     .setTitle('Budżetownik wakacyjny API')
     .setDescription('API do zarządzania wycieczkami, uczestnikami i wydatkami')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

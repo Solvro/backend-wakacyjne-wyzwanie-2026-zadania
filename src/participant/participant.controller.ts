@@ -13,8 +13,13 @@ import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ParticipantService } from './participant.service.js';
 import { CreateParticipantDto } from './dto/create-participant.dto.js';
 import { UpdateParticipantDto } from './dto/update-participant.dto.js';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard.js';
+import { ApiBearerAuth} from '@nestjs/swagger';
 
 @ApiTags('participant')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}

@@ -57,3 +57,9 @@ model TripParticipant {
 
   @@unique([Trip_id, Participant_id])
 }
+
+model User {
+  User_id  Int    @id @default(autoincrement())
+  Email    String @unique @db.VarChar(255)
+  Password String @db.VarChar(255)
+}
