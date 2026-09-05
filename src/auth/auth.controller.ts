@@ -22,14 +22,14 @@ export class AuthController {
   }
 }
 
-@Controller('user')
-export class UserController {
-    constructor(private userService: UserService) {}  
-    
-    @ApiBearerAuth()
-    @UseGuards(JwtGuard)
-    @Patch()
-    updateProfile(@Req() req, @Body() dto: UpdateUserDto) {
-        return this.userService.update(req.user.id, dto);
-}
-}
+//@Controller('user')
+//export class UserController {
+//    constructor(private userService: UserService) {}  
+//    
+//    @ApiBearerAuth()
+//    @UseGuards(JwtGuard)
+//    @Patch()
+//    updateProfile(@Req() req, @Body() dto: UpdateUserDto) {
+//        return this.userService.update(req.user.id, dto);
+//}
+//}
