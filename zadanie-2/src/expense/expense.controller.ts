@@ -1,14 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth/jwt-auth.guard';
 
 @Controller('expense')
 @ApiTags('expense')
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({
     summary: 'Create a new expense',
@@ -52,6 +54,7 @@ export class ExpenseController {
     return this.expenseService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiOperation({
     summary: 'Update expense by ID',
@@ -69,6 +72,7 @@ export class ExpenseController {
     return this.expenseService.update(+id, updateExpenseDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete expense by ID',
