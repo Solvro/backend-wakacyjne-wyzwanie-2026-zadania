@@ -1,0 +1,11 @@
+@baseUrl = http://localhost:3000/user
+
+###
+PATCH {{baseUrl}}
+Content-Type: application/json
+Authorization: Bearer {{JWT}} 
+
+{
+  "name": "kltpl2"
+}
+
