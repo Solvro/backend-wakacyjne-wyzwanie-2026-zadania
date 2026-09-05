@@ -2,13 +2,15 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth} from '@nestjs/swagger';
+import { JwtGuard } from 'src/auth/jwt/jwt.guard';
+import { UseGuards } from '@nestjs/common';
 @ApiTags('expense')
 @Controller('expense')
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Post()
   @ApiOperation({
     summary: "Tworzy nowy wydatek",
@@ -34,7 +36,8 @@ export class ExpenseController {
   findOne(@Param('id') id: string) {
     return this.expenseService.findOne(+id);
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Patch(':id')
   @ApiOperation({
     summary: "Modyfikuje konkretny wydatek",
@@ -43,7 +46,8 @@ export class ExpenseController {
   update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
     return this.expenseService.update(+id, updateExpenseDto);
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Delete(':id')
   @ApiOperation({
     summary: "Usuwa konkretny wydatek"

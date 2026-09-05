@@ -2,12 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { JwtGuard } from 'src/auth/jwt/jwt.guard';
 @Controller('participant')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Post()
   @ApiOperation({
       summary: "Tworzy nowego uczestnika",
@@ -33,7 +35,8 @@ export class ParticipantController {
   findOne(@Param('id') id: string) {
     return this.participantService.findOne(+id);
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Patch(':id')
   @ApiOperation({
     summary: "Modyfikuje konkretnego uczestnika",
@@ -42,7 +45,8 @@ export class ParticipantController {
   update(@Param('id') id: string, @Body() updateParticipantDto: UpdateParticipantDto) {
     return this.participantService.update(+id, updateParticipantDto);
   }
-
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
   @Delete(':id')
   @ApiOperation({
     summary: "Usuwa uczestnika"
