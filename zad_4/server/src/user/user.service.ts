@@ -2,6 +2,8 @@ import { ConflictException, Injectable } from "@nestjs/common";
 import { Prisma, UserRole } from "generated/prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UserEntity } from "./entities/user.entity";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class UserService {
@@ -25,6 +27,25 @@ export class UserService {
         throw new ConflictException("Email is already used");
       }
     }
+  }
+
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const data: Prisma.UserUpdateInput = {
+      name: updateUserDto.name,
+      email: updateUserDto.email,
+      tokenVersion: { increment: 1 },
+    };
+    if (updateUserDto.password !== undefined) {
+      const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);
+      data.hashed_password = hashedPassword;
+    }
+
+    return await this.prisma.user.update({
+      data,
+      where: {
+        id,
+      },
+    });
   }
 
   async changeUserRole(userId: number, newRole: UserRole) {
