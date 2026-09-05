@@ -3,9 +3,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DatabaseService } from '../database/database.service';
+
+const SALT_ROUNDS = 10;
 
 const userSelect = {
   id: true,
@@ -32,9 +35,15 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     await this.ensureEmailNotTaken(createUserDto.email);
 
+    const hashedPassword = await bcrypt.hash(
+      createUserDto.password,
+      SALT_ROUNDS,
+    );
+
     return this.databaseService.user.create({
       data: {
         ...createUserDto,
+        password: hashedPassword,
       },
       select: userSelect,
     });
@@ -59,6 +68,11 @@ export class UsersService {
     return user;
   }
 
+  /** Returns the user with their hashed password, or null. For internal use by AuthService only. */
+  async findOneForAuth(email: string) {
+    return this.databaseService.user.findUnique({ where: { email } });
+  }
+
   async update(email: string, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(email);
 
@@ -66,12 +80,17 @@ export class UsersService {
       await this.ensureEmailNotTaken(updateUserDto.email, user.id);
     }
 
+    const { password, ...rest } = updateUserDto;
+
     return this.databaseService.user.update({
       where: {
         email,
       },
       data: {
-        ...updateUserDto,
+        ...rest,
+        ...(password && {
+          password: await bcrypt.hash(password, SALT_ROUNDS),
+        }),
       },
       select: userSelect,
     });
