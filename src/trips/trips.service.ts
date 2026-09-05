@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { Trip } from '@prisma/client';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 
@@ -8,7 +7,7 @@ import { UpdateTripDto } from './dto/update-trip.dto';
 export class TripsService {
   constructor(private readonly prisma: DatabaseService) {}
 
-  async create(createTripDto: CreateTripDto): Promise<Trip> {
+  async create(createTripDto: CreateTripDto) {
     return this.prisma.trip.create({
       data: {
         TripDate: new Date(createTripDto.TripDate),
@@ -18,20 +17,34 @@ export class TripsService {
     });
   }
 
-  async findAll(): Promise<Trip[]> {
+  async findAll() {
     return this.prisma.trip.findMany({
       include: {
-        Participants: true,
+        Participants: {
+          select: {
+            ParticipantID: true,
+            TripID: true,
+            Name: true,
+            Surname: true,
+          },
+        },
         Expenses: true,
       },
     });
   }
 
-  async findOne(id: number): Promise<Trip> {
+  async findOne(id: number) {
     const trip = await this.prisma.trip.findUnique({
       where: { TripID: id },
       include: {
-        Participants: true,
+        Participants: {
+          select: {
+            ParticipantID: true,
+            TripID: true,
+            Name: true,
+            Surname: true,
+          },
+        },
         Expenses: true,
       },
     });
@@ -43,7 +56,7 @@ export class TripsService {
     return trip;
   }
 
-  async update(id: number, updateTripDto: UpdateTripDto): Promise<Trip> {
+  async update(id: number, updateTripDto: UpdateTripDto) {
     await this.findOne(id);
 
     return this.prisma.trip.update({
@@ -62,7 +75,7 @@ export class TripsService {
     });
   }
 
-  async remove(id: number): Promise<Trip> {
+  async remove(id: number) {
     await this.findOne(id);
 
     return this.prisma.trip.delete({

@@ -45,3 +45,12 @@ model Expense {
 
   Trip        Trip   @relation(fields: [TripID], references: [TripID])
 }
+
+model User {
+    UserID Int @id @default(autoincrement())
+    Email String @unique
+    Password String
+    Name String?
+    CreatedAt DateTime @default(now())
+    UpdatedAt DateTime @updatedAt
+}

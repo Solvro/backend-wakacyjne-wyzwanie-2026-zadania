@@ -17,9 +17,11 @@ async function bootstrap() {
     .setTitle('Trip Management API')
     .setDescription('Dokumentacja API do zarządzania wycieczkami, uczestnikami i wydatkami')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('trips', 'Zarządzanie wycieczkami')
     .addTag('participant', 'Zarządzanie uczestnikami')
     .addTag('expenses', 'Zarządzanie wydatkami')
+    .addTag('auth', 'Uwierzytelnianie i autoryzacja')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
