@@ -9,12 +9,21 @@ import {
   ParseUUIDPipe,
   HttpCode,
   HttpStatus,
-  Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { TripsService } from './trips.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { User } from '../user/entities/user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Trips')
 @Controller('trips')
@@ -22,17 +31,23 @@ export class TripsController {
   constructor(private readonly tripService: TripsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new trip' })
   @ApiResponse({
     status: 201,
     description: 'The trip has been successfully created',
   })
   @ApiResponse({ status: 400, description: 'Bad request (validation error)' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
   async create(
     @Body() createTripDto: CreateTripDto,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
-    return await this.tripService.create(createTripDto, currentUser);
+    return await this.tripService.create(createTripDto, req.user.uuid);
   }
 
   @Get()
@@ -57,6 +72,8 @@ export class TripsController {
   }
 
   @Patch(':uuid')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a trip by UUID' })
   @ApiParam({
     name: 'uuid',
@@ -69,6 +86,10 @@ export class TripsController {
     description: 'The trip has been successfully updated',
   })
   @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden (only the owner can update)',
   })
@@ -76,12 +97,14 @@ export class TripsController {
   async update(
     @Param('uuid', ParseUUIDPipe) uuid: string,
     @Body() updateTripDto: UpdateTripDto,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
-    return await this.tripService.update(uuid, updateTripDto, currentUser);
+    return await this.tripService.update(uuid, updateTripDto, req.user.uuid);
   }
 
   @Delete(':uuid')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete a trip by UUID' })
   @ApiParam({
@@ -95,6 +118,10 @@ export class TripsController {
     description: 'The trip has been successfully deleted',
   })
   @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden (only the owner can delete)',
   })
@@ -102,8 +129,8 @@ export class TripsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(
     @Param('uuid', ParseUUIDPipe) uuid: string,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
-    await this.tripService.remove(uuid, currentUser);
+    await this.tripService.remove(uuid, req.user.uuid);
   }
 }

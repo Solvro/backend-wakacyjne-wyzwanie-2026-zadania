@@ -13,10 +13,10 @@ import { Prisma } from '../generated/prisma';
 export class TripsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createTripDto: CreateTripDto, currentUser: string) {
+  async create(createTripDto: CreateTripDto, currentUserUuid: string) {
     return await this.prisma.$transaction(async (tx) => {
       const trip = await tx.trip.create({
-        data: { ...createTripDto, createdByUuid: currentUser },
+        data: { ...createTripDto, createdByUuid: currentUserUuid },
       });
       return Object.assign(new Trip(), trip);
     });
@@ -73,7 +73,7 @@ export class TripsService {
   async update(
     uuid: string,
     updateTripDto: UpdateTripDto,
-    currentUser: string,
+    currentUserUuid: string,
   ) {
     try {
       return await this.prisma.$transaction(async (tx) => {
@@ -85,7 +85,7 @@ export class TripsService {
           throw new NotFoundException(`Trip with UUID "${uuid}" not found.`);
         }
 
-        if (trip.createdByUuid !== currentUser) {
+        if (trip.createdByUuid !== currentUserUuid) {
           throw new ForbiddenException(
             'You do not have permission to update this trip.',
           );
@@ -117,7 +117,7 @@ export class TripsService {
     }
   }
 
-  async remove(uuid: string, currentUser: string): Promise<Trip> {
+  async remove(uuid: string, currentUserUuid: string): Promise<Trip> {
     return await this.prisma.$transaction(async (tx) => {
       const trip = await tx.trip.findUnique({
         where: { uuid },
@@ -127,7 +127,7 @@ export class TripsService {
         throw new NotFoundException(`Trip with UUID "${uuid}" not found.`);
       }
 
-      if (trip.createdByUuid !== currentUser) {
+      if (trip.createdByUuid !== currentUserUuid) {
         throw new ForbiddenException(
           'You do not have permission to delete this trip.',
         );

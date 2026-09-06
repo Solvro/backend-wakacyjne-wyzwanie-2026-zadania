@@ -12,7 +12,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ExpensesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createExpenseDto: CreateExpenseDto, currentUser: string) {
+  async create(createExpenseDto: CreateExpenseDto, currentUserUuid: string) {
     const trip = await this.prisma.trip.findUnique({
       where: { uuid: createExpenseDto.tripUuid },
       include: { participants: true },
@@ -24,9 +24,9 @@ export class ExpensesService {
       );
     }
 
-    const isOwner = trip.createdByUuid === currentUser;
+    const isOwner = trip.createdByUuid === currentUserUuid;
     const isParticipant = trip.participants.some(
-      (participant) => participant.userUuid === currentUser,
+      (participant) => participant.userUuid === currentUserUuid,
     );
 
     if (!isOwner && !isParticipant) {
@@ -35,7 +35,7 @@ export class ExpensesService {
       );
     }
 
-    const payerUuid = createExpenseDto.payerUuid || currentUser;
+    const payerUuid = createExpenseDto.payerUuid || currentUserUuid;
 
     const isPayerValid =
       payerUuid === trip.createdByUuid ||
@@ -94,7 +94,7 @@ export class ExpensesService {
   async update(
     uuid: string,
     updateExpenseDto: UpdateExpenseDto,
-    currentUser: string,
+    currentUserUuid: string,
   ) {
     return await this.prisma.$transaction(async (tx) => {
       const expense = await tx.expense.findUnique({
@@ -112,8 +112,8 @@ export class ExpensesService {
         throw new NotFoundException(`Expense with UUID "${uuid}" not found.`);
       }
 
-      const isTripOwner = expense.trip.createdByUuid === currentUser;
-      const isPayer = expense.payerUuid === currentUser;
+      const isTripOwner = expense.trip.createdByUuid === currentUserUuid;
+      const isPayer = expense.payerUuid === currentUserUuid;
 
       if (!isTripOwner && !isPayer) {
         throw new ForbiddenException(
@@ -146,7 +146,7 @@ export class ExpensesService {
     });
   }
 
-  async remove(uuid: string, currentUser: string) {
+  async remove(uuid: string, currentUserUuid: string) {
     const expense = await this.prisma.expense.findUnique({
       where: { uuid },
       include: {
@@ -158,8 +158,8 @@ export class ExpensesService {
       throw new NotFoundException(`Expense with UUID "${uuid}" not found.`);
     }
 
-    const isTripOwner = expense.trip.createdByUuid === currentUser;
-    const isPayer = expense.payerUuid === currentUser;
+    const isTripOwner = expense.trip.createdByUuid === currentUserUuid;
+    const isPayer = expense.payerUuid === currentUserUuid;
 
     if (!isTripOwner && !isPayer) {
       throw new ForbiddenException(

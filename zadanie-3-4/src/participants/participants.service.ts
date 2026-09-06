@@ -14,7 +14,7 @@ export class ParticipantsService {
 
   async create(
     createParticipantDto: CreateParticipantDto,
-    currentUser: string,
+    currentUserUuid: string,
   ) {
     const { tripUuid, userUuid } = createParticipantDto;
 
@@ -30,7 +30,7 @@ export class ParticipantsService {
         throw new NotFoundException(`Trip with UUID "${tripUuid}" not found.`);
       }
 
-      if (trip.createdByUuid !== currentUser) {
+      if (trip.createdByUuid !== currentUserUuid) {
         throw new ForbiddenException(
           'Only the trip owner can add participants to this trip.',
         );
@@ -108,7 +108,7 @@ export class ParticipantsService {
   async update(
     uuid: string,
     updateParticipantDto: UpdateParticipantDto,
-    currentUser: string,
+    currentUserUuid: string,
   ) {
     return await this.prisma.$transaction(async (tx) => {
       const participant = await tx.participant.findUnique({
@@ -124,8 +124,8 @@ export class ParticipantsService {
         );
       }
 
-      const isTripOwner = participant.trip.createdByUuid === currentUser;
-      const isSelf = participant.userUuid === currentUser;
+      const isTripOwner = participant.trip.createdByUuid === currentUserUuid;
+      const isSelf = participant.userUuid === currentUserUuid;
 
       if (!isTripOwner && !isSelf) {
         throw new ForbiddenException(
@@ -140,7 +140,7 @@ export class ParticipantsService {
     });
   }
 
-  async remove(uuid: string, currentUser: string) {
+  async remove(uuid: string, currentUserUuid: string) {
     return this.prisma.$transaction(async (tx) => {
       const participant = await tx.participant.findUnique({
         where: { uuid },
@@ -155,8 +155,8 @@ export class ParticipantsService {
         );
       }
 
-      const isTripOwner = participant.trip.createdByUuid === currentUser;
-      const isSelf = participant.userUuid === currentUser;
+      const isTripOwner = participant.trip.createdByUuid === currentUserUuid;
+      const isSelf = participant.userUuid === currentUserUuid;
 
       if (!isTripOwner && !isSelf) {
         throw new ForbiddenException(

@@ -6,15 +6,23 @@ import {
   Patch,
   Param,
   Delete,
-  ParseUUIDPipe,
-  Query,
   HttpStatus,
   HttpCode,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { User } from '../user/entities/user.entity';
 
 @ApiTags('Participants')
 @Controller('participants')
@@ -22,12 +30,18 @@ export class ParticipantsController {
   constructor(private readonly participantsService: ParticipantsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Add a new participant to a trip' })
   @ApiResponse({
     status: 201,
     description: 'The participant has been successfully created',
   })
   @ApiResponse({ status: 400, description: 'Bad request (validation error)' })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
   @ApiResponse({
     status: 403,
     description: 'Forbidden (only the trip owner can add participants)',
@@ -39,11 +53,11 @@ export class ParticipantsController {
   })
   async create(
     @Body() createParticipantDto: CreateParticipantDto,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
     return await this.participantsService.create(
       createParticipantDto,
-      currentUser,
+      req.user.uuid,
     );
   }
 
@@ -69,6 +83,8 @@ export class ParticipantsController {
   }
 
   @Patch(':uuid')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a participant nickname by UUID' })
   @ApiParam({
     name: 'uuid',
@@ -81,6 +97,10 @@ export class ParticipantsController {
     description: 'The participant has been successfully updated',
   })
   @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden (only the owner or self can update)',
   })
@@ -88,16 +108,18 @@ export class ParticipantsController {
   async update(
     @Param('uuid') uuid: string,
     @Body() updateParticipantDto: UpdateParticipantDto,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
+    @Req() req: { user: User },
   ) {
     return await this.participantsService.update(
       uuid,
       updateParticipantDto,
-      currentUser,
+      req.user.uuid,
     );
   }
 
   @Delete(':uuid')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Remove a participant from a trip by UUID' })
   @ApiParam({
     name: 'uuid',
@@ -109,13 +131,14 @@ export class ParticipantsController {
     status: 204,
     description: 'The participant has been successfully removed',
   })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - the token is invalid, expired, or missing',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden' })
   @ApiResponse({ status: 404, description: 'Participant not found' })
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remove(
-    @Param('uuid') uuid: string,
-    @Query('currentUser', ParseUUIDPipe) currentUser: string, // delete after implementing authentication
-  ) {
-    await this.participantsService.remove(uuid, currentUser);
+  async remove(@Param('uuid') uuid: string, @Req() req: { user: User }) {
+    await this.participantsService.remove(uuid, req.user.uuid);
   }
 }
