@@ -1,37 +1,46 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { TripStatus } from '@prisma/client';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import { TripService } from './trip.service';
+import { CreateTripDto } from './dto/create-trip.dto';
+import { UpdateTripDto } from './dto/update-trip.dto';
 
-@Controller('trips')
+@ApiTags('trips')
+@Controller('trip')
 export class TripController {
-  constructor(private prisma: PrismaService) {}
-
-  @Get()
-  async findAll() {
-    return this.prisma.trip.findMany({
-      include: { participants: true, expenses: true },
-    });
-  }
+  constructor(private readonly tripService: TripService) {}
 
   @Post()
-  async create(
-    @Body()
-    body: {
-      name: string;
-      destination: string;
-      startDate: string;
-      endDate: string;
-      budget: number;
-      status: TripStatus;
-      notes?: string;
-    },
-  ) {
-    return this.prisma.trip.create({
-      data: {
-        ...body,
-        startDate: new Date(body.startDate),
-        endDate: new Date(body.endDate),
-      },
-    });
+  @ApiOperation({ summary: 'Utwórz nową wycieczkę' })
+  create(@Body() createTripDto: CreateTripDto) {
+    return this.tripService.create(createTripDto);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Pobierz wszystkie wycieczki (z paginacją)' })
+  @ApiQuery({ name: 'skip', required: false, type: Number })
+  @ApiQuery({ name: 'take', required: false, type: Number })
+  findAll(@Query('skip') skip?: string, @Query('take') take?: string) {
+    return this.tripService.findAll(
+      skip ? Number(skip) : undefined,
+      take ? Number(take) : undefined,
+    );
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Pobierz wycieczkę po id' })
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.tripService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Zaktualizuj wycieczkę' })
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateTripDto: UpdateTripDto) {
+    return this.tripService.update(id, updateTripDto);
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Usuń wycieczkę' })
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.tripService.remove(id);
   }
 }
