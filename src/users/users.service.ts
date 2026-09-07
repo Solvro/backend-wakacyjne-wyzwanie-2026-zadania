@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'generated/prisma/client';
-import { AuthRegisterDto } from 'src/auth/dto/auth-register.dto';
 import { DatabaseService } from 'src/database/database.service';
+import { UpdateUserDto } from './dto/UpdateUserDto.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -24,5 +25,21 @@ export class UsersService {
     return this.databaseService.user.findUnique({
       where: { email },
     });
+  }
+
+  async update(userId: number, updateUserDto: UpdateUserDto) {
+    const dataToUpdate: Partial<UpdateUserDto> = { ...updateUserDto };
+
+    if (dataToUpdate.password) {
+      dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
+    }
+
+    const updatedUser = await this.databaseService.user.update({
+      where: { id: userId },
+      data: dataToUpdate,
+    });
+
+    const { password, ...result } = updatedUser;
+    return result;
   }
 }

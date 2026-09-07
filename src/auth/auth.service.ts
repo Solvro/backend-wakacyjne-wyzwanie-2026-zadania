@@ -10,7 +10,6 @@ import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { AuthLoginDto } from './dto/auth-login.dto';
-import { User } from 'generated/prisma/client';
 import { AuthRegisterDto } from './dto/auth-register.dto';
 
 @Injectable()
@@ -52,9 +51,13 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Password not valid');
     }
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id, email: user.email, timestamp: Date.now() };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
+  }
+
+  async update(id: number, authLoginDto: AuthLoginDto) {
+    return this.usersService.update(id, authLoginDto);
   }
 }

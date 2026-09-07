@@ -7,17 +7,20 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('trips')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Create a new trip',
     description: 'Add a trip to the database.',
@@ -60,6 +63,7 @@ export class TripController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Update a trip by ID',
     description: 'Updates a trip by their unique ID from the database.',
@@ -77,6 +81,7 @@ export class TripController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Delete a trip by ID',
     description: 'Deletes a trip by their unique ID from the database.',

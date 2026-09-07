@@ -7,17 +7,20 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('participants')
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Create a new participant',
     description: 'Add a participant to the database.',
@@ -61,6 +64,7 @@ export class ParticipantController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Update a participant by ID',
     description: 'Updates a participant by their unique ID from the database.',
@@ -78,6 +82,7 @@ export class ParticipantController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Delete a participant by ID',
     description: 'Deletes a participant by their unique ID from the database.',
