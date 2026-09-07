@@ -7,17 +7,20 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('expenses')
 export class ExpenseController {
   constructor(private readonly expenseService: ExpenseService) {}
 
   @Post()
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Create a new expense',
     description: 'Add an expense to the database.',
@@ -32,6 +35,7 @@ export class ExpenseController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Retrieve a list of expenses',
     description: 'Retrieves a list of expenses from the database.',
@@ -46,6 +50,7 @@ export class ExpenseController {
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Retrieve an expense by ID',
     description: 'Retrieves an expense by their unique ID from the database.',
@@ -60,6 +65,7 @@ export class ExpenseController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Update an expense by ID',
     description: 'Updates an expense by their unique ID from the database.',
@@ -77,6 +83,7 @@ export class ExpenseController {
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   @ApiOperation({
     summary: 'Delete an expense by ID',
     description: 'Deletes an expense by their unique ID from the database.',

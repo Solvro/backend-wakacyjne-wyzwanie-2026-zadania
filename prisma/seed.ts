@@ -1,6 +1,7 @@
 import { PrismaClient } from '../generated/prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
+import * as bcrypt from 'bcrypt';
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
@@ -10,39 +11,47 @@ async function main() {
   await prisma.expense.deleteMany();
   await prisma.participant.deleteMany();
   await prisma.trip.deleteMany();
+  await prisma.user.deleteMany();
 
   const trip = await prisma.trip.create({
     data: {
-        title: 'Wyjazd w Karkonosze',
-        startDate: new Date('2026-09-10T10:00:00Z'),
-        endDate: new Date('2026-09-21T10:00:00Z'),
-        status: 'PLANNED',
+      title: 'Wyjazd w Karkonosze',
+      startDate: new Date('2026-09-10T10:00:00Z'),
+      endDate: new Date('2026-09-21T10:00:00Z'),
+      status: 'PLANNED',
     },
   });
 
   const participant = await prisma.participant.create({
     data: {
-        name: 'Jan Kowalski',
-        email: 'jan@example.com',
+      name: 'Jan Kowalski',
+      email: 'jan@example.com',
     },
   });
 
   await prisma.expense.create({
     data: {
-        tripId: trip.id,
-        payerId: participant.id,
-        amount: 250.0,
-        description: 'Paliwo',
-        expenseDate: new Date(),
+      tripId: trip.id,
+      payerId: participant.id,
+      amount: 250.0,
+      description: 'Paliwo',
+      expenseDate: new Date(),
+    },
+  });
+
+  await prisma.user.create({
+    data: {
+      email: 'jan@example.com',
+      password: await bcrypt.hash('changeme', 10),
     },
   });
 }
 
 main()
-    .catch((e) => {
-        console.error(e);
-        process.exit(1);
-    })
-    .finally(async () => {
-        await prisma.$disconnect();
-    });
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
