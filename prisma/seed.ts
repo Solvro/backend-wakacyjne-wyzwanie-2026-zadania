@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import * as bcrypt from 'bcrypt';
 import {
   ExpenseCategory,
   PrismaClient,
@@ -6,6 +7,7 @@ import {
 } from '../generated/prisma/client';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
+
 const connectionString = `${process.env.DATABASE_URL}`;
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
@@ -71,6 +73,29 @@ async function main() {
         category: ExpenseCategory.TRANSPORT,
         description: 'Bilety tygodniowe',
         createdAt: new Date(),
+      },
+    ],
+  });
+
+  const hashedPassword = await bcrypt.hash('password123', 10);
+
+  await prisma.user.createMany({
+    data: [
+      {
+        email: 'admin@example.com',
+        password: hashedPassword,
+      },
+      {
+        email: 'user@example.com',
+        password: hashedPassword,
+      },
+      {
+        email: 'jan@example.com',
+        password: hashedPassword,
+      },
+      {
+        email: 'anna@example.com',
+        password: hashedPassword,
       },
     ],
   });
