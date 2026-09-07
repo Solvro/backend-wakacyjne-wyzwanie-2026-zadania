@@ -23,6 +23,8 @@ async function bootstrap() {
     .addTag('trip', 'Zarządzanie wycieczkami')
     .addTag('participants', 'Zarządzanie uczestnikami')
     .addTag('expense', 'Zarządzanie wydatkami')
+    .addTag('auth', 'Uwierzytelnianie i autoryzacja')
+    .addTag('user', 'Zarządzanie użytkownikami')
     .addTag('solvro', 'Endpointy pomocnicze Solvro')
     .build();
 
