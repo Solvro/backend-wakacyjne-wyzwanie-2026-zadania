@@ -17,6 +17,7 @@ async function bootstrap() {
     .setTitle('Wakacyjne Wyzwanie API')
     .setDescription('API do zarządzania wycieczkami, uczestnikami i wydatkami')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

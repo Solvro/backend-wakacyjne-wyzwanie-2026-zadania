@@ -7,12 +7,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET as string,
+      secretOrKey: process.env.JWT_SECRET ?? 'jwt-secret',
     });
   }
 
-  validate(payload: { sub: number; email: string; timestamp: number }) {
-    const expiryTimeMs = Number(process.env.EXPIRY_TIME_MS);
+  validate(payload: { sub: number; email: string; timestamp?: number }) {
+    if (!payload.timestamp) {
+      throw new UnauthorizedException('Token wygasł');
+    }
+
+    const expiryTimeMs = Number(process.env.EXPIRY_TIME_MS) || 3600000;
     if (Date.now() - payload.timestamp > expiryTimeMs) {
       throw new UnauthorizedException('Token wygasł');
     }
