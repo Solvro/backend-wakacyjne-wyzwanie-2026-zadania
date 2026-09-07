@@ -26,6 +26,7 @@ async function bootstrap() {
     .addTag('auth', 'Uwierzytelnianie i autoryzacja')
     .addTag('user', 'Zarządzanie użytkownikami')
     .addTag('solvro', 'Endpointy pomocnicze Solvro')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
