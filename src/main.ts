@@ -7,6 +7,26 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors({
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void,
+    ) => {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const allowedOriginRegex =
+        /^https?:\/\/(localhost|127\.0\.0\.1):5[0-5]\d{2}$/;
+      if (allowedOriginRegex.test(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(null, false);
+    },
+    credentials: true,
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -23,7 +43,10 @@ async function bootstrap() {
     .addTag('trip', 'Zarządzanie wycieczkami')
     .addTag('participants', 'Zarządzanie uczestnikami')
     .addTag('expense', 'Zarządzanie wydatkami')
+    .addTag('auth', 'Uwierzytelnianie i autoryzacja')
+    .addTag('user', 'Zarządzanie użytkownikami')
     .addTag('solvro', 'Endpointy pomocnicze Solvro')
+    .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

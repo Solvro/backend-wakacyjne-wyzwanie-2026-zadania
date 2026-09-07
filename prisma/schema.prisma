@@ -68,3 +68,11 @@ model Expense {
   @@index([tripId])
   @@index([participantId])
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
