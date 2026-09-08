@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
@@ -29,7 +29,7 @@ export class TripController {
   @ApiOperation({summary: "Get a trip with given ID"})
   @ApiResponse({status: 200, description: "Return the trip."})
   @ApiResponse({status: 404, description: "Trip not found."})
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ParseIntPipe) {
     return this.tripService.findOne(+id);
   }
 
@@ -39,7 +39,7 @@ export class TripController {
   @ApiResponse({status: 200, description: "The trip has been successfully updated."})
   @ApiResponse({status: 400, description: "Bad request."})
   @ApiResponse({status: 404, description: "Trip not found."})
-  update(@Param('id') id: string, @Body() updateTripDto: UpdateTripDto) {
+  update(@Param('id') id: ParseIntPipe, @Body() updateTripDto: UpdateTripDto) {
     return this.tripService.update(+id, updateTripDto);
   }
 
@@ -48,7 +48,7 @@ export class TripController {
   @ApiOperation({summary: "Delete a trip with given ID"})
   @ApiResponse({status: 200, description: "The trip has been successfully deleted."})
   @ApiResponse({status: 404, description: "Trip not found."})
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ParseIntPipe) {
     return this.tripService.remove(+id);
   }
 }

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import {Status} from "@prisma/client"
+import { Type } from "class-transformer";
 import { IsDateString, IsEnum, IsNotEmpty, IsString, MaxLength } from "class-validator";
 import { execArgv } from "process";
 
@@ -16,12 +17,14 @@ export class CreateTripDto {
       example: "The start date of the trip."
     })
     @IsDateString()
+    @Type(() => Date)
   	startDate!: Date;  
     
     @ApiProperty({
       example: "The end date of the trip."
     })
     @IsDateString()
+    @Type(() => Date)
   	endDate!: Date; 
     
     @ApiProperty({

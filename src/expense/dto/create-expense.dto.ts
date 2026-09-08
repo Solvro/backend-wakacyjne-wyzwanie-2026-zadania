@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 import { IsDateString, IsInt, IsNotEmpty, IsNumber, IsString, Max, MaxLength, Min } from "class-validator";
 
 export class CreateExpenseDto {
@@ -25,6 +26,7 @@ export class CreateExpenseDto {
       description: 'The date of the expense.'
     })
     @IsDateString()
+    @Type(() => Date)
   	depositDate!: Date;
 
     @ApiProperty({
