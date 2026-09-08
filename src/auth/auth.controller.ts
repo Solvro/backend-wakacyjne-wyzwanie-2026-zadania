@@ -8,12 +8,12 @@ import { UpdateAuthDto } from './dto/update-auth-dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('auth/register')
+  @Post('register')
   async register(@Body() dto: CreateAuthDto) {
     return this.authService.register(dto);
   }
 
-  @Post('auth/login')
+  @Post('login')
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
