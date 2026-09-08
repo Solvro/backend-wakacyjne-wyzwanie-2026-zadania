@@ -14,14 +14,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     async validate(payload: any){
         
-        const date_now = new Date();
-        const time_period = date_now.getTime() - payload.timestamp.getTime();
+        const date_now = Date.now();
+        const time_period = date_now - payload.timestamp;
 
         if(process.env.EXPIRY_TIME_MS && time_period>parseInt(process.env.EXPIRY_TIME_MS)){
 
             throw new UnauthorizedException("The token expired")
         }
 
-        return { id: payload.sub, email: payload.email, password: payload.password, date_of_birth: payload.date_of_birth};
+        return { id: payload.sub, email: payload.email, date_of_birth: payload.date_of_birth};
     }
+
 } 

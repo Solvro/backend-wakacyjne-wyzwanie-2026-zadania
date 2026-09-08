@@ -49,7 +49,7 @@ export class UserService {
             throw new UnauthorizedException("Wrong password");
         }
 
-        const payload = { sub: user.id, email: user.email, timestamp: Date.now(), password: user.password, date_of_birth: user.date_of_birth };
+        const payload = { sub: user.id, email: user.email, timestamp: Date.now(), date_of_birth: user.date_of_birth };
 
         const token = this.jwtService.sign(payload);
 
@@ -84,11 +84,13 @@ export class UserService {
 
         await this.findOneId(id);
 
+        const hashedPassword = updateUserDto.password && await bcrypt.hash(updateUserDto.password, 10);
+
         const user = await this.databaseService.user.update({
             where: { id },
             data: {
                 email : updateUserDto.email,
-                password: updateUserDto.password,
+                password: hashedPassword,
                 date_of_birth: updateUserDto.date_of_birth,
             }
         });

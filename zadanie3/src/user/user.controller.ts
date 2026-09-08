@@ -12,6 +12,7 @@ export class UserController {
 
   constructor( private userService: UserService) {}
 
+  @Post()
   @ApiOperation({
     summary: 'Sign in',
     description: 'Sign in to use more options'
