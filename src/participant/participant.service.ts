@@ -28,7 +28,7 @@ export class ParticipantService {
     });
 
     if (!participant){
-      return new NotFoundException("Participant with given id hasn't found.");
+      throw new NotFoundException("Participant with given id hasn't found.");
     }
 
     return participant;

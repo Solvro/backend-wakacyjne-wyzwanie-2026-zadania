@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
@@ -27,7 +27,7 @@ export class ExpenseController {
   @ApiOperation({summary: "Get an expense with given ID"})
   @ApiResponse({status: 200, description: "Return the expense."})
   @ApiResponse({status: 404, description: "Expense not found."})
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ParseIntPipe) {
     return this.expenseService.findOne(+id);
   }
 
@@ -36,7 +36,7 @@ export class ExpenseController {
   @ApiResponse({status: 200, description: "The expense has been successfully updated."})
   @ApiResponse({status: 400, description: "Bad request."})
   @ApiResponse({status: 404, description: "Expense not found."})
-  update(@Param('id') id: string, @Body() updateExpenseDto: UpdateExpenseDto) {
+  update(@Param('id') id: ParseIntPipe, @Body() updateExpenseDto: UpdateExpenseDto) {
     return this.expenseService.update(+id, updateExpenseDto);
   }
 
@@ -44,7 +44,7 @@ export class ExpenseController {
   @ApiOperation({summary: "Delete an expense with given ID"})
   @ApiResponse({status: 200, description: "The expense has been successfully deleted."})
   @ApiResponse({status: 404, description: "Expense not found."})
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ParseIntPipe) {
     return this.expenseService.remove(+id);
   }
 }

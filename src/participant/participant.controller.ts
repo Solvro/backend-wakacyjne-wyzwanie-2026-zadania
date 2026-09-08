@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
@@ -27,7 +27,7 @@ export class ParticipantController {
   @ApiOperation({summary: "Get a participant with given ID"})
   @ApiResponse({status: 200, description: "Return the participant."})
   @ApiResponse({status: 404, description: "Participant not found."})
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ParseIntPipe) {
     return this.participantService.findOne(+id);
   }
 
@@ -36,7 +36,7 @@ export class ParticipantController {
   @ApiResponse({status: 200, description: "The participant has been successfully updated."})
   @ApiResponse({status: 400, description: "Bad request."})
   @ApiResponse({status: 404, description: "Participant not found."})
-  update(@Param('id') id: string, @Body() updateParticipantDto: UpdateParticipantDto) {
+  update(@Param('id') id: ParseIntPipe, @Body() updateParticipantDto: UpdateParticipantDto) {
     return this.participantService.update(+id, updateParticipantDto);
   }
 
@@ -44,7 +44,7 @@ export class ParticipantController {
   @ApiOperation({summary: "Delete a participant with given ID"})
   @ApiResponse({status: 200, description: "The participant has been successfully deleted."})
   @ApiResponse({status: 404, description: "Participant not found."})
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ParseIntPipe) {
     return this.participantService.remove(+id);
   }
 }
