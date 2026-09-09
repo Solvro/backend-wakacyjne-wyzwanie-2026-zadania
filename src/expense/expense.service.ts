@@ -16,7 +16,6 @@ export class ExpenseService {
         amount: createExpenseDto.amount,
         category: createExpenseDto.category,
         description: createExpenseDto.description,
-        created_at: createExpenseDto.created_at,
       },
     });
   }
@@ -45,7 +44,6 @@ export class ExpenseService {
         amount: updateExpenseDto.amount,
         category: updateExpenseDto.category,
         description: updateExpenseDto.description,
-        created_at: updateExpenseDto.created_at,
       },
     });
   }

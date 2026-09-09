@@ -1,15 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, UseGuards, ClassSerializerInterceptor, UseInterceptors} from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
-import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {ApiOperation, ApiResponse, ApiTags, ApiBearerAuth} from "@nestjs/swagger";
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('trip')
 @ApiTags('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Stworzenie nowej podróży',
     description: 'Dodaje nową podróż do bazy danych.'
@@ -49,6 +53,8 @@ export class TripController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Aktualizacja konkretnej podróży',
     description: 'Aktualizuje informacje o konkretnej podróży na podstawie jej ID.'
@@ -62,6 +68,8 @@ export class TripController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Usunięcie konkretnej podróży',
     description: 'Usuwa konkretną podróż z bazy danych na podstawie jej ID.'

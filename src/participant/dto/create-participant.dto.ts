@@ -1,5 +1,6 @@
 import {IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsEmail} from 'class-validator';
 import { Role } from "@prisma/client";
+import { Exclude } from 'class-transformer';
 import {ApiProperty} from "@nestjs/swagger";
 
 export class CreateParticipantDto {
@@ -21,6 +22,7 @@ export class CreateParticipantDto {
 
     @IsEmail( {}, { message: 'Email musi być poprawnym adresem email' } )
     @IsOptional( { message: 'Email jest opcjonalny' } )
+    @Exclude()
     @ApiProperty({
       description: 'Email uczestnika',
       example: 'jan.kowalski@example.com'
