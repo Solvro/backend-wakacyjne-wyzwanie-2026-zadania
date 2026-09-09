@@ -25,6 +25,11 @@ export class AuthService {
                 email: registerDto.email,
                 password: hashedPassword,
             },
+            select: {
+                id: true,
+                email: true,
+                createdAt: true
+            }
         });
 
     }
@@ -35,15 +40,13 @@ export class AuthService {
         });
 
         if (!user) {
-            throw new NotFoundException(
-                `User not found with this email`,
-            );
+            throw new UnauthorizedException('Wrong email or password');
         }
 
         const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
 
         if (!isPasswordValid) {
-            throw new UnauthorizedException('Wrong password');
+            throw new UnauthorizedException('Wrong email or password');
         }
 
         const payload = {

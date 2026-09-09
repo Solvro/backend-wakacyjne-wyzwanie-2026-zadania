@@ -36,6 +36,11 @@ export class UserService {
         return this.databaseService.user.update({
             where: { id },
             data,
+            select: {
+                id: true,
+                email: true,
+                createdAt: true
+            }
         });
 
     }
