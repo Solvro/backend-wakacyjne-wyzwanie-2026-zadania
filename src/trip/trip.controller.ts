@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Query, UseGuards } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTripResponseDto } from './dto/create-trip-response.dto';
 import { PaginationDto } from 'src/pagination/pagination.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('trips')
 @ApiTags("trips")
@@ -12,6 +13,8 @@ export class TripController {
   constructor(private readonly tripService: TripService) { }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: "Create new trip",
     description: "Create new trip with name, destination, starting and ending date with budget"
@@ -21,6 +24,7 @@ export class TripController {
     description: "Trip created successfully",
     type: CreateTripResponseDto
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async create(@Body() createTripDto: CreateTripDto) {
     return this.tripService.create(createTripDto);
   }
@@ -58,6 +62,8 @@ export class TripController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: "Update trip by ID",
     description: "Update a trip by their unique ID"
@@ -71,11 +77,14 @@ export class TripController {
     status: 404,
     description: " Trip not found"
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateTripDto: UpdateTripDto) {
     return this.tripService.update(id, updateTripDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({
     summary: "Delete trip by ID",
     description: "Delete a trip by their unique ID"
@@ -89,6 +98,7 @@ export class TripController {
     status: 404,
     description: " Trip not found"
   })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
   async remove(@Param('id', ParseIntPipe) id: number) {
     return this.tripService.remove(id);
   }

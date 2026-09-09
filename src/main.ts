@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -12,6 +13,25 @@ async function bootstrap() {
   }));
   app.setGlobalPrefix('api/v1');
 
+  app.enableCors({
+    origin: (origin, callback) => {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const match = origin.match(/^http:\/\/localhost:(\d+)$/);
+
+      if (match) {
+        const port = Number(match[1]);
+        if (port >= 5000 && port <= 5599) {
+          return callback(null, true);
+        }
+      }
+
+      callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle("API")
     .setDescription("CRUD dla wycieczek, uczestników i wydatków")

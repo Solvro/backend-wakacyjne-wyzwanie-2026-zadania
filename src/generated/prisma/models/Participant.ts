@@ -29,11 +29,13 @@ export type AggregateParticipant = {
 export type ParticipantAvgAggregateOutputType = {
   id: number | null
   tripId: number | null
+  userId: number | null
 }
 
 export type ParticipantSumAggregateOutputType = {
   id: number | null
   tripId: number | null
+  userId: number | null
 }
 
 export type ParticipantMinAggregateOutputType = {
@@ -43,6 +45,7 @@ export type ParticipantMinAggregateOutputType = {
   email: string | null
   joinedAt: Date | null
   tripId: number | null
+  userId: number | null
 }
 
 export type ParticipantMaxAggregateOutputType = {
@@ -52,6 +55,7 @@ export type ParticipantMaxAggregateOutputType = {
   email: string | null
   joinedAt: Date | null
   tripId: number | null
+  userId: number | null
 }
 
 export type ParticipantCountAggregateOutputType = {
@@ -61,6 +65,7 @@ export type ParticipantCountAggregateOutputType = {
   email: number
   joinedAt: number
   tripId: number
+  userId: number
   _all: number
 }
 
@@ -68,11 +73,13 @@ export type ParticipantCountAggregateOutputType = {
 export type ParticipantAvgAggregateInputType = {
   id?: true
   tripId?: true
+  userId?: true
 }
 
 export type ParticipantSumAggregateInputType = {
   id?: true
   tripId?: true
+  userId?: true
 }
 
 export type ParticipantMinAggregateInputType = {
@@ -82,6 +89,7 @@ export type ParticipantMinAggregateInputType = {
   email?: true
   joinedAt?: true
   tripId?: true
+  userId?: true
 }
 
 export type ParticipantMaxAggregateInputType = {
@@ -91,6 +99,7 @@ export type ParticipantMaxAggregateInputType = {
   email?: true
   joinedAt?: true
   tripId?: true
+  userId?: true
 }
 
 export type ParticipantCountAggregateInputType = {
@@ -100,6 +109,7 @@ export type ParticipantCountAggregateInputType = {
   email?: true
   joinedAt?: true
   tripId?: true
+  userId?: true
   _all?: true
 }
 
@@ -196,6 +206,7 @@ export type ParticipantGroupByOutputType = {
   email: string
   joinedAt: Date
   tripId: number
+  userId: number | null
   _count: ParticipantCountAggregateOutputType | null
   _avg: ParticipantAvgAggregateOutputType | null
   _sum: ParticipantSumAggregateOutputType | null
@@ -228,8 +239,10 @@ export type ParticipantWhereInput = {
   email?: Prisma.StringFilter<"Participant"> | string
   joinedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   tripId?: Prisma.IntFilter<"Participant"> | number
+  userId?: Prisma.IntNullableFilter<"Participant"> | number | null
   trip?: Prisma.XOR<Prisma.TripScalarRelationFilter, Prisma.TripWhereInput>
   paidExpenses?: Prisma.ExpenseListRelationFilter
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type ParticipantOrderByWithRelationInput = {
@@ -239,12 +252,15 @@ export type ParticipantOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   trip?: Prisma.TripOrderByWithRelationInput
   paidExpenses?: Prisma.ExpenseOrderByRelationAggregateInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ParticipantWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  userId?: number
   AND?: Prisma.ParticipantWhereInput | Prisma.ParticipantWhereInput[]
   OR?: Prisma.ParticipantWhereInput[]
   NOT?: Prisma.ParticipantWhereInput | Prisma.ParticipantWhereInput[]
@@ -255,7 +271,8 @@ export type ParticipantWhereUniqueInput = Prisma.AtLeast<{
   tripId?: Prisma.IntFilter<"Participant"> | number
   trip?: Prisma.XOR<Prisma.TripScalarRelationFilter, Prisma.TripWhereInput>
   paidExpenses?: Prisma.ExpenseListRelationFilter
-}, "id">
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+}, "id" | "userId">
 
 export type ParticipantOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -264,6 +281,7 @@ export type ParticipantOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ParticipantCountOrderByAggregateInput
   _avg?: Prisma.ParticipantAvgOrderByAggregateInput
   _max?: Prisma.ParticipantMaxOrderByAggregateInput
@@ -281,6 +299,7 @@ export type ParticipantScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Participant"> | string
   joinedAt?: Prisma.DateTimeWithAggregatesFilter<"Participant"> | Date | string
   tripId?: Prisma.IntWithAggregatesFilter<"Participant"> | number
+  userId?: Prisma.IntNullableWithAggregatesFilter<"Participant"> | number | null
 }
 
 export type ParticipantCreateInput = {
@@ -290,6 +309,7 @@ export type ParticipantCreateInput = {
   joinedAt?: Date | string
   trip: Prisma.TripCreateNestedOneWithoutParticipantsInput
   paidExpenses?: Prisma.ExpenseCreateNestedManyWithoutPayerInput
+  user?: Prisma.UserCreateNestedOneWithoutParticipantInput
 }
 
 export type ParticipantUncheckedCreateInput = {
@@ -299,6 +319,7 @@ export type ParticipantUncheckedCreateInput = {
   email: string
   joinedAt?: Date | string
   tripId: number
+  userId?: number | null
   paidExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -309,6 +330,7 @@ export type ParticipantUpdateInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trip?: Prisma.TripUpdateOneRequiredWithoutParticipantsNestedInput
   paidExpenses?: Prisma.ExpenseUpdateManyWithoutPayerNestedInput
+  user?: Prisma.UserUpdateOneWithoutParticipantNestedInput
 }
 
 export type ParticipantUncheckedUpdateInput = {
@@ -318,6 +340,7 @@ export type ParticipantUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   paidExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -328,6 +351,7 @@ export type ParticipantCreateManyInput = {
   email: string
   joinedAt?: Date | string
   tripId: number
+  userId?: number | null
 }
 
 export type ParticipantUpdateManyMutationInput = {
@@ -344,6 +368,7 @@ export type ParticipantUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type ParticipantListRelationFilter = {
@@ -363,11 +388,13 @@ export type ParticipantCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type ParticipantAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type ParticipantMaxOrderByAggregateInput = {
@@ -377,6 +404,7 @@ export type ParticipantMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type ParticipantMinOrderByAggregateInput = {
@@ -386,16 +414,23 @@ export type ParticipantMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type ParticipantSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type ParticipantScalarRelationFilter = {
   is?: Prisma.ParticipantWhereInput
   isNot?: Prisma.ParticipantWhereInput
+}
+
+export type ParticipantNullableScalarRelationFilter = {
+  is?: Prisma.ParticipantWhereInput | null
+  isNot?: Prisma.ParticipantWhereInput | null
 }
 
 export type ParticipantCreateNestedManyWithoutTripInput = {
@@ -440,6 +475,14 @@ export type ParticipantUncheckedUpdateManyWithoutTripNestedInput = {
   deleteMany?: Prisma.ParticipantScalarWhereInput | Prisma.ParticipantScalarWhereInput[]
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ParticipantCreateNestedOneWithoutPaidExpensesInput = {
   create?: Prisma.XOR<Prisma.ParticipantCreateWithoutPaidExpensesInput, Prisma.ParticipantUncheckedCreateWithoutPaidExpensesInput>
   connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutPaidExpensesInput
@@ -454,12 +497,45 @@ export type ParticipantUpdateOneRequiredWithoutPaidExpensesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ParticipantUpdateToOneWithWhereWithoutPaidExpensesInput, Prisma.ParticipantUpdateWithoutPaidExpensesInput>, Prisma.ParticipantUncheckedUpdateWithoutPaidExpensesInput>
 }
 
+export type ParticipantCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ParticipantCreateWithoutUserInput, Prisma.ParticipantUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutUserInput
+  connect?: Prisma.ParticipantWhereUniqueInput
+}
+
+export type ParticipantUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ParticipantCreateWithoutUserInput, Prisma.ParticipantUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutUserInput
+  connect?: Prisma.ParticipantWhereUniqueInput
+}
+
+export type ParticipantUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ParticipantCreateWithoutUserInput, Prisma.ParticipantUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutUserInput
+  upsert?: Prisma.ParticipantUpsertWithoutUserInput
+  disconnect?: Prisma.ParticipantWhereInput | boolean
+  delete?: Prisma.ParticipantWhereInput | boolean
+  connect?: Prisma.ParticipantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ParticipantUpdateToOneWithWhereWithoutUserInput, Prisma.ParticipantUpdateWithoutUserInput>, Prisma.ParticipantUncheckedUpdateWithoutUserInput>
+}
+
+export type ParticipantUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ParticipantCreateWithoutUserInput, Prisma.ParticipantUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.ParticipantCreateOrConnectWithoutUserInput
+  upsert?: Prisma.ParticipantUpsertWithoutUserInput
+  disconnect?: Prisma.ParticipantWhereInput | boolean
+  delete?: Prisma.ParticipantWhereInput | boolean
+  connect?: Prisma.ParticipantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ParticipantUpdateToOneWithWhereWithoutUserInput, Prisma.ParticipantUpdateWithoutUserInput>, Prisma.ParticipantUncheckedUpdateWithoutUserInput>
+}
+
 export type ParticipantCreateWithoutTripInput = {
   name: string
   surname: string
   email: string
   joinedAt?: Date | string
   paidExpenses?: Prisma.ExpenseCreateNestedManyWithoutPayerInput
+  user?: Prisma.UserCreateNestedOneWithoutParticipantInput
 }
 
 export type ParticipantUncheckedCreateWithoutTripInput = {
@@ -468,6 +544,7 @@ export type ParticipantUncheckedCreateWithoutTripInput = {
   surname: string
   email: string
   joinedAt?: Date | string
+  userId?: number | null
   paidExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutPayerInput
 }
 
@@ -507,6 +584,7 @@ export type ParticipantScalarWhereInput = {
   email?: Prisma.StringFilter<"Participant"> | string
   joinedAt?: Prisma.DateTimeFilter<"Participant"> | Date | string
   tripId?: Prisma.IntFilter<"Participant"> | number
+  userId?: Prisma.IntNullableFilter<"Participant"> | number | null
 }
 
 export type ParticipantCreateWithoutPaidExpensesInput = {
@@ -515,6 +593,7 @@ export type ParticipantCreateWithoutPaidExpensesInput = {
   email: string
   joinedAt?: Date | string
   trip: Prisma.TripCreateNestedOneWithoutParticipantsInput
+  user?: Prisma.UserCreateNestedOneWithoutParticipantInput
 }
 
 export type ParticipantUncheckedCreateWithoutPaidExpensesInput = {
@@ -524,6 +603,7 @@ export type ParticipantUncheckedCreateWithoutPaidExpensesInput = {
   email: string
   joinedAt?: Date | string
   tripId: number
+  userId?: number | null
 }
 
 export type ParticipantCreateOrConnectWithoutPaidExpensesInput = {
@@ -548,6 +628,7 @@ export type ParticipantUpdateWithoutPaidExpensesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trip?: Prisma.TripUpdateOneRequiredWithoutParticipantsNestedInput
+  user?: Prisma.UserUpdateOneWithoutParticipantNestedInput
 }
 
 export type ParticipantUncheckedUpdateWithoutPaidExpensesInput = {
@@ -557,6 +638,61 @@ export type ParticipantUncheckedUpdateWithoutPaidExpensesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tripId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type ParticipantCreateWithoutUserInput = {
+  name: string
+  surname: string
+  email: string
+  joinedAt?: Date | string
+  trip: Prisma.TripCreateNestedOneWithoutParticipantsInput
+  paidExpenses?: Prisma.ExpenseCreateNestedManyWithoutPayerInput
+}
+
+export type ParticipantUncheckedCreateWithoutUserInput = {
+  id?: number
+  name: string
+  surname: string
+  email: string
+  joinedAt?: Date | string
+  tripId: number
+  paidExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutPayerInput
+}
+
+export type ParticipantCreateOrConnectWithoutUserInput = {
+  where: Prisma.ParticipantWhereUniqueInput
+  create: Prisma.XOR<Prisma.ParticipantCreateWithoutUserInput, Prisma.ParticipantUncheckedCreateWithoutUserInput>
+}
+
+export type ParticipantUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.ParticipantUpdateWithoutUserInput, Prisma.ParticipantUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ParticipantCreateWithoutUserInput, Prisma.ParticipantUncheckedCreateWithoutUserInput>
+  where?: Prisma.ParticipantWhereInput
+}
+
+export type ParticipantUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.ParticipantWhereInput
+  data: Prisma.XOR<Prisma.ParticipantUpdateWithoutUserInput, Prisma.ParticipantUncheckedUpdateWithoutUserInput>
+}
+
+export type ParticipantUpdateWithoutUserInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  surname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trip?: Prisma.TripUpdateOneRequiredWithoutParticipantsNestedInput
+  paidExpenses?: Prisma.ExpenseUpdateManyWithoutPayerNestedInput
+}
+
+export type ParticipantUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  surname?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tripId?: Prisma.IntFieldUpdateOperationsInput | number
+  paidExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutPayerNestedInput
 }
 
 export type ParticipantCreateManyTripInput = {
@@ -565,6 +701,7 @@ export type ParticipantCreateManyTripInput = {
   surname: string
   email: string
   joinedAt?: Date | string
+  userId?: number | null
 }
 
 export type ParticipantUpdateWithoutTripInput = {
@@ -573,6 +710,7 @@ export type ParticipantUpdateWithoutTripInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   paidExpenses?: Prisma.ExpenseUpdateManyWithoutPayerNestedInput
+  user?: Prisma.UserUpdateOneWithoutParticipantNestedInput
 }
 
 export type ParticipantUncheckedUpdateWithoutTripInput = {
@@ -581,6 +719,7 @@ export type ParticipantUncheckedUpdateWithoutTripInput = {
   surname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   paidExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutPayerNestedInput
 }
 
@@ -590,6 +729,7 @@ export type ParticipantUncheckedUpdateManyWithoutTripInput = {
   surname?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -630,8 +770,10 @@ export type ParticipantSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   email?: boolean
   joinedAt?: boolean
   tripId?: boolean
+  userId?: boolean
   trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
   paidExpenses?: boolean | Prisma.Participant$paidExpensesArgs<ExtArgs>
+  user?: boolean | Prisma.Participant$userArgs<ExtArgs>
   _count?: boolean | Prisma.ParticipantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["participant"]>
 
@@ -642,7 +784,9 @@ export type ParticipantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   email?: boolean
   joinedAt?: boolean
   tripId?: boolean
+  userId?: boolean
   trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Participant$userArgs<ExtArgs>
 }, ExtArgs["result"]["participant"]>
 
 export type ParticipantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -652,7 +796,9 @@ export type ParticipantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   email?: boolean
   joinedAt?: boolean
   tripId?: boolean
+  userId?: boolean
   trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Participant$userArgs<ExtArgs>
 }, ExtArgs["result"]["participant"]>
 
 export type ParticipantSelectScalar = {
@@ -662,19 +808,23 @@ export type ParticipantSelectScalar = {
   email?: boolean
   joinedAt?: boolean
   tripId?: boolean
+  userId?: boolean
 }
 
-export type ParticipantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "surname" | "email" | "joinedAt" | "tripId", ExtArgs["result"]["participant"]>
+export type ParticipantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "surname" | "email" | "joinedAt" | "tripId" | "userId", ExtArgs["result"]["participant"]>
 export type ParticipantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
   paidExpenses?: boolean | Prisma.Participant$paidExpensesArgs<ExtArgs>
+  user?: boolean | Prisma.Participant$userArgs<ExtArgs>
   _count?: boolean | Prisma.ParticipantCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ParticipantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Participant$userArgs<ExtArgs>
 }
 export type ParticipantIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.Participant$userArgs<ExtArgs>
 }
 
 export type $ParticipantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -682,6 +832,7 @@ export type $ParticipantPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     trip: Prisma.$TripPayload<ExtArgs>
     paidExpenses: Prisma.$ExpensePayload<ExtArgs>[]
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -690,6 +841,7 @@ export type $ParticipantPayload<ExtArgs extends runtime.Types.Extensions.Interna
     email: string
     joinedAt: Date
     tripId: number
+    userId: number | null
   }, ExtArgs["result"]["participant"]>
   composites: {}
 }
@@ -1086,6 +1238,7 @@ export interface Prisma__ParticipantClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   trip<T extends Prisma.TripDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TripDefaultArgs<ExtArgs>>): Prisma.Prisma__TripClient<runtime.Types.Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   paidExpenses<T extends Prisma.Participant$paidExpensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Participant$paidExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  user<T extends Prisma.Participant$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Participant$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1121,6 +1274,7 @@ export interface ParticipantFieldRefs {
   readonly email: Prisma.FieldRef<"Participant", 'String'>
   readonly joinedAt: Prisma.FieldRef<"Participant", 'DateTime'>
   readonly tripId: Prisma.FieldRef<"Participant", 'Int'>
+  readonly userId: Prisma.FieldRef<"Participant", 'Int'>
 }
     
 
@@ -1543,6 +1697,25 @@ export type Participant$paidExpensesArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.ExpenseScalarFieldEnum | Prisma.ExpenseScalarFieldEnum[]
+}
+
+/**
+ * Participant.user
+ */
+export type Participant$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

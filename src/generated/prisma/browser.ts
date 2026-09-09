@@ -32,3 +32,8 @@ export type Participant = Prisma.ParticipantModel
  * 
  */
 export type Expense = Prisma.ExpenseModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
