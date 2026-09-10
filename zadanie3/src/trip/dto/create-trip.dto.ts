@@ -1,9 +1,11 @@
 import {City, Food} from '../../generated/prisma/enums'
-import {IsEnum, IsArray, ValidateNested, ArrayNotEmpty, IsOptional} from 'class-validator'
+import {IsEnum, IsArray,IsOptional} from 'class-validator'
 import {ApiProperty} from '@nestjs/swagger'
+import { Expose } from 'class-transformer';
 
 export class CreateTripDto {
 
+    @Expose()
     @IsEnum(City, {message: "City must be selected from: WARSAW, SEOUL, PARIS, TOKYO, SZANGHAI, SINGAPORE"})
     @ApiProperty({
         enum: ['WARSAW', 'SEOUL','PARIS','TOKYO','SZANGHAI', 'SINGAPORE'],
@@ -12,6 +14,7 @@ export class CreateTripDto {
     })
     city!: City
 
+    @Expose()
     @IsEnum(Food, {message: "Food must be selected from: ALL_INCLUSIVE, MEALS_3, MEALS_2, BREAKFAST, WITHOUT"})
     @ApiProperty({
         enum: ['ALL_INCLUSIVE', 'MEALS_3','MEALS_2','BREAKFAST','WITHOUT'],
@@ -20,6 +23,7 @@ export class CreateTripDto {
     })
     food!: Food
 
+    @Expose()
     @IsOptional()
     @IsArray()
     @ApiProperty({

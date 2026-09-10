@@ -12,11 +12,15 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2023",
     "types": ["node", "jest"],
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "sourceMap": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "incremental": true,
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false
-  }
+  },
+  "include": ["src/**/*"],
+  
 }

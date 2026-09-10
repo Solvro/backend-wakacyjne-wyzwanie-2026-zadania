@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
-import { ParseIntPipe } from '@nestjs/common';
+import { ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../user/jwt.authguard';
 
 @Controller('trip')
 @ApiTags('trip')
@@ -11,6 +12,7 @@ export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Create a new trip',
     description: 'Add a new trip to the database'
@@ -50,6 +52,7 @@ export class TripController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Update the trip with chosen ID',
     description: 'Update and save the changed information about the trip with chosen ID',
@@ -63,6 +66,7 @@ export class TripController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Delete the trip with chosen ID',
     description: 'Delete the trip with chosen ID from the database',

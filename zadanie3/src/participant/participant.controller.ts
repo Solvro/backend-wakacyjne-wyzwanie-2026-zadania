@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ParticipantService } from './participant.service';
 import { CreateParticipantDto } from './dto/create-participant.dto';
 import { UpdateParticipantDto } from './dto/update-participant.dto';
-import { ParseIntPipe} from '@nestjs/common';
+import { ParseIntPipe, UseGuards} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from '../user/jwt.authguard';
 
 @Controller('participant')
 @ApiTags('participant')
@@ -11,6 +12,7 @@ export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Create a new participant',
     description: 'Add a new participant to the database'
@@ -50,6 +52,7 @@ export class ParticipantController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Update the participant with chosen ID',
     description: 'Update and save the changed information about the participant with chosen ID'
@@ -63,6 +66,7 @@ export class ParticipantController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation({
     summary: 'Delete the participant with chosen ID',
     description: 'Delete the participant with chosen ID from the database'
