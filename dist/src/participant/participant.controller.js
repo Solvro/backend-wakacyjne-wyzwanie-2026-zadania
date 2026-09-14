@@ -18,6 +18,8 @@ const swagger_1 = require("@nestjs/swagger");
 const participant_service_1 = require("./participant.service");
 const create_participant_dto_1 = require("./dto/create-participant.dto");
 const update_participant_dto_1 = require("./dto/update-participant.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const common_2 = require("@nestjs/common");
 let ParticipantsController = class ParticipantsController {
     constructor(participantsService) {
         this.participantsService = participantsService;
@@ -40,6 +42,7 @@ let ParticipantsController = class ParticipantsController {
 };
 exports.ParticipantsController = ParticipantsController;
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Add a participant' }),
     __param(0, (0, common_1.Body)()),
@@ -63,6 +66,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ParticipantsController.prototype, "findOne", null);
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Update a participant' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -72,6 +76,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ParticipantsController.prototype, "update", null);
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Remove a participant' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -81,6 +86,7 @@ __decorate([
 ], ParticipantsController.prototype, "remove", null);
 exports.ParticipantsController = ParticipantsController = __decorate([
     (0, swagger_1.ApiTags)('Participants'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('participants'),
     __metadata("design:paramtypes", [participant_service_1.ParticipantsService])
 ], ParticipantsController);

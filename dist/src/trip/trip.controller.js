@@ -18,6 +18,8 @@ const swagger_1 = require("@nestjs/swagger");
 const trip_service_1 = require("./trip.service");
 const create_trip_dto_1 = require("./dto/create-trip.dto");
 const update_trip_dto_1 = require("./dto/update-trip.dto");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const common_2 = require("@nestjs/common");
 let TripsController = class TripsController {
     constructor(tripsService) {
         this.tripsService = tripsService;
@@ -40,6 +42,7 @@ let TripsController = class TripsController {
 };
 exports.TripsController = TripsController;
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new trip' }),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Trip created successfully.' }),
@@ -65,6 +68,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "findOne", null);
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Update trip details' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -74,6 +78,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TripsController.prototype, "update", null);
 __decorate([
+    (0, common_2.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({ summary: 'Delete a trip' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -83,6 +88,7 @@ __decorate([
 ], TripsController.prototype, "remove", null);
 exports.TripsController = TripsController = __decorate([
     (0, swagger_1.ApiTags)('Trips'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('trips'),
     __metadata("design:paramtypes", [trip_service_1.TripsService])
 ], TripsController);

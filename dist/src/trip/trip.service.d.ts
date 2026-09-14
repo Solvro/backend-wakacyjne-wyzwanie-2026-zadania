@@ -5,8 +5,8 @@ export declare class TripsService {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(dto: CreateTripDto): import(".prisma/client").Prisma.Prisma__TripClient<{
-        name: string;
         id: number;
+        name: string;
         status: import(".prisma/client").$Enums.TripStatus;
         startDate: Date;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
@@ -19,15 +19,15 @@ export declare class TripsService {
             date: Date;
         }[];
         participants: {
-            name: string;
             email: string;
-            phone: string | null;
             id: number;
+            name: string;
+            phone: string | null;
             tripId: number;
         }[];
     } & {
-        name: string;
         id: number;
+        name: string;
         status: import(".prisma/client").$Enums.TripStatus;
         startDate: Date;
     })[]>;
@@ -40,27 +40,27 @@ export declare class TripsService {
             date: Date;
         }[];
         participants: {
-            name: string;
             email: string;
-            phone: string | null;
             id: number;
+            name: string;
+            phone: string | null;
             tripId: number;
         }[];
     } & {
-        name: string;
         id: number;
+        name: string;
         status: import(".prisma/client").$Enums.TripStatus;
         startDate: Date;
     }>;
     update(id: number, dto: UpdateTripDto): Promise<{
-        name: string;
         id: number;
+        name: string;
         status: import(".prisma/client").$Enums.TripStatus;
         startDate: Date;
     }>;
     remove(id: number): Promise<{
-        name: string;
         id: number;
+        name: string;
         status: import(".prisma/client").$Enums.TripStatus;
         startDate: Date;
     }>;
